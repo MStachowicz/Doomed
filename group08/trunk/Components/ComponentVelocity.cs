@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK;
-
 namespace OpenGL_Game.Components
 {
-    class ComponentVelocity : IComponent
-    {
-        Vector3 velocity;
-
-        public ComponentVelocity(float x, float y, float z)
+     
+        class ComponentVelocity : IComponent
         {
-            velocity = new Vector3(x, y, z);
-        }
+            Vector3 velocity;
 
-        public ComponentVelocity(Vector3 vel)
-        {
-            velocity = vel;
-        }
+            public ComponentVelocity(float x, float y, float z)
+            {
+                Velocity = new Vector3(x, y, z);
+            }
 
-        public Vector3 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
+            public ComponentVelocity(Vector3 v)
+            {
+                velocity = v;
+            }
 
-        public ComponentTypes ComponentType
-        {
-            get { return ComponentTypes.COMPONENT_VELOCITY; }
+            public Vector3 Velocity
+            {
+                get { return velocity; }
+                set { velocity = value; }
+            }
+
+            public ComponentTypes ComponentType
+            {
+                get { return ComponentTypes.COMPONENT_VELOCITY; }
+            }
         }
-    }
 }
