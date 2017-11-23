@@ -29,6 +29,8 @@ namespace OpenGL_Game
         Vector3 listenerUp;
         public static float dt;
         public Camera playerCamera;
+        Vector2 lastMousePosition;
+        bool firstMouse = true;
 
         public static MyGame gameInstance;
 
@@ -49,7 +51,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            newEntity.AddComponent(new ComponentVelocity(1.0f,0.0f,0.0f));
+            newEntity.AddComponent(new ComponentVelocity(1.0f, 0.0f, 0.0f));
             entityManager.AddEntity(newEntity);
         }
 
@@ -180,7 +182,10 @@ namespace OpenGL_Game
         {
             base.OnUpdateFrame(e);
 
+            // Update the timestep every frame.
             dt = (float)(e.Time);
+
+
 
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Key.Escape))
                 Exit();
@@ -193,7 +198,8 @@ namespace OpenGL_Game
             AL.Listener(ALListener3f.Position, ref listenerPosition);
             AL.Listener(ALListenerfv.Orientation, ref listenerDirection, ref listenerUp);
 
-
+            // Temporary way to move the camera using the mouse
+            //playerCamera.ProcessMouseMovement(Mouse.XDelta, -Mouse.YDelta);
             // TODO: Add your update logic here
         }
 
@@ -211,6 +217,12 @@ namespace OpenGL_Game
 
             GL.Flush();
             SwapBuffers();
+        }
+        // Event based mouse camera movement, cant get this working at this time.
+        void OnMouseMovement(object sender, MouseMoveEventArgs e)
+        {
+            playerCamera.ProcessMouseMovement(e.XDelta, e.YDelta);
+            
         }
     }
 }
