@@ -45,13 +45,16 @@ namespace OpenGL_Game.Objects
                         numberOfTriangles = int.Parse(values[0].Remove(0, "NUM_OF_TRIANGLES".Length));
                         continue;
                     }
-                    if (values[0].StartsWith("//") || values.Length < 5) continue;
+                    if (values[0].StartsWith("//") || values.Length < 8) continue;
 
                     vertices.Add(float.Parse(values[0]));
                     vertices.Add(float.Parse(values[1]));
                     vertices.Add(float.Parse(values[2]));
                     vertices.Add(float.Parse(values[3]));
                     vertices.Add(float.Parse(values[4]));
+                    vertices.Add(float.Parse(values[5]));
+                    vertices.Add(float.Parse(values[6]));
+                    vertices.Add(float.Parse(values[7]));
                 }
 
                 GL.BindBuffer(BufferTarget.ArrayBuffer, vbo_verts);
@@ -59,11 +62,13 @@ namespace OpenGL_Game.Objects
 
                 // Positions
                 GL.EnableVertexAttribArray(0);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5*4, 0);
-
-                // Tex Coords
+                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8*4, 0);
+                // Normal
                 GL.EnableVertexAttribArray(1);
-                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5*4, 3*4);
+                GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, true, 8*4, 3*4);
+                // Tex Coords
+                GL.EnableVertexAttribArray(2);
+                GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8*4, 6*4);
 
                 GL.BindVertexArray(0);
             }

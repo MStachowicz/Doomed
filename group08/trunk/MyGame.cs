@@ -18,7 +18,7 @@ namespace OpenGL_Game
     /// </summary>
     public class MyGame : GameWindow
     {
-        public Matrix4 view, projection;
+        public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
         Vector3 emitterPosition;
@@ -28,12 +28,14 @@ namespace OpenGL_Game
         Vector3 listenerDirection;
         Vector3 listenerUp;
         public static float dt;
+        public Camera playerCamera;
 
         public static MyGame gameInstance;
 
         public MyGame() : base()
         {
             gameInstance = this;
+            playerCamera = new Camera();
             entityManager = new EntityManager();
             systemManager = new SystemManager();
             AudioContext AC = new AudioContext();
@@ -44,8 +46,8 @@ namespace OpenGL_Game
             Entity newEntity;
 
             newEntity = new Entity("Triangle1");
-            newEntity.AddComponent(new ComponentPosition(-1.0f, 0.0f, -3.0f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/SquareGeometry.txt"));
+            newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
         }
@@ -65,14 +67,15 @@ namespace OpenGL_Game
         {
             base.OnLoad(e);
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-            view = Matrix4.LookAt(new Vector3(0, 0, 3), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.CullFace);
+
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), 800f / 480f, 0.01f, 100f);
 
             CreateEntities();
             CreateSystems();
 
             //LoadAudio();
-
         }
 
         private void LoadAudio()

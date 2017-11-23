@@ -14,13 +14,25 @@ namespace OpenGL_Game.Systems
     {
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | ComponentTypes.COMPONENT_TEXTURE);
 
+
         protected int pgmID;
         protected int vsID;
         protected int fsID;
-        protected int attribute_vtex;
+
+        // Vertex shader attributes
         protected int attribute_vpos;
+        protected int attribute_vnormal;
+        protected int attribute_vtex;
+
+        protected int uniform_mModel;
+        protected int uniform_mView;
+        protected int uniform_mProjection;
+
+        // Fragment shader attributes
+        protected int uniform_material;
+        protected int uniform_light;
+        protected int uniform_viewPos;
         protected int uniform_stex;
-        protected int uniform_mview;
 
         public SystemRender()
         {
@@ -31,13 +43,34 @@ namespace OpenGL_Game.Systems
             Console.WriteLine(GL.GetProgramInfoLog(pgmID));
 
             attribute_vpos = GL.GetAttribLocation(pgmID, "a_Position");
+            attribute_vnormal = GL.GetAttribLocation(pgmID, "a_Normal");
             attribute_vtex = GL.GetAttribLocation(pgmID, "a_TexCoord");
-            uniform_mview = GL.GetUniformLocation(pgmID, "WorldViewProj");
-            uniform_stex  = GL.GetUniformLocation(pgmID, "s_texture");
 
-            if (attribute_vpos == -1 || attribute_vtex == -1 || uniform_stex == -1 || uniform_mview == -1)
+            uniform_mModel = GL.GetUniformLocation(pgmID, "model");
+            uniform_mView = GL.GetUniformLocation(pgmID, "view");
+            uniform_mProjection = GL.GetUniformLocation(pgmID, "projection");
+
+            uniform_material = GL.GetUniformLocation(pgmID, "material");
+            uniform_light = GL.GetUniformLocation(pgmID, "light.position");
+            uniform_viewPos = GL.GetUniformLocation(pgmID, "viewPos");
+            uniform_stex = GL.GetUniformLocation(pgmID, "s_texture");
+
+            if (attribute_vpos == -1 || attribute_vtex == -1 || attribute_vnormal == -1 ||
+                uniform_stex == -1 || uniform_mModel == -1 || uniform_mView == -1 || uniform_mProjection == -1)
             {
                 Console.WriteLine("Error binding attributes");
+                Console.WriteLine("attribute_vpos " + attribute_vpos);
+                Console.WriteLine("attribute_vnormal " + attribute_vnormal);
+                Console.WriteLine("attribute_vtex " + attribute_vtex);
+
+                Console.WriteLine("uniform_mModel " + uniform_mModel);
+                Console.WriteLine("uniform_mView " + uniform_mView);
+                Console.WriteLine("uniform_mProjection " + uniform_mProjection);
+
+                Console.WriteLine("uniform_material " + uniform_material);
+                Console.WriteLine("uniform_light " + uniform_light);
+                Console.WriteLine("uniform_viewPos " + uniform_viewPos);
+                Console.WriteLine("uniform_stex " + uniform_stex);
             }
         }
 
@@ -64,30 +97,30 @@ namespace OpenGL_Game.Systems
             {
                 List<IComponent> components = entity.Components;
 
-                IComponent geometryComponent = components.Find(delegate(IComponent component)
+                IComponent geometryComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_GEOMETRY;
                 });
                 Geometry geometry = ((ComponentGeometry)geometryComponent).Geometry();
 
-                IComponent positionComponent = components.Find(delegate(IComponent component)
+                IComponent positionComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
                 Vector3 position = ((ComponentPosition)positionComponent).Position;
-                Matrix4 world = Matrix4.CreateTranslation(position);
+                Matrix4 mModel = Matrix4.CreateTranslation(position);
 
-                IComponent textureComponent = components.Find(delegate(IComponent component)
+                IComponent textureComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_TEXTURE;
                 });
                 int texture = ((ComponentTexture)textureComponent).Texture;
 
-                Draw(world, geometry, texture);
+                Draw(mModel, geometry, texture);
             }
         }
 
-        public void Draw(Matrix4 world, Geometry geometry, int texture)
+        public void Draw(Matrix4 model, Geometry geometry, int texture)
         {
             GL.UseProgram(pgmID);
 
@@ -96,8 +129,20 @@ namespace OpenGL_Game.Systems
             GL.BindTexture(TextureTarget.Texture2D, texture);
             GL.Enable(EnableCap.Texture2D);
 
-            Matrix4 worldViewProjection = world * MyGame.gameInstance.view * MyGame.gameInstance.projection;
-            GL.UniformMatrix4(uniform_mview, false, ref worldViewProjection);
+            // Setting the matrices/vectors to perform shader light calculations.
+            // Model
+            Matrix4 mModel = model;
+            GL.UniformMatrix4(uniform_mModel, false, ref mModel);
+            // View
+            Matrix4 mView = MyGame.gameInstance.playerCamera.getViewMatrix();
+            GL.UniformMatrix4(uniform_mView, false, ref mView);
+            //Projection
+            Matrix4 mProjection = MyGame.gameInstance.projection;
+            GL.UniformMatrix4(uniform_mProjection, false, ref mProjection);
+            //view position
+            Vector3 mViewPos = MyGame.gameInstance.playerCamera.Position;
+            GL.Uniform3(uniform_mProjection, ref mViewPos);
+
 
             geometry.Render();
 
