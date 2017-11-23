@@ -56,6 +56,8 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentHealth.cs" />
+    <Compile Include="Components\ComponentAmmo.cs" />
     <Compile Include="Components\ComponentGeometry.cs" />
     <Compile Include="Components\ComponentTexture.cs" />
     <Compile Include="Components\ComponentPosition.cs" />
