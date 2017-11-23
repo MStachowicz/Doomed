@@ -49,6 +49,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            newEntity.AddComponent(new ComponentVelocity(1.0f,0.0f,0.0f));
             entityManager.AddEntity(newEntity);
         }
 
@@ -57,6 +58,8 @@ namespace OpenGL_Game
             ISystem newSystem;
 
             newSystem = new SystemRender();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemPhysics();
             systemManager.AddSystem(newSystem);
         }
 
@@ -176,6 +179,9 @@ namespace OpenGL_Game
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+
+            dt = (float)(e.Time);
+
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Key.Escape))
                 Exit();
 
@@ -186,6 +192,7 @@ namespace OpenGL_Game
             // update OpenAL
             AL.Listener(ALListener3f.Position, ref listenerPosition);
             AL.Listener(ALListenerfv.Orientation, ref listenerDirection, ref listenerUp);
+
 
             // TODO: Add your update logic here
         }
