@@ -27,6 +27,7 @@ namespace OpenGL_Game
         Vector3 listenerPosition;
         Vector3 listenerDirection;
         Vector3 listenerUp;
+        public static float dt;
 
         public static MyGame gameInstance;
 
