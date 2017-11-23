@@ -43,7 +43,11 @@ namespace OpenGL_Game
         {
             Entity newEntity;
 
-            
+            newEntity = new Entity("Triangle1");
+            newEntity.AddComponent(new ComponentPosition(-1.0f, 0.0f, -3.0f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/SquareGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
         }
 
         private void CreateSystems()
@@ -66,9 +70,9 @@ namespace OpenGL_Game
 
             CreateEntities();
             CreateSystems();
-            
+
             //LoadAudio();
-            
+
         }
 
         private void LoadAudio()
@@ -173,7 +177,7 @@ namespace OpenGL_Game
                 Exit();
 
             // Move sounds source from right to left at 2.5 meters per second
-            emitterPosition = new Vector3(emitterPosition.X - (float)(2.5*e.Time), emitterPosition.Y, emitterPosition.Z);
+            emitterPosition = new Vector3(emitterPosition.X - (float)(2.5 * e.Time), emitterPosition.Y, emitterPosition.Z);
             AL.Source(mySource, ALSource3f.Position, ref emitterPosition);
 
             // update OpenAL
