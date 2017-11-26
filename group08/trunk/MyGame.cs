@@ -53,7 +53,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            newEntity.AddComponent(new ComponentVelocity(-0.2f, 0.1f, 0.0f));
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             entityManager.AddEntity(newEntity);
         }
 
