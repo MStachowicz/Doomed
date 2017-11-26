@@ -31,11 +31,11 @@ namespace OpenGL_Game
         public Camera playerCamera;
         Vector2 lastMousePosition;
         bool firstMouse = true;
-        int width = 1920, height = 1080;
+        int width = 1024, height = 768;
 
         public static MyGame gameInstance;
 
-        public MyGame() : base(1920, 1080)
+        public MyGame() : base(1024, 768)
         {
             gameInstance = this;
 
