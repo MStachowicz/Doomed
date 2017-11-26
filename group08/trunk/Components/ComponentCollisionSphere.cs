@@ -25,7 +25,7 @@ namespace OpenGL_Game.Components
 
         public ComponentTypes ComponentType
         {
-            get { return ComponentTypes.COMPONENT_COMPONENT_COLLISION_SPHERE; }
+            get { return ComponentTypes.COMPONENT_COLLISION_SPHERE; }
         }
     }
 }
