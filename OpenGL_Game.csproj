@@ -62,6 +62,7 @@
     <Compile Include="Components\ComponentHealth.cs" />
     <Compile Include="Components\ComponentAmmo.cs" />
     <Compile Include="Components\ComponentGeometry.cs" />
+    <Compile Include="Components\ComponentInput.cs" />
     <Compile Include="Components\ComponentTexture.cs" />
     <Compile Include="Components\ComponentPosition.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Systems\SystemInput.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
   </ItemGroup>
