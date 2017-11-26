@@ -61,6 +61,9 @@ namespace OpenGL_Game.Objects
                 Position -= Right * velocity;
             if (direction == CameraMovement.Right)
                 Position += Right * velocity;
+
+            //Stick to floor
+            Position.Y = 0;
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.
