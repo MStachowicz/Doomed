@@ -49,7 +49,7 @@ namespace OpenGL_Game
         {
             Entity newEntity;
 
-            newEntity = new Entity("Triangle1");
+            newEntity = new Entity("TestCube1");
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
