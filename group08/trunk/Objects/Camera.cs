@@ -45,13 +45,13 @@ namespace OpenGL_Game.Objects
             MovementSpeed = 2.5f;
             MouseSensitivity = 0.1f;
             Zoom = 45.0f;
-            updateCameraAttributes();
+            UpdateCameraAttributes();
         }
 
         // Process the camera movement using the keyboard to move around.
-        public void ProcessMovement(CameraMovement direction, float deltaTime)
+        public void ProcessMovement(CameraMovement direction)
         {
-            float velocity = MovementSpeed * deltaTime;
+            float velocity = MovementSpeed * MyGame.dt;
 
             if (direction == CameraMovement.Forward)
                 Position += Front * velocity;
@@ -78,11 +78,11 @@ namespace OpenGL_Game.Objects
             if (Pitch < -89.0f)
                 Pitch = -89.0f;
 
-            updateCameraAttributes();
+            UpdateCameraAttributes();
         }
 
         // Calculates and updates the new front, right and up vectors whenever the camera changes.
-        private void updateCameraAttributes()
+        private void UpdateCameraAttributes()
         {
             // Calculate the front vector
             Vector3 front;
