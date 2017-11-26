@@ -15,7 +15,7 @@ namespace OpenGL_Game.Components
         }
 
        
-        public int Health
+        public float Health
         {
             get { return health; }
             set { health = value; }
