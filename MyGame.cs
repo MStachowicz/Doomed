@@ -49,6 +49,12 @@ namespace OpenGL_Game
         {
             Entity newEntity;
 
+            newEntity = new Entity("Player");
+            newEntity.AddComponent(new ComponentInput());
+            newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+            entityManager.AddEntity(newEntity);
+
             newEntity = new Entity("TestCube1");
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
@@ -62,6 +68,8 @@ namespace OpenGL_Game
             ISystem newSystem;
 
             newSystem = new SystemRender();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemInput();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemPhysics();
             systemManager.AddSystem(newSystem);
@@ -210,8 +218,8 @@ namespace OpenGL_Game
         {
             if (firstMouse) // prevents the screen jumping on first mouse lock to screen.
             {
-                lastMousePosition.X = Mouse.X;
-                lastMousePosition.Y = Mouse.Y;
+                lastMousePosition.X = width / 2;
+                lastMousePosition.Y = height / 2;
                 firstMouse = false;
             }
 
