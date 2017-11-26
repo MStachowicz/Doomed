@@ -12,7 +12,7 @@ namespace OpenGL_Game.Components
 
             public ComponentVelocity(float x, float y, float z)
             {
-                Velocity = new Vector3(x, y, z);
+                velocity = new Vector3(x, y, z);
             }
 
             public ComponentVelocity(Vector3 v)

@@ -14,7 +14,15 @@ namespace OpenGL_Game.Components
         COMPONENT_VELOCITY = 1 << 3,
         COMPONENT_AMMO = 1 << 4,
         COMPONENT_HEALTH = 1 << 5,
-        COMPONENT_INPUT = 1 << 6
+        COMPONENT_LIGHT = 1 << 6,
+        COMPONENT_WEAPON = 1 << 7,
+        COMPONENT_COLLISION_SPHERE = 1 << 8,
+        COMPONENT_COLLISION_PLANE = 1 << 9,
+        COMPONENT_input = 1 << 10
+
+
+
+
     }
 
     interface IComponent
