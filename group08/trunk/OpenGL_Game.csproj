@@ -59,18 +59,22 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\ComponentHealth.cs" />
     <Compile Include="Components\ComponentAmmo.cs" />
+    <Compile Include="Components\ComponentCollisionPlane.cs" />
+    <Compile Include="Components\ComponentCollisionSphere.cs" />
     <Compile Include="Components\ComponentGeometry.cs" />
+    <Compile Include="Components\ComponentHealth.cs" />
     <Compile Include="Components\ComponentInput.cs" />
-    <Compile Include="Components\ComponentTexture.cs" />
+    <Compile Include="Components\ComponentLight.cs" />
     <Compile Include="Components\ComponentPosition.cs" />
+    <Compile Include="Components\ComponentTexture.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
+    <Compile Include="Components\ComponentWeapon.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="Objects\Camera.cs" />
     <Compile Include="Objects\Entity.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Objects\Geometry.cs" />
-    <Compile Include="Components\IComponent.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
