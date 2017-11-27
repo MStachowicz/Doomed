@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK;
-
+using OpenTK.Input;
 
 namespace OpenGL_Game.Objects
 {
@@ -58,16 +58,16 @@ namespace OpenGL_Game.Objects
             if (direction == CameraMovement.Backward)
                 Position -= Front * velocity;
             if (direction == CameraMovement.Left)
-                Position -= Right * velocity;
+                Yaw -= 2;
             if (direction == CameraMovement.Right)
-                Position += Right * velocity;
+                Yaw += 2;
 
             //Stick to floor
             Position.Y = 0;
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.
-        public void ProcessMouseMovement(float xOffset, float yOffset)
+        public void ProcessMouseMovement(float xOffset, float yOffset, Vector2 lastMousePosition)
         {
             xOffset *= MouseSensitivity;
             yOffset *= MouseSensitivity;
