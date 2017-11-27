@@ -18,8 +18,8 @@ namespace OpenGL_Game
     /// </summary>
     public class MyGame : GameWindow
     {
-        const int WIDTH = 1900;
-        const int HEIGHT = 900;
+        public const int WIDTH = 1900;
+        public const int HEIGHT = 900;
 
         public Matrix4 projection;
         EntityManager entityManager;
