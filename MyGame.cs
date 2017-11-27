@@ -32,8 +32,6 @@ namespace OpenGL_Game
         Vector3 listenerUp;
         public static float dt;
         public Camera playerCamera;
-        Vector2 lastMousePosition;
-        bool firstMouse = true;
 
         public static MyGame gameInstance;
 
@@ -207,13 +205,6 @@ namespace OpenGL_Game
             // ------------------------ TIMING ------------------------
             dt = (float)(e.Time);
 
-            // ------------------------ INPUT ------------------------
-            // Temporary way to move the camera using the mouse
-            processMouseMove();
-
-            if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Key.Escape))
-                Exit();
-
             // ------------------------ AUDIO ------------------------
             // Move sounds source from right to left at 2.5 meters per second
             emitterPosition = new Vector3(emitterPosition.X - (float)(2.5 * e.Time), emitterPosition.Y, emitterPosition.Z);
@@ -224,24 +215,6 @@ namespace OpenGL_Game
             AL.Listener(ALListenerfv.Orientation, ref listenerDirection, ref listenerUp);
 
             // TODO: Add your update logic here
-        }
-
-        private void processMouseMove()
-        {
-            if (firstMouse) // prevents the screen jumping on first mouse lock to screen.
-            {
-                lastMousePosition.X = WIDTH / 2;
-                lastMousePosition.Y = HEIGHT / 2;
-                firstMouse = false;
-            }
-
-            float xOffset = Mouse.X - lastMousePosition.X;
-            float yOffset = lastMousePosition.Y - Mouse.Y;
-
-            lastMousePosition.X = Mouse.X;
-            lastMousePosition.Y = Mouse.Y;
-
-            playerCamera.ProcessMouseMovement(xOffset, yOffset, lastMousePosition);
         }
 
         /// <summary>
@@ -259,6 +232,19 @@ namespace OpenGL_Game
 
             GL.Flush();
             SwapBuffers();
+        }
+
+        /// <summary>
+        /// Mouse is contained inside the GameWindow class.
+        /// </summary>
+        public static Vector2 GetMousePosition()
+        {
+            return new Vector2(gameInstance.Mouse.X, gameInstance.Mouse.Y);
+        }
+
+        public static void ExitGame()
+        {
+            gameInstance.Exit();
         }
     }
 }
