@@ -248,10 +248,5 @@ namespace OpenGL_Game
             GL.Flush();
             SwapBuffers();
         }
-        // Event based mouse camera movement, cant get this working at this time.
-        void OnMouseMovement(object sender, MouseMoveEventArgs e)
-        {
-            playerCamera.ProcessMouseMovement(e.XDelta, e.YDelta);
-        }
     }
 }
