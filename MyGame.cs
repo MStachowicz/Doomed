@@ -18,6 +18,9 @@ namespace OpenGL_Game
     /// </summary>
     public class MyGame : GameWindow
     {
+        const int WIDTH = 1900;
+        const int HEIGHT = 900;
+
         public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
@@ -31,11 +34,10 @@ namespace OpenGL_Game
         public Camera playerCamera;
         Vector2 lastMousePosition;
         bool firstMouse = true;
-        int width = 1024, height = 768;
 
         public static MyGame gameInstance;
 
-        public MyGame() : base(1024, 768)
+        public MyGame() : base(WIDTH, HEIGHT)
         {
             gameInstance = this;
 
@@ -60,7 +62,17 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-            entityManager.AddEntity(newEntity);
+            //entityManager.AddEntity(newEntity);
+
+            for (int x = 0; x < 10; ++x)
+            {
+                newEntity = new Entity("TestCube" + x);
+                newEntity.AddComponent(new ComponentPosition(x, 0.0f, 0.0f));
+                newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
+                newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+                newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+                entityManager.AddEntity(newEntity);
+            }
         }
 
         private void CreateSystems()
@@ -85,7 +97,7 @@ namespace OpenGL_Game
             GL.Enable(EnableCap.DepthTest);
             //GL.Enable(EnableCap.CullFace);
 
-            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), gameInstance.width / gameInstance.height, 0.01f, 100f);
+            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), WIDTH / HEIGHT, 0.01f, 100f);
 
             CreateEntities();
             CreateSystems();
@@ -218,8 +230,8 @@ namespace OpenGL_Game
         {
             if (firstMouse) // prevents the screen jumping on first mouse lock to screen.
             {
-                lastMousePosition.X = width / 2;
-                lastMousePosition.Y = height / 2;
+                lastMousePosition.X = WIDTH / 2;
+                lastMousePosition.Y = HEIGHT / 2;
                 firstMouse = false;
             }
 
@@ -229,7 +241,7 @@ namespace OpenGL_Game
             lastMousePosition.X = Mouse.X;
             lastMousePosition.Y = Mouse.Y;
 
-            playerCamera.ProcessMouseMovement(xOffset, yOffset);
+            playerCamera.ProcessMouseMovement(xOffset, yOffset, lastMousePosition);
         }
 
         /// <summary>
