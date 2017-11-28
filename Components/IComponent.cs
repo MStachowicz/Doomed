@@ -17,7 +17,7 @@ namespace OpenGL_Game.Components
         COMPONENT_LIGHT = 1 << 6,
         COMPONENT_WEAPON = 1 << 7,
         COMPONENT_COLLISION_SPHERE = 1 << 8,
-        COMPONENT_COLLISION_PLANE = 1 << 9,
+        COMPONENT_COLLISION_LINE = 1 << 9,
         COMPONENT_INPUT = 1 << 10
 
 
