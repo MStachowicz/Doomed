@@ -124,10 +124,9 @@ namespace OpenGL_Game.Systems
                 Vector3 scale = ((ComponentScale)scaleComponent).Scale;
 
                 // Combine transformations to create the model matrix
-
-                Matrix4 mModel = Matrix4.CreateTranslation(position) * Matrix4.CreateScale(scale) * 
-                    Matrix4.CreateRotationX(rotation.X) * Matrix4.CreateRotationY(rotation.Y) * 
-                    Matrix4.CreateRotationZ(rotation.Z);
+                Matrix4 mModel = Matrix4.CreateScale(scale) * Matrix4.CreateRotationX(rotation.X) * 
+                    Matrix4.CreateRotationY(rotation.Y) * Matrix4.CreateRotationZ(rotation.Z) * 
+                    Matrix4.CreateTranslation(position);
 
                 #endregion
 
