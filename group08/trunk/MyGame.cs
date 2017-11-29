@@ -53,28 +53,39 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentInput());
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+            newEntity.AddComponent(new ComponentScale(0, 0, 0));
             entityManager.AddEntity(newEntity);
 
             //Testing enviroment
-            for (int x = 0; x < 10; ++x)
-            {
-                newEntity = new Entity("TestCube" + x);
-                newEntity.AddComponent(new ComponentPosition(x, 0.0f, 0.0f));
-                newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
-                newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-                newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-                entityManager.AddEntity(newEntity);
-            }
+            //for (int x = 0; x < 10; ++x)
+            //{
+            //    newEntity = new Entity("TestCube" + x);
+            //    newEntity.AddComponent(new ComponentPosition(x, 0.0f, 0.0f));
+            //    newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
+            //    newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            //    newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+            //    entityManager.AddEntity(newEntity);
+            //}
 
-            for (int z = 0; z < 10; ++z)
-            {
-                newEntity = new Entity("TestCube" + z * 10);
-                newEntity.AddComponent(new ComponentPosition(3, 0.0f, z));
-                newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
-                newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-                newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-                entityManager.AddEntity(newEntity);
-            }
+            //for (int z = 0; z < 10; ++z)
+            //{
+            //    newEntity = new Entity("TestCube" + z * 10);
+            //    newEntity.AddComponent(new ComponentPosition(3, 0.0f, z));
+            //    newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
+            //    newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            //    newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+            //    entityManager.AddEntity(newEntity);
+            //}
+
+            // Testing quad geometry loading correctly
+            newEntity = new Entity("TestQuad");
+            newEntity.AddComponent(new ComponentPosition(0.0f, -1.0f, 0.0f));
+            newEntity.AddComponent(new ComponentScale(2.0f, 1.0f, 2.0f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
+            entityManager.AddEntity(newEntity);
+
         }
 
         private void CreateSystems()
