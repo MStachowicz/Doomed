@@ -12,8 +12,8 @@ namespace OpenGL_Game.Systems
 {
     class SystemRender : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | ComponentTypes.COMPONENT_TEXTURE);
-
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | 
+            ComponentTypes.COMPONENT_TEXTURE | ComponentTypes.COMPONENT_SCALE);
 
         protected int pgmID;
         protected int vsID;
@@ -103,12 +103,20 @@ namespace OpenGL_Game.Systems
                 });
                 Geometry geometry = ((ComponentGeometry)geometryComponent).Geometry();
 
+                // Setting up the model matrix
                 IComponent positionComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
                 Vector3 position = ((ComponentPosition)positionComponent).Position;
-                Matrix4 mModel = Matrix4.CreateTranslation(position);
+
+                IComponent scaleComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_SCALE;
+                });
+                Vector3 scale = ((ComponentScale)scaleComponent).Scale;
+
+                Matrix4 mModel = Matrix4.CreateTranslation(position) * Matrix4.CreateScale(scale);
 
                 IComponent textureComponent = components.Find(delegate (IComponent component)
                 {

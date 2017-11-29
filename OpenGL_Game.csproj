@@ -67,6 +67,7 @@
     <Compile Include="Components\ComponentInput.cs" />
     <Compile Include="Components\ComponentLight.cs" />
     <Compile Include="Components\ComponentPosition.cs" />
+    <Compile Include="Components\ComponentScale.cs" />
     <Compile Include="Components\ComponentTexture.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="Components\ComponentWeapon.cs" />

@@ -18,11 +18,8 @@ namespace OpenGL_Game.Components
         COMPONENT_WEAPON = 1 << 7,
         COMPONENT_COLLISION_SPHERE = 1 << 8,
         COMPONENT_COLLISION_LINE = 1 << 9,
-        COMPONENT_INPUT = 1 << 10
-
-
-
-
+        COMPONENT_INPUT = 1 << 10,
+        COMPONENT_SCALE = 1 << 11
     }
 
     interface IComponent
