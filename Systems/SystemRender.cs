@@ -103,12 +103,19 @@ namespace OpenGL_Game.Systems
                 });
                 Geometry geometry = ((ComponentGeometry)geometryComponent).Geometry();
 
-                // Setting up the model matrix
+                #region Model matrix set up
+
                 IComponent positionComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
                 Vector3 position = ((ComponentPosition)positionComponent).Position;
+
+                IComponent rotationComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_ROTATION;
+                });
+                Vector3 rotation = ((ComponentRotation)rotationComponent).Rotation;
 
                 IComponent scaleComponent = components.Find(delegate (IComponent component)
                 {
@@ -116,7 +123,13 @@ namespace OpenGL_Game.Systems
                 });
                 Vector3 scale = ((ComponentScale)scaleComponent).Scale;
 
-                Matrix4 mModel = Matrix4.CreateTranslation(position) * Matrix4.CreateScale(scale);
+                // Combine transformations to create the model matrix
+
+                Matrix4 mModel = Matrix4.CreateTranslation(position) * Matrix4.CreateScale(scale) * 
+                    Matrix4.CreateRotationX(rotation.X) * Matrix4.CreateRotationY(rotation.Y) * 
+                    Matrix4.CreateRotationZ(rotation.Z);
+
+                #endregion
 
                 IComponent textureComponent = components.Find(delegate (IComponent component)
                 {

@@ -19,7 +19,8 @@ namespace OpenGL_Game.Components
         COMPONENT_COLLISION_SPHERE = 1 << 8,
         COMPONENT_COLLISION_LINE = 1 << 9,
         COMPONENT_INPUT = 1 << 10,
-        COMPONENT_SCALE = 1 << 11
+        COMPONENT_SCALE = 1 << 11,
+        COMPONENT_ROTATION = 1 << 12
     }
 
     interface IComponent

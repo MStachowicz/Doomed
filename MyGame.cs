@@ -79,13 +79,16 @@ namespace OpenGL_Game
 
             // Testing quad geometry loading correctly
             newEntity = new Entity("TestQuad");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentPosition(0.0f, -1.0f, 0.0f));
+            newEntity.AddComponent(new ComponentRotation(90, 0, 0));    
             newEntity.AddComponent(new ComponentScale(2.0f, 1.0f, 2.0f));
+
+
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-            entityManager.AddEntity(newEntity);
 
+            entityManager.AddEntity(newEntity);
         }
 
         private void CreateSystems()
