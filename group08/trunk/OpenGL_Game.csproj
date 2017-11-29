@@ -140,6 +140,7 @@
     <Content Include="Geometry\CubeGeometry.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Geometry\QuadGeometry.txt" />
     <Content Include="Textures\Oak.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
