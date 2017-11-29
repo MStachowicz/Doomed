@@ -56,39 +56,56 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
             entityManager.AddEntity(newEntity);
 
-            //Testing enviroment
-            //for (int x = 0; x < 10; ++x)
-            //{
-            //    newEntity = new Entity("TestCube" + x);
-            //    newEntity.AddComponent(new ComponentPosition(x, 0.0f, 0.0f));
-            //    newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
-            //    newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            //    newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-            //    entityManager.AddEntity(newEntity);
-            //}
+            #region Maze environment
 
-            //for (int z = 0; z < 10; ++z)
-            //{
-            //    newEntity = new Entity("TestCube" + z * 10);
-            //    newEntity.AddComponent(new ComponentPosition(3, 0.0f, z));
-            //    newEntity.AddComponent(new ComponentGeometry("Geometry/CubeGeometry.txt"));
-            //    newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            //    newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
-            //    entityManager.AddEntity(newEntity);
-            //}
-
-            // Testing quad geometry loading correctly
-            newEntity = new Entity("TestQuad");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, -1.0f));
-            newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, -1.0f));
-            newEntity.AddComponent(new ComponentRotation(90, 0, 0));    
-            newEntity.AddComponent(new ComponentScale(1.0f, 1.0f, 1.0f));
-
-
+            newEntity = new Entity("Floor");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(0.0f, -1.0f, 0.0f));
+            newEntity.AddComponent(new ComponentRotation(0, 0, 0));    
+            newEntity.AddComponent(new ComponentScale(24, 0.0f, 24));
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-
             entityManager.AddEntity(newEntity);
+
+            // Outer walls
+            newEntity = new Entity("OuterWallLeft");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(-24, 0, 0));
+            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
+            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("OuterWallTop");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(0, 0, -24));
+            newEntity.AddComponent(new ComponentRotation(90, 180, 0));
+            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("OuterWallRight");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(24, 0, 0));
+            newEntity.AddComponent(new ComponentRotation(90, 270, 0));
+            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("OuterWallBottom");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(0, 0, 24));
+            newEntity.AddComponent(new ComponentRotation(90, 0, 0));
+            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+
+            #endregion
+
         }
 
         private void CreateSystems()

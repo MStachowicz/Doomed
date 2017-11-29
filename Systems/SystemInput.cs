@@ -71,7 +71,7 @@ namespace OpenGL_Game.Systems
             float xOffset = MyGame.GetMousePosition().X - lastMousePosition.X;
             float yOffset = lastMousePosition.Y - MyGame.GetMousePosition().Y;
 
-            xOffset = 0; //Remove to allow side-to-side viewing
+            //xOffset = 0; //Remove to allow side-to-side viewing
 
             lastMousePosition.X = MyGame.GetMousePosition().X;
             lastMousePosition.Y = MyGame.GetMousePosition().Y;
