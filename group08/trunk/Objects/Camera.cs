@@ -36,13 +36,13 @@ namespace OpenGL_Game.Objects
         // Creates a camera object with default attributes.
         public Camera()
         {
-            Position = new Vector3(0.0f, 0.0f, 3.0f);
+            Position = new Vector3(12.5f, 0.0f, -12.5f);
             Front = new Vector3(0.0f, 0.0f, -1.0f);
             Right = new Vector3(0.0f, 0.0f, 0.0f);
             WorldUp = new Vector3(0.0f, 1.0f, 0.0f);
             Yaw = -90.0f;
             Pitch = 0.0f;
-            MovementSpeed = 10.5f;
+            MovementSpeed = 20;
             MouseSensitivity = 0.1f;
             Zoom = 45.0f;
             UpdateCameraAttributes();

@@ -45,6 +45,276 @@ namespace OpenGL_Game
             AudioContext AC = new AudioContext();
         }
 
+        List<Vector3> wallPositions = new List<Vector3>();
+        List<Vector3> wallRotations = new List<Vector3>();
+        List<Vector3> wallScales = new List<Vector3>();
+        void addWallPositions()
+        {
+            wallPositions.Add(new Vector3(1, 0, -2));
+            wallPositions.Add(new Vector3(2, 0, -3));
+            wallPositions.Add(new Vector3(2, 0, -4));
+            wallPositions.Add(new Vector3(3, 0, -2.5f));
+            wallPositions.Add(new Vector3(4.5f, 0, -4));
+            wallPositions.Add(new Vector3(5.5f, 0, -2));
+            wallPositions.Add(new Vector3(5, 0, -4.5f));
+            wallPositions.Add(new Vector3(8.5f, 0, -3));
+            wallPositions.Add(new Vector3(7, 0, -2));
+            wallPositions.Add(new Vector3(9, 0, -1));
+            wallPositions.Add(new Vector3(10.5f, 0, -2));
+            wallPositions.Add(new Vector3(12, 0, -2));
+            wallPositions.Add(new Vector3(2.5f, 0, -6));
+            wallPositions.Add(new Vector3(2, 0, -7.5f));
+            wallPositions.Add(new Vector3(8, 0, -5.5f));
+            wallPositions.Add(new Vector3(9, 0, -7.5f));
+            wallPositions.Add(new Vector3(7, 0, -7));
+            wallPositions.Add(new Vector3(6, 0, -8));
+            wallPositions.Add(new Vector3(5, 0, -9.5f));
+            wallPositions.Add(new Vector3(2.5f, 0, -9));
+            wallPositions.Add(new Vector3(2, 0, -10));
+            wallPositions.Add(new Vector3(3, 0, -12));
+            wallPositions.Add(new Vector3(6, 0, -10));
+            wallPositions.Add(new Vector3(8, 0, -11));
+            wallPositions.Add(new Vector3(10, 0, -4));
+            wallPositions.Add(new Vector3(12, 0, -6));
+            wallPositions.Add(new Vector3(11, 0, -8));
+            wallPositions.Add(new Vector3(10.5f, 0, -9));
+            wallPositions.Add(new Vector3(11, 0, -11));
+            wallPositions.Add(new Vector3(7, 0, -10.5f));
+            wallPositions.Add(new Vector3(10, 0, -15.5f));
+            wallPositions.Add(new Vector3(6, 0, -13));
+            wallPositions.Add(new Vector3(2, 0, -13));
+            wallPositions.Add(new Vector3(1, 0, -14));
+            wallPositions.Add(new Vector3(3, 0, -15));
+            wallPositions.Add(new Vector3(6, 0, -16.5f));
+            wallPositions.Add(new Vector3(8, 0, -14));
+            wallPositions.Add(new Vector3(7.5f, 0, -16));
+            wallPositions.Add(new Vector3(1, 0, -17));
+            wallPositions.Add(new Vector3(2, 0, -18));
+            wallPositions.Add(new Vector3(3.5f, 0, -17));
+            wallPositions.Add(new Vector3(4, 0, -19));
+            wallPositions.Add(new Vector3(8, 0, -18));
+            wallPositions.Add(new Vector3(9, 0, -19));
+            wallPositions.Add(new Vector3(5.5f, 0, -21));
+            wallPositions.Add(new Vector3(1.5f, 0, -22));
+            wallPositions.Add(new Vector3(2, 0, -22));
+            wallPositions.Add(new Vector3(4.5f, 0, -22));
+            wallPositions.Add(new Vector3(6, 0, -23));
+            wallPositions.Add(new Vector3(8, 0, -21));
+            wallPositions.Add(new Vector3(9.5f, 0, -21));
+            wallPositions.Add(new Vector3(11, 0, -22));
+            wallPositions.Add(new Vector3(12, 0, -21));
+            wallPositions.Add(new Vector3(10.5f, 0, -20));
+            wallPositions.Add(new Vector3(9, 0, -24));
+            wallPositions.Add(new Vector3(11, 0, -23.5f));
+            wallPositions.Add(new Vector3(12, 0, -10));
+            wallPositions.Add(new Vector3(12, 0, -24.5f));
+            wallPositions.Add(new Vector3(11, 0, -16));
+            wallPositions.Add(new Vector3(11, 0, -19));
+        }
+        void addWallRotations()
+        {
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+        }
+        void addWallScales()
+        {
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(7, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(7, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(4, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+            wallScales.Add(new Vector3(2, 0, 1.25f));
+        }
+
+        /// <summary>
+        /// Uses the maze walls hard coded at x below 12.5 to generate the remaining positions of the walls.
+        /// </summary>
+        void addSymmetricalWalls()
+        {
+            int wallsToCopy = wallPositions.Count;
+
+            for (int i = 0; i < wallsToCopy; i++)
+            {
+                wallPositions.Add(new Vector3(25 - wallPositions[i].X, // line of symmetry lies at x = 12.5
+                    0, wallPositions[i].Z));
+                wallRotations.Add(new Vector3(wallRotations[i])); // repeat same rotations
+                wallScales.Add(new Vector3(wallScales[i])); // repeat same scaling
+            }
+        }
+
+        /// <summary>
+        /// Adds all the walls which cross the line of symmetry.
+        /// </summary>
+        void addWallsCrossingSymmetry()
+        {
+            wallPositions.Add(new Vector3(12.5f, 0, -11));
+            wallPositions.Add(new Vector3(12.5f, 0, -12));
+            wallPositions.Add(new Vector3(12.5f, 0, -23));
+            wallPositions.Add(new Vector3(12.5f, 0, -24));
+
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+        }
+
+        /// <summary>
+        /// Adds the two doors in the starting area.
+        /// </summary>
+        void addDoors()
+        {
+            wallPositions.Add(new Vector3(12.5f, 1.25f, -16));
+            wallPositions.Add(new Vector3(12.5f, 1.25f, -19));
+
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallRotations.Add(new Vector3(90, 0, 0));
+
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+        }
+
+        /// <summary>
+        /// Sets up all the information used to create the wall entities.
+        /// </summary>
+        void setMazeWallData()
+        {
+            // Maze walls
+            addWallPositions();
+            addWallRotations();
+            addWallScales();
+            addSymmetricalWalls();
+
+            // Adding additional walls + doors
+            addWallsCrossingSymmetry();
+            addDoors();
+
+            // Forgot to half the lengths of the walls (scaling is applied from center so need to scale by half)
+            for (int i = 0; i < wallScales.Count; i++) // temporary fix (i need sleep..)
+            {
+                wallScales[i] = new Vector3(wallScales[i].X * 0.5f, wallScales[i].Y, wallScales[i].Z);
+            }
+        }
+        
+
+
+
         private void CreateEntities()
         {
             Entity newEntity;
@@ -60,9 +330,9 @@ namespace OpenGL_Game
 
             newEntity = new Entity("Floor");
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(0.0f, -1.0f, 0.0f));
-            newEntity.AddComponent(new ComponentRotation(0, 0, 0));    
-            newEntity.AddComponent(new ComponentScale(24, 0.0f, 24));
+            newEntity.AddComponent(new ComponentPosition(12.5f, -1.0f, -12.5f));
+            newEntity.AddComponent(new ComponentRotation(0, 0, 0));
+            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 12.5f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
@@ -70,40 +340,64 @@ namespace OpenGL_Game
             // Outer walls
             newEntity = new Entity("OuterWallLeft");
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(-24, 0, 0));
-            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
-            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
 
-            newEntity = new Entity("OuterWallTop");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(0, 0, -24));
-            newEntity.AddComponent(new ComponentRotation(90, 180, 0));
-            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentPosition(0, 0, -12.5f));
+            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
+            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
+
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("OuterWallRight");
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(24, 0, 0));
-            newEntity.AddComponent(new ComponentRotation(90, 270, 0));
-            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+
+            newEntity.AddComponent(new ComponentPosition(25, 0, -12.5f));
+            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
+            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
+
+            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("OuterWallTop");
+            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+
+            newEntity.AddComponent(new ComponentPosition(12.5f, 0, -25.0f));
+            newEntity.AddComponent(new ComponentRotation(90, 0, 0));
+            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
+
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("OuterWallBottom");
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(0, 0, 24));
+
+            newEntity.AddComponent(new ComponentPosition(12.5f, 0, 0.0f));
             newEntity.AddComponent(new ComponentRotation(90, 0, 0));
-            newEntity.AddComponent(new ComponentScale(24, 0.0f, 2.4f)); // x = length, z = height
+            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
+
             newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
 
+            
+            setMazeWallData();
+
+            for (int i = 0; i < wallPositions.Count; i++)
+            {
+                newEntity = new Entity("MazeWall");
+                newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+
+                newEntity.AddComponent(new ComponentPosition(wallPositions[i]));
+                newEntity.AddComponent(new ComponentRotation(wallRotations[i]));
+                newEntity.AddComponent(new ComponentScale(wallScales[i])); 
+
+                newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+                newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+                entityManager.AddEntity(newEntity);
+            }
             #endregion
 
         }
