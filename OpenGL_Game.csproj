@@ -73,6 +73,8 @@
     <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="Components\ComponentWeapon.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Level1.cs" />
+    <Compile Include="MazeLevel.cs" />
     <Compile Include="Objects\Camera.cs" />
     <Compile Include="Objects\Entity.cs" />
     <Compile Include="Managers\EntityManager.cs" />
