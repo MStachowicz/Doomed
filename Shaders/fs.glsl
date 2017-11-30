@@ -29,7 +29,7 @@ in vec2 v_TexCoord;
 out vec4 FragColor;
   
 void main() {
-light.position = vec3(-11.0, 0.0, 0.0);
+light.position = vec3(12.5, 0.0, -12.5);
 light.ambient = vec3( 0.2, 0.2, 0.2);
 light.diffuse = vec3(0.5,0.5,0.5);
 light.specular = vec3(1.0,1.0,1.0);
