@@ -281,20 +281,42 @@ namespace OpenGL_Game
         void addDoors()
         {
             wallPositions.Add(new Vector3(12.5f, 1.25f, -16));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+
             wallPositions.Add(new Vector3(12.5f, 1.25f, -19));
-
             wallRotations.Add(new Vector3(90, 0, 0));
-            wallRotations.Add(new Vector3(90, 0, 0));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+        }
 
-            wallScales.Add(new Vector3(1, 0, 1.25f));
-            wallScales.Add(new Vector3(1, 0, 1.25f));
+        /// <summary>
+        /// Adds the walls surrounding the maze.
+        /// </summary>
+        void addOuterWalls()
+        {
+            // Left wall
+            wallPositions.Add(new Vector3(0, 0, -12.5f));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            // Right wall
+            wallPositions.Add(new Vector3(25, 0, -12.5f));
+            wallRotations.Add(new Vector3(90, 90, 0));
+            wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            // Top wall
+            wallPositions.Add(new Vector3(12.5f, 0, -25.0f));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            // Bottom wall
+            wallPositions.Add(new Vector3(12.5f, 0.0f, 0.0f));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
         }
 
         /// <summary>
         /// Sets up all the information used to create the wall entities.
         /// </summary>
-        void setMazeWallData()
-        {
+        void setupMazeEnvironment()
+        {    
             // Maze walls
             addWallPositions();
             addWallRotations();
@@ -310,10 +332,15 @@ namespace OpenGL_Game
             {
                 wallScales[i] = new Vector3(wallScales[i].X * 0.5f, wallScales[i].Y, wallScales[i].Z);
             }
+
+            // Add the floor of the maze
+            wallPositions.Add(new Vector3(12.5f, -1.0f, -12.5f));
+            wallRotations.Add(new Vector3(0.0f, 0.0f, 0.0f));
+            wallScales.Add(new Vector3(12.5f, 0.0f, 12.5f));
+
+            addOuterWalls();
         }
         
-
-
 
         private void CreateEntities()
         {
@@ -324,66 +351,9 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
-            entityManager.AddEntity(newEntity);
-
-            #region Maze environment
-
-            newEntity = new Entity("Floor");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-            newEntity.AddComponent(new ComponentPosition(12.5f, -1.0f, -12.5f));
-            newEntity.AddComponent(new ComponentRotation(0, 0, 0));
-            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 12.5f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
-
-            // Outer walls
-            newEntity = new Entity("OuterWallLeft");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-
-            newEntity.AddComponent(new ComponentPosition(0, 0, -12.5f));
-            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
-            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
-
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("OuterWallRight");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-
-            newEntity.AddComponent(new ComponentPosition(25, 0, -12.5f));
-            newEntity.AddComponent(new ComponentRotation(90, 90, 0));
-            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
-
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("OuterWallTop");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-
-            newEntity.AddComponent(new ComponentPosition(12.5f, 0, -25.0f));
-            newEntity.AddComponent(new ComponentRotation(90, 0, 0));
-            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
-
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("OuterWallBottom");
-            newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-
-            newEntity.AddComponent(new ComponentPosition(12.5f, 0, 0.0f));
-            newEntity.AddComponent(new ComponentRotation(90, 0, 0));
-            newEntity.AddComponent(new ComponentScale(12.5f, 0.0f, 1.25f)); // x = length, z = height
-
-            newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            entityManager.AddEntity(newEntity);
-
+            entityManager.AddEntity(newEntity);    
             
-            setMazeWallData();
+            setupMazeEnvironment();
 
             for (int i = 0; i < wallPositions.Count; i++)
             {
@@ -398,8 +368,6 @@ namespace OpenGL_Game
                 newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
                 entityManager.AddEntity(newEntity);
             }
-            #endregion
-
         }
 
         private void CreateSystems()
