@@ -59,35 +59,91 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\ComponentAmmo.cs" />
-    <Compile Include="Components\ComponentCollisionLine.cs" />
-    <Compile Include="Components\ComponentCollisionSphere.cs" />
-    <Compile Include="Components\ComponentGeometry.cs" />
-    <Compile Include="Components\ComponentHealth.cs" />
-    <Compile Include="Components\ComponentInput.cs" />
-    <Compile Include="Components\ComponentLight.cs" />
-    <Compile Include="Components\ComponentPosition.cs" />
-    <Compile Include="Components\ComponentRotation.cs" />
-    <Compile Include="Components\ComponentScale.cs" />
-    <Compile Include="Components\ComponentTexture.cs" />
-    <Compile Include="Components\ComponentVelocity.cs" />
-    <Compile Include="Components\ComponentWeapon.cs" />
-    <Compile Include="Components\IComponent.cs" />
-    <Compile Include="Level1.cs" />
-    <Compile Include="MazeLevel.cs" />
-    <Compile Include="Objects\Camera.cs" />
-    <Compile Include="Objects\Entity.cs" />
-    <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Objects\Geometry.cs" />
-    <Compile Include="MyGame.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="Components\ComponentAmmo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentCollisionLine.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentCollisionSphere.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentGeometry.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentHealth.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentInput.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentLight.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentPosition.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentRotation.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentScale.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentTexture.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentVelocity.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\ComponentWeapon.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Components\IComponent.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Level1.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="MazeLevel.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Objects\Camera.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Objects\Entity.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Managers\EntityManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Objects\Geometry.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="MyGame.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Main.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Managers\ResourceManager.cs" />
-    <Compile Include="Systems\ISystem.cs" />
-    <Compile Include="Managers\SystemManager.cs" />
-    <Compile Include="Systems\SystemInput.cs" />
-    <Compile Include="Systems\SystemPhysics.cs" />
-    <Compile Include="Systems\SystemRender.cs" />
+    <Compile Include="Managers\ResourceManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Systems\ISystem.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Managers\SystemManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Systems\SystemInput.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Systems\SystemPhysics.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Systems\SystemRender.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
