@@ -30,24 +30,35 @@ namespace OpenGL_Game.Systems
             {
                 KeyStates = Keyboard.GetState();
 
+                int speed;
+
+                if (KeyStates.IsKeyDown(Key.LShift))
+                {
+                    speed = 4;
+                }
+                else
+                {
+                    speed = 2;
+                }
+
                 //Forward and Backwards motions
                 if (KeyStates.IsKeyDown(Key.W) || KeyStates.IsKeyDown(Key.Up))
                 {
-                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Forward);
+                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Forward, speed);
                 }
                 else if (KeyStates.IsKeyDown(Key.S) || KeyStates.IsKeyDown(Key.Down))
                 {
-                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Backward);
+                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Backward, speed);
                 }
 
                 //Left and Right motions
                 if (KeyStates.IsKeyDown(Key.A) || KeyStates.IsKeyDown(Key.Left))
                 {
-                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Left);
+                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Left, speed);
                 }
                 else if (KeyStates.IsKeyDown(Key.D) || KeyStates.IsKeyDown(Key.Right))
                 {
-                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Right);
+                    MyGame.gameInstance.playerCamera.ProcessMovement(Camera.CameraMovement.Right, speed);
                 }
 
                 //Update Cursor
