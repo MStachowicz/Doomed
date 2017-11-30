@@ -42,7 +42,7 @@ namespace OpenGL_Game.Objects
             WorldUp = new Vector3(0.0f, 1.0f, 0.0f);
             Yaw = -90.0f;
             Pitch = 0.0f;
-            MovementSpeed = 20;
+            MovementSpeed = 5;
             MouseSensitivity = 0.1f;
             Zoom = 45.0f;
             UpdateCameraAttributes();
@@ -63,7 +63,7 @@ namespace OpenGL_Game.Objects
                 Yaw += 2;
 
             //Stick to floor
-            //Position.Y = 0;
+            Position.Y = 0;
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.
