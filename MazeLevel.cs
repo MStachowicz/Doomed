@@ -32,6 +32,7 @@ namespace OpenGL_Game
                 if (wallRotations[i].Y == 0) // if wall is horizontal
                 {
                     // use the scale value and the position x and z (center point) of the wall to find the start and end positions.
+
                 }
                 else // wall is along the z axis
                 {
