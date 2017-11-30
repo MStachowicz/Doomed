@@ -242,6 +242,11 @@ namespace OpenGL_Game
             return new Vector2(gameInstance.Mouse.X, gameInstance.Mouse.Y);
         }
 
+        public static MouseDevice GetMouse()
+        {
+            return gameInstance.Mouse;
+        }
+
         public static void ExitGame()
         {
             gameInstance.Exit();
