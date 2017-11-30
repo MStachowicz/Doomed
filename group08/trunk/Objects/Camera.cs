@@ -21,7 +21,6 @@ namespace OpenGL_Game.Objects
         public double Pitch;
 
         // Camera options
-        public float MovementSpeed;
         public float MouseSensitivity;
         public float Zoom;
 
@@ -42,16 +41,15 @@ namespace OpenGL_Game.Objects
             WorldUp = new Vector3(0.0f, 1.0f, 0.0f);
             Yaw = -90.0f;
             Pitch = 0.0f;
-            MovementSpeed = 5;
             MouseSensitivity = 0.1f;
             Zoom = 45.0f;
             UpdateCameraAttributes();
         }
 
         // Process the camera movement using the keyboard to move around.
-        public void ProcessMovement(CameraMovement direction)
+        public void ProcessMovement(CameraMovement direction, int movementSpeed)
         {
-            float velocity = MovementSpeed * MyGame.dt;
+            float velocity = movementSpeed * MyGame.dt;
 
             if (direction == CameraMovement.Forward)
                 Position += Front * velocity;
