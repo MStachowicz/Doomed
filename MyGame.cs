@@ -247,6 +247,30 @@ namespace OpenGL_Game
             gameInstance.Exit();
         }
 
+        /// <summary>
+        /// Defines the start and end points of all the walls to allow for plane collision detection
+        /// </summary>
+        struct WallPoints
+        {
+            Vector2 startPosition;
+            Vector2 endPosition;
+        }
+        List<WallPoints> wallPlanePositions = new List<WallPoints>();
+
+        void setupWallPoints()
+        {
+            for (int i = 0; i < wallPositions.Count; i++)
+            {
+                if (wallRotations[i].Y == 0) // if wall is horizontal
+                {
+                    // use the scale value and the position x and z (center point) of the wall to find the start and end positions.
+                }
+                else // wall is along the z axis
+                {
+                }
+            }
+        }
+
         List<Vector3> wallPositions = new List<Vector3>();
         List<Vector3> wallRotations = new List<Vector3>();
         List<Vector3> wallScales = new List<Vector3>();
