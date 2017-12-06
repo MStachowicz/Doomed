@@ -14,28 +14,43 @@ namespace OpenGL_Game
 
         public struct WallPoints
         {
-            Vector2 startPosition;
-            Vector2 endPosition;
+           public Vector2 startPosition;
+          public Vector2 endPosition;
         }
 
         public MazeLevel()
         {
             setupMazeEnvironment();
+            setupWallPoints();
         }
 
-        protected List<WallPoints> wallPlanePositions = new List<WallPoints>();
-
+        public List<WallPoints> wallPlanePositions = new List<WallPoints>();
+        
         protected void setupWallPoints()
         {
+            
             for (int i = 0; i < wallPositions.Count; i++)
             {
+                WallPoints w = new WallPoints();
                 if (wallRotations[i].Y == 0) // if wall is horizontal
                 {
-                    // use the scale value and the position x and z (center point) of the wall to find the start and end positions.
-
+                    float xA = (wallPositions[i].X) - wallScales[i].X;
+                    float xB = (wallPositions[i].X) + wallScales[i].X;
+                    float Z = wallPositions[i].Z;
+                    w.startPosition = new Vector2(xA, Z);
+                    w.endPosition = new Vector2(xB, Z);
+                    wallPlanePositions.Add(w);
                 }
                 else // wall is along the z axis
                 {
+                   float x = wallPositions[i].X;
+                    float zA = (wallPositions[i].Z ) - wallScales[i].X;
+                    float zB = (wallPositions[i].Z ) + wallScales[i].X;
+                    w.startPosition = new Vector2(x, zA);
+                    w.endPosition = new Vector2(x, zB);
+                    wallPlanePositions.Add(w);
+
+
                 }
             }
         }

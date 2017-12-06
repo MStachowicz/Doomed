@@ -39,7 +39,10 @@ namespace OpenGL_Game.Systems
 
         private void Motion(ComponentPosition pos, ComponentVelocity vel)
         {
+
+
             pos.Position += vel.Velocity * MyGame.dt;
+
         }
     }
 }
