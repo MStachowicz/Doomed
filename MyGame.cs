@@ -81,6 +81,47 @@ namespace OpenGL_Game
             }
         }
 
+       private void Collision(Vector2 oldPosition, Vector2 newPosition)
+        {
+            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions)
+            {
+                float dx = w.endPosition.X - w.startPosition.X;
+                float dy = w.endPosition.Y - w.startPosition.Y;
+                //   Vector2 normal = new Vector2(-dy, dx).Normalized();
+                Vector2 normal = new Vector2(16, 12.5f).Normalized();
+            //  Vector2 normal = new Vector2(- w.startPosition.Y,w.startPosition.X).Normalized();
+
+
+
+                float oldPos = dotProduct(normal, oldPosition);
+                    float newPos = dotProduct(normal, newPosition);
+             
+
+                    if (newPos * oldPos < 0)
+                    {
+                  //  normal = new Vector2(-oldPosition.Y, oldPosition.X);
+                 //    oldPos = dotProduct(normal, oldPosition);
+                 //    newPos = dotProduct(normal, newPosition);
+                //    if (oldPos + newPos < 0)
+                 //   {
+                        playerCamera.Position = new Vector3(oldPosition.X, 0, oldPosition.Y);
+
+                 //   }
+
+              }
+            }
+        }
+            
+
+
+        private float dotProduct(Vector2 vA, Vector2 vB)
+        {
+            float dot = (vA.X * vB.X) + (vA.Y * vB.Y);
+            return dot;
+        }
+
+    
+
         private void CreateSystems()
         {
             ISystem newSystem;
@@ -249,7 +290,10 @@ namespace OpenGL_Game
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+            Vector2 oldPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
+            Vector2 newPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            Collision(oldPosition, newPosition);
 
             GL.Flush();
             SwapBuffers();
