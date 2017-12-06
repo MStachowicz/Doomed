@@ -135,6 +135,7 @@
     <Compile Include="Managers\SystemManager.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Systems\SystemAudio.cs" />
     <Compile Include="Systems\SystemInput.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -193,10 +194,13 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Audio\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Audio\drone_disable.wav" />
+    <Content Include="Audio\drone_touch.wav" />
+    <Content Include="Audio\item_collect.wav" />
+    <Content Include="Audio\player_shot.wav" />
+    <Content Include="Audio\power_item_sound.wav" />
     <Content Include="Geometry\CubeGeometry.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

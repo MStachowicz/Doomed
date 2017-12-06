@@ -28,6 +28,12 @@ namespace OpenGL_Game
         int myBuffer;
         int mySource;
         Vector3 listenerPosition;
+
+        internal static byte[] LoadWave(FileStream fileStream, out int channels, out int bits, out int rate, out int chunkSize)
+        {
+            throw new NotImplementedException();
+        }
+
         Vector3 listenerDirection;
         Vector3 listenerUp;
         public static float dt;
@@ -192,6 +198,19 @@ namespace OpenGL_Game
                 rate = sample_rate;
 
                 return reader.ReadBytes((int)reader.BaseStream.Length);
+            }
+
+        }
+        public static ALFormat GetSoundFormat(int channels, int bits)
+        {
+            switch (channels)
+            {
+                case 1:
+                    return bits == 8 ? ALFormat.Mono8 : ALFormat.Mono16;
+                case 2:
+                    return bits == 8 ? ALFormat.Stereo8 : ALFormat.Stereo16;
+                default:
+                    throw new NotSupportedException("The specified sound format is not supported.");
             }
         }
 
