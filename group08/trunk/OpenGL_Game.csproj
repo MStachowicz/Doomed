@@ -62,6 +62,7 @@
     <Compile Include="Components\ComponentAmmo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Components\ComponentAudioEmitter.cs" />
     <Compile Include="Components\ComponentCollisionLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
