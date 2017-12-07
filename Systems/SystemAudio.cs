@@ -5,19 +5,30 @@ using System.Linq;
 using System.Text;
 using OpenTK;
 using OpenTK.Audio.OpenAL;
-
+using OpenGL_Game.Managers;
+using OpenGL_Game.Objects;
+using OpenTK.Audio;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Systems
 {
 
-    public class SystemAudio
+    public class SystemAudio : ISystem
     {
         private int bits;
         private int channels;
         private int rate;
-        private byte[] soundData;
-        private int buffer;
-        private int source;
+        private AudioContext AC;
+        Vector3 listenerPosition;
+        Vector3 listenerDirection;
+        Vector3 listenerUp;
+
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_AUDIOEMITTER);
+
+        public string Name
+        {
+            get { return "SystemAudio"; }
+        }
 
         /// <summary>
         /// Constructor method for sounds
@@ -26,42 +37,43 @@ namespace OpenGL_Game.Systems
         /// <param name="filename"></param>
         public SystemAudio(string filename)
         {
-            buffer = AL.GenBuffer();
-            source = AL.GenSource();
-            int chunkSize;
-            soundData = MyGame.LoadWave(File.Open(filename, FileMode.Open), out channels, out bits, out rate, out chunkSize);
-            AL.BufferData(buffer, MyGame.GetSoundFormat(channels, bits), soundData, chunkSize, rate);
-            Console.WriteLine(MyGame.GetSoundFormat(channels, bits).ToString());
+            AC = new AudioContext();
+        }
 
-            ALError error = AL.GetError();
-            if (error != ALError.NoError)
+        public void OnAction(Entity entity)
+        {
+            if ((entity.Mask & MASK) == MASK)
             {
-                Console.WriteLine("error loading buffer: " + error);
-            }
+                List<IComponent> components = entity.Components;
 
-            AL.Source(source, ALSourcei.Buffer, buffer);
-            var sourcePosition = new Vector3(0f, 0f, 0f);
-            AL.Source(source, ALSource3f.Position, ref sourcePosition);
-            AL.Source(source, ALSourcef.Gain, 0.85f);
-            var listenerPosition = new Vector3(0, 0, 0);
-            AL.Listener(ALListener3f.Position, ref listenerPosition);
+                IComponent emitterComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_AUDIOEMITTER;
+                });
+                ASound emit = ((ComponentAudioEmitter)emitterComponent).GetSound();
+
+                AL.Source(emit.source, ALSourcei.Buffer, emit.buffer); // attach the buffer to a source
+                AL.Source(emit.source, ALSourceb.Looping, false);
+                AL.Source(emit.source, ALSource3f.Position, ref emit.emitPos);
+            }
+            
         }
 
         public bool IsPlaying()
         {
-            ALSourceState state = AL.GetSourceState(source);
+            ALSourceState state = AL.GetSourceState(mySource);
             return state == ALSourceState.Playing;
         }
 
         public bool IsPaused()
         {
-            ALSourceState state = AL.GetSourceState(source);
+            ALSourceState state = AL.GetSourceState(mySource);
             return state == ALSourceState.Paused;
         }
 
         public bool IsStopped()
         {
-            ALSourceState state = AL.GetSourceState(source);
+            ALSourceState state = AL.GetSourceState(mySource);
             return state == ALSourceState.Stopped;
         }
 
@@ -72,18 +84,18 @@ namespace OpenGL_Game.Systems
 
         public void Play(bool loop)
         {
-            AL.Source(source, ALSourceb.Looping, loop);
-            AL.SourcePlay(source);
+            AL.Source(mySource, ALSourceb.Looping, loop);
+            AL.SourcePlay(mySource);
         }
 
         public void Pause()
         {
-            AL.SourcePause(source);
+            AL.SourcePause(mySource);
         }
 
         public void Stop()
         {
-            AL.SourceStop(source);
+            AL.SourceStop(mySource);
         }
     }
 }
