@@ -6,7 +6,7 @@ using System.Text;
 namespace OpenGL_Game.Components
 {
     [FlagsAttribute]
-    enum ComponentTypes {
+    public enum ComponentTypes {
         COMPONENT_NONE = 0,
 	    COMPONENT_POSITION = 1 << 0,
         COMPONENT_GEOMETRY = 1 << 1,
@@ -24,7 +24,7 @@ namespace OpenGL_Game.Components
         COMPONENT_AUDIOEMITTER = 1 << 13
     }
 
-    interface IComponent
+    public interface IComponent
     {
         ComponentTypes ComponentType
         {
