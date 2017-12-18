@@ -15,7 +15,7 @@ namespace OpenGL_Game.Objects
         public Vector3 Up;
         public Vector3 Right;
         public Vector3 WorldUp;
-
+        public bool Collision;
         // Eular Angles
         public double Yaw;
         public double Pitch;
@@ -49,6 +49,8 @@ namespace OpenGL_Game.Objects
         // Process the camera movement using the keyboard to move around.
         public void ProcessMovement(CameraMovement direction, int movementSpeed)
         {
+            if (Collision == true)
+                movementSpeed = movementSpeed / 2;
             float velocity = movementSpeed * MyGame.dt;
 
             if (direction == CameraMovement.Forward)
@@ -62,6 +64,7 @@ namespace OpenGL_Game.Objects
 
             //Stick to floor
             Position.Y = 0;
+            Collision = false;
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.

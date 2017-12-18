@@ -28,29 +28,33 @@ namespace OpenGL_Game
         
         protected void setupWallPoints()
         {
-            
+
             for (int i = 0; i < wallPositions.Count; i++)
             {
+                if (wallPositions[i].Y == 0)
+                { 
                 WallPoints w = new WallPoints();
-                if (wallRotations[i].Y == 0) // if wall is horizontal
-                {
-                    float xA = (wallPositions[i].X) - wallScales[i].X;
-                    float xB = (wallPositions[i].X) + wallScales[i].X;
-                    float Z = wallPositions[i].Z;
-                    w.startPosition = new Vector2(xA, Z);
-                    w.endPosition = new Vector2(xB, Z);
-                    wallPlanePositions.Add(w);
-                }
-                else // wall is along the z axis
-                {
-                   float x = wallPositions[i].X;
-                    float zA = (wallPositions[i].Z ) - wallScales[i].X;
-                    float zB = (wallPositions[i].Z ) + wallScales[i].X;
-                    w.startPosition = new Vector2(x, zA);
-                    w.endPosition = new Vector2(x, zB);
-                    wallPlanePositions.Add(w);
+                    if (wallRotations[i].Y == 0) // if wall is horizontal
+                    {
+                        float xA = (wallPositions[i].X) - wallScales[i].X;
+                        float xB = (wallPositions[i].X) + wallScales[i].X;
+                        float Z = wallPositions[i].Z;
+                        ;
+                        w.startPosition = new Vector2(xA, Z);
+                        w.endPosition = new Vector2(xB, Z);
+                        wallPlanePositions.Add(w);
+                    }
+                    else // wall is along the z axis
+                    {
+                        float x = wallPositions[i].X;
+                        float zA = (wallPositions[i].Z) - wallScales[i].X;
+                        float zB = (wallPositions[i].Z) + wallScales[i].X;
+                       
+                        w.startPosition = new Vector2(x, zA);
+                        w.endPosition = new Vector2(x, zB);
+                        wallPlanePositions.Add(w);
 
-
+                    }
                 }
             }
         }
