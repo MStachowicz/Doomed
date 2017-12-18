@@ -59,6 +59,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentAI.cs" />
     <Compile Include="Components\ComponentAmmo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -136,6 +137,7 @@
     <Compile Include="Managers\SystemManager.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Systems\SystemAI.cs" />
     <Compile Include="Systems\SystemAudio.cs" />
     <Compile Include="Systems\SystemInput.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
