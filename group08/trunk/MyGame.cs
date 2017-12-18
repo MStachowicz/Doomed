@@ -25,6 +25,16 @@ namespace OpenGL_Game
         EntityManager entityManager;
         SystemManager systemManager;
 
+        Vector3 emitterPosition;
+        int myBuffer;
+        int mySource;
+        
+        Vector3 listenerPosition;
+
+        
+      
+
+
         public static float dt;
         public Camera playerCamera;
 
@@ -40,7 +50,7 @@ namespace OpenGL_Game
             entityManager = new EntityManager();
             systemManager = new SystemManager();
         }
-       
+
         private void CreateEntities()
         {
             Entity newEntity;
@@ -61,7 +71,7 @@ namespace OpenGL_Game
 
                 newEntity.AddComponent(new ComponentPosition(currentLevelLoaded.wallPositions[i]));
                 newEntity.AddComponent(new ComponentRotation(currentLevelLoaded.wallRotations[i]));
-                newEntity.AddComponent(new ComponentScale(currentLevelLoaded.wallScales[i])); 
+                newEntity.AddComponent(new ComponentScale(currentLevelLoaded.wallScales[i]));
 
                 newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
                 newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
@@ -69,37 +79,50 @@ namespace OpenGL_Game
             }
         }
 
-       private void Collision(Vector2 oldPosition, Vector2 newPosition)
+        private void Collision(Vector2 oldPosition, Vector2 newPosition)
         {
             foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions)
             {
+
                 float dx = w.endPosition.X - w.startPosition.X;
                 float dy = w.endPosition.Y - w.startPosition.Y;
-                //   Vector2 normal = new Vector2(-dy, dx).Normalized();
-                Vector2 normal = new Vector2(16, 12.5f).Normalized();
-            //  Vector2 normal = new Vector2(- w.startPosition.Y,w.startPosition.X).Normalized();
 
-
-
-                float oldPos = dotProduct(normal, oldPosition);
-                    float newPos = dotProduct(normal, newPosition);
+                Vector2 normal = new Vector2(-dy, dx);
+                normal.Normalize();
+                
+                float oldPos = dotProduct(normal, oldPosition- w.startPosition);
+                float newPos = dotProduct(normal, newPosition - w.startPosition);
              
+                float q = (newPos * oldPos) - 0.01f;
 
-                    if (newPos * oldPos < 0)
+                if (q < 0)
+                {
+                    dx = newPosition.X - oldPosition.X;
+                    dy = newPosition.Y - oldPosition.Y;
+                    normal = new Vector2(-dy, dx);
+                   
+                    oldPos = dotProduct(normal, w.startPosition  - oldPosition);
+                    newPos = dotProduct(normal, w.endPosition - oldPosition) ;
+                    float z = (newPos * oldPos) + 0.01f;
+                    if ((newPos * oldPos) < 0)
                     {
-                  //  normal = new Vector2(-oldPosition.Y, oldPosition.X);
-                 //    oldPos = dotProduct(normal, oldPosition);
-                 //    newPos = dotProduct(normal, newPosition);
-                //    if (oldPos + newPos < 0)
-                 //   {
-                        playerCamera.Position = new Vector3(oldPosition.X, 0, oldPosition.Y);
+                       if (w.startPosition.X == w.endPosition.X)
+                        {
+                            playerCamera.Position = new Vector3(oldPosition.X , 0, newPosition.Y);
+                            playerCamera.Collision = true;
+                        }
+                        if (w.startPosition.Y == w.endPosition.Y)
+                        {
+                            playerCamera.Position = new Vector3(newPosition.X, 0, oldPosition.Y);
+                            playerCamera.Collision = true;
+                        }
+                       
 
-                 //   }
-
-              }
+                    }
+                }
             }
         }
-            
+
 
 
         private float dotProduct(Vector2 vA, Vector2 vB)
@@ -108,7 +131,7 @@ namespace OpenGL_Game
             return dot;
         }
 
-    
+
 
         private void CreateSystems()
         {
@@ -169,7 +192,7 @@ namespace OpenGL_Game
             systemManager.ActionSystems(entityManager);
             Vector2 newPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             Collision(oldPosition, newPosition);
-
+            
             GL.Flush();
             SwapBuffers();
         }
