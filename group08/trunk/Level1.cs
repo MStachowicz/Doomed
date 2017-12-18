@@ -10,13 +10,13 @@ namespace OpenGL_Game
     {
         protected override void addDoors()
         {
-            wallPositions.Add(new Vector3(12.5f, 1.25f, -16));
-            wallRotations.Add(new Vector3(90, 0, 0));
-            wallScales.Add(new Vector3(1, 0, 1.25f));
+            //wallPositions.Add(new Vector3(12.5f, 1.25f, -16));
+            //wallRotations.Add(new Vector3(90, 0, 0));
+            //wallScales.Add(new Vector3(1, 0, 1.25f));
 
-            wallPositions.Add(new Vector3(12.5f, 1.25f, -19));
-            wallRotations.Add(new Vector3(90, 0, 0));
-            wallScales.Add(new Vector3(1, 0, 1.25f));
+            //wallPositions.Add(new Vector3(12.5f, 1.25f, -19));
+            //wallRotations.Add(new Vector3(90, 0, 0));
+            //wallScales.Add(new Vector3(1, 0, 1.25f));
         }
 
         protected override void addWallPositions()
