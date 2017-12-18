@@ -21,7 +21,8 @@ namespace OpenGL_Game.Components
         COMPONENT_INPUT = 1 << 10,
         COMPONENT_SCALE = 1 << 11,
         COMPONENT_ROTATION = 1 << 12,
-        COMPONENT_AUDIOEMITTER = 1 << 13
+        COMPONENT_AUDIOEMITTER = 1 << 13,
+        COMPONENT_AI = 1 << 14
     }
 
     public interface IComponent
