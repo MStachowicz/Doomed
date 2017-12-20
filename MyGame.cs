@@ -90,8 +90,8 @@ namespace OpenGL_Game
                 Vector2 normal = new Vector2(-dy, dx);
                 normal.Normalize();
                 
-                float oldPos = dotProduct(normal, oldPosition- w.startPosition);
-                float newPos = dotProduct(normal, newPosition - w.startPosition);
+                float oldPos = DotProduct(normal, oldPosition- w.startPosition);
+                float newPos = DotProduct(normal, newPosition - w.startPosition);
              
                 float q = (newPos * oldPos) - 0.01f;
 
@@ -101,8 +101,8 @@ namespace OpenGL_Game
                     dy = newPosition.Y - oldPosition.Y;
                     normal = new Vector2(-dy, dx);
                    
-                    oldPos = dotProduct(normal, w.startPosition  - oldPosition);
-                    newPos = dotProduct(normal, w.endPosition - oldPosition) ;
+                    oldPos = DotProduct(normal, w.startPosition  - oldPosition);
+                    newPos = DotProduct(normal, w.endPosition - oldPosition) ;
                     float z = (newPos * oldPos) + 0.01f;
                     if ((newPos * oldPos) < 0)
                     {
@@ -125,7 +125,7 @@ namespace OpenGL_Game
 
 
 
-        private float dotProduct(Vector2 vA, Vector2 vB)
+        public static float DotProduct(Vector2 vA, Vector2 vB)
         {
             float dot = (vA.X * vB.X) + (vA.Y * vB.Y);
             return dot;
