@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenGL_Game.Objects;
+using OpenTK;
+using static OpenGL_Game.Components.ComponentAI;
 
 namespace OpenGL_Game.Systems
 {
     class SystemAI : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION);
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_ROTATION);
 
         public string Name
         {
@@ -22,15 +24,23 @@ namespace OpenGL_Game.Systems
             {
                 List<IComponent> components = entity.Components;
 
-                IComponent positionComponent = components.Find(delegate (IComponent component)
+                ComponentPosition positionComponent = (ComponentPosition)components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
+                Vector2 position = positionComponent.Position.Xy;
 
-                IComponent aiComponent = components.Find(delegate (IComponent component)
+                ComponentAI aiComponent = (ComponentAI)components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_AI;
                 });
+                AIStates state = aiComponent.CurrentState;
+
+                ComponentRotation rotationComponent = (ComponentRotation)components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_ROTATION;
+                });
+                Vector2 currentRotation = rotationComponent.Rotation.Xz;
             }
         }
     }
