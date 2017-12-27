@@ -17,6 +17,7 @@ namespace OpenGL_Game.Systems
         
         //Mouse
         Vector2 lastMousePosition;
+        Vector2 deltaMousePosition;
         bool firstMouse = true;
 
         public string Name
@@ -69,28 +70,21 @@ namespace OpenGL_Game.Systems
                     MyGame.ExitGame();
             }
         }
-        
+
+
+        public void resetCursor()
+        {
+           OpenTK.Input.Mouse.SetPosition(MyGame.gameInstance.Bounds.Left + MyGame.gameInstance.Bounds.Width / 2, MyGame.gameInstance.Bounds.Top + MyGame.gameInstance.Bounds.Height / 2);
+           lastMousePosition = new Vector2(OpenTK.Input.Mouse.GetState().X, OpenTK.Input.Mouse.GetState().Y);
+        }
+
         private void processMouseMove()
         {
-            if (firstMouse) // prevents the screen jumping on first mouse lock to screen.
-            {
-                lastMousePosition.X = MyGame.WIDTH / 2;
-                lastMousePosition.Y = MyGame.HEIGHT / 2;
-                firstMouse = false;
-            }
+            
+            deltaMousePosition = lastMousePosition - new Vector2(OpenTK.Input.Mouse.GetState().X, OpenTK.Input.Mouse.GetState().Y);
 
-            float xOffset = MyGame.GetMousePosition().X - lastMousePosition.X;
-            float yOffset = lastMousePosition.Y - MyGame.GetMousePosition().Y;
-
-            if (MyGame.GetMouse().GetCursorState().RightButton == ButtonState.Released)
-            {
-                xOffset = 0; //Disallow side-to-side viewing
-            }
-
-            lastMousePosition.X = MyGame.GetMousePosition().X;
-            lastMousePosition.Y = MyGame.GetMousePosition().Y;
-
-            MyGame.gameInstance.playerCamera.ProcessMouseMovement(xOffset, yOffset, lastMousePosition);
+            MyGame.gameInstance.playerCamera.ProcessMouseMovement(-deltaMousePosition.X, deltaMousePosition.Y);
+            resetCursor();
         }
     }
 }

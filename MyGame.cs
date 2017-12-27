@@ -28,11 +28,11 @@ namespace OpenGL_Game
         Vector3 emitterPosition;
         int myBuffer;
         int mySource;
-        
+
         Vector3 listenerPosition;
 
-        
-      
+
+
 
 
         public static float dt;
@@ -89,10 +89,10 @@ namespace OpenGL_Game
 
                 Vector2 normal = new Vector2(-dy, dx);
                 normal.Normalize();
-                
-                float oldPos = DotProduct(normal, oldPosition- w.startPosition);
+
+                float oldPos = DotProduct(normal, oldPosition - w.startPosition);
                 float newPos = DotProduct(normal, newPosition - w.startPosition);
-             
+
                 float q = (newPos * oldPos) - 0.01f;
 
                 if (q < 0)
@@ -100,15 +100,15 @@ namespace OpenGL_Game
                     dx = newPosition.X - oldPosition.X;
                     dy = newPosition.Y - oldPosition.Y;
                     normal = new Vector2(-dy, dx);
-                   
-                    oldPos = DotProduct(normal, w.startPosition  - oldPosition);
-                    newPos = DotProduct(normal, w.endPosition - oldPosition) ;
+
+                    oldPos = DotProduct(normal, w.startPosition - oldPosition);
+                    newPos = DotProduct(normal, w.endPosition - oldPosition);
                     float z = (newPos * oldPos) + 0.01f;
                     if ((newPos * oldPos) < 0)
                     {
-                       if (w.startPosition.X == w.endPosition.X)
+                        if (w.startPosition.X == w.endPosition.X)
                         {
-                            playerCamera.Position = new Vector3(oldPosition.X , 0, newPosition.Y);
+                            playerCamera.Position = new Vector3(oldPosition.X, 0, newPosition.Y);
                             playerCamera.Collision = true;
                         }
                         if (w.startPosition.Y == w.endPosition.Y)
@@ -116,7 +116,7 @@ namespace OpenGL_Game
                             playerCamera.Position = new Vector3(newPosition.X, 0, oldPosition.Y);
                             playerCamera.Collision = true;
                         }
-                       
+
 
                     }
                 }
@@ -153,7 +153,9 @@ namespace OpenGL_Game
             base.OnLoad(e);
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
+            this.CursorVisible = false;
             //GL.Enable(EnableCap.CullFace);
+
 
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), WIDTH / HEIGHT, 0.01f, 100f);
 
@@ -172,8 +174,6 @@ namespace OpenGL_Game
 
             // ------------------------ TIMING ------------------------
             dt = (float)(e.Time);
-
-
             // TODO: Add your update logic here
         }
 
@@ -192,7 +192,7 @@ namespace OpenGL_Game
             systemManager.ActionSystems(entityManager);
             Vector2 newPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             Collision(oldPosition, newPosition);
-            
+
             GL.Flush();
             SwapBuffers();
         }

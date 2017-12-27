@@ -58,9 +58,9 @@ namespace OpenGL_Game.Objects
             if (direction == CameraMovement.Backward)
                 Position -= Front * velocity;
             if (direction == CameraMovement.Left)
-                Yaw -= 2;
+                Position -= Right * velocity;
             if (direction == CameraMovement.Right)
-                Yaw += 2;
+                Position += Right * velocity;
 
             //Stick to floor
             Position.Y = 0;
@@ -68,7 +68,7 @@ namespace OpenGL_Game.Objects
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.
-        public void ProcessMouseMovement(float xOffset, float yOffset, Vector2 lastMousePosition)
+        public void ProcessMouseMovement(float xOffset, float yOffset)
         {
             xOffset *= MouseSensitivity;
             yOffset *= MouseSensitivity;
