@@ -31,7 +31,7 @@ namespace OpenGL_Game
 
         Vector3 listenerPosition;
 
-
+        CubeMap skybox = new CubeMap();
 
 
 
@@ -161,6 +161,7 @@ namespace OpenGL_Game
 
             CreateEntities();
             CreateSystems();
+            skybox.setupSkybox();
         }
 
         /// <summary>
@@ -192,6 +193,8 @@ namespace OpenGL_Game
             systemManager.ActionSystems(entityManager);
             Vector2 newPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             Collision(oldPosition, newPosition);
+
+            skybox.renderCubemap();
 
             GL.Flush();
             SwapBuffers();
