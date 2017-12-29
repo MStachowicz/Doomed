@@ -10,7 +10,9 @@ namespace OpenGL_Game.Components
         public enum AIStates : byte
         {
             Wandering,
-            Chasing
+            Chasing,
+            Disabled,
+            DebugOff
         }
 
         public AIStates CurrentState { get; set; }
