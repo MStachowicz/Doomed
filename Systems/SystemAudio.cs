@@ -15,13 +15,9 @@ namespace OpenGL_Game.Systems
 
     public class SystemAudio : ISystem
     {
-        private int bits;
-        private int channels;
-        private int rate;
-        private AudioContext AC;
-        Vector3 listenerPosition;
-        Vector3 listenerDirection;
-        Vector3 listenerUp;
+     
+      private AudioContext AC;
+        
 
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_AUDIOEMITTER);
 
@@ -58,24 +54,24 @@ namespace OpenGL_Game.Systems
             }
             
         }
+        public int mySource= AL.GenSource();
+        public bool IsPlaying()
+        {
+            ALSourceState state = AL.GetSourceState(mySource);
+           return state == ALSourceState.Playing;
+        }
 
-        //public bool IsPlaying()
-        //{
-        //    //ALSourceState state = AL.GetSourceState(mySource);
-        //    //return state == ALSourceState.Playing;
-        //}
+        public bool IsPaused()
+        {
+           ALSourceState state = AL.GetSourceState(mySource);
+            return state == ALSourceState.Paused;
+        }
 
-        //public bool IsPaused()
-        //{
-        //    //ALSourceState state = AL.GetSourceState(mySource);
-        //    return state == ALSourceState.Paused;
-        //}
-
-        //public bool IsStopped()
-        //{
-        //    //ALSourceState state = AL.GetSourceState(mySource);
-        //    return state == ALSourceState.Stopped;
-        //}
+        public bool IsStopped()
+        {
+            ALSourceState state = AL.GetSourceState(mySource);
+            return state == ALSourceState.Stopped;
+        }
 
         public void Play()
         {
@@ -84,18 +80,18 @@ namespace OpenGL_Game.Systems
 
         public void Play(bool loop)
         {
-            //AL.Source(mySource, ALSourceb.Looping, loop);
-            //AL.SourcePlay(mySource);
+            AL.Source(mySource, ALSourceb.Looping, loop);
+            AL.SourcePlay(mySource);
         }
 
         public void Pause()
         {
-            //AL.SourcePause(mySource);
+            AL.SourcePause(mySource);
         }
 
         public void Stop()
-        {//
-            //AL.SourceStop(mySource);
+        {
+            AL.SourceStop(mySource);
         }
     }
 }

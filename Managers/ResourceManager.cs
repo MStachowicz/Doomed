@@ -11,6 +11,7 @@ using System.IO;
 using OpenTK.Audio.OpenAL;
 using OpenTK;
 using OpenGL_Game.Components;
+using OpenGL_Game.Systems;
 
 namespace OpenGL_Game.Managers
 {
@@ -19,7 +20,9 @@ namespace OpenGL_Game.Managers
         static Dictionary<string, Geometry> geometryDictionary = new Dictionary<string, Geometry>();
         static Dictionary<string, int> textureDictionary = new Dictionary<string, int>();
         static Dictionary<string, int> soundDictionary = new Dictionary<string, int>();
-
+        static Vector3 listenerPosition;
+        static Vector3 listenerDirection;
+        static Vector3 listenerUp;
         public static Geometry LoadGeometry(string filename)
         {
             Geometry geometry;
@@ -75,9 +78,9 @@ namespace OpenGL_Game.Managers
         public static ASound LoadAudio(Vector3 emitterPosition, string soundName)
         {
             // Setup OpenAL Listener - each component listener has these now
-            //listenerPosition = new Vector3(0, 0, 3);
-            //listenerDirection = new Vector3(0, 0, -1);
-            //listenerUp = Vector3.UnitY;
+            listenerPosition = new Vector3(0, 0, 3);
+            listenerDirection = new Vector3(0, 0, -1);
+            listenerUp = Vector3.UnitY;
 
             // reserve a Handle for the audio file
             int myBuffer = AL.GenBuffer();
