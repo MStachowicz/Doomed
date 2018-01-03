@@ -25,11 +25,6 @@ namespace OpenGL_Game
         EntityManager entityManager;
         SystemManager systemManager;
 
-        Vector3 emitterPosition;
-        int myBuffer;
-        int mySource;
-
-        Vector3 listenerPosition;
 
         CubeMap skybox = new CubeMap();
 
@@ -176,6 +171,7 @@ namespace OpenGL_Game
             // ------------------------ TIMING ------------------------
             dt = (float)(e.Time);
             // TODO: Add your update logic here
+
         }
 
         /// <summary>

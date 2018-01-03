@@ -15,11 +15,12 @@ using OpenGL_Game.Systems;
 
 namespace OpenGL_Game.Managers
 {
-    static class ResourceManager
+    public static class ResourceManager
     {
         static Dictionary<string, Geometry> geometryDictionary = new Dictionary<string, Geometry>();
         static Dictionary<string, int> textureDictionary = new Dictionary<string, int>();
         static Dictionary<string, int> soundDictionary = new Dictionary<string, int>();
+
         static Vector3 listenerPosition;
         static Vector3 listenerDirection;
         static Vector3 listenerUp;
@@ -37,7 +38,11 @@ namespace OpenGL_Game.Managers
             return geometry;
         }
 
-        
+        internal static ASound LoadWave(Vector3 emitPos, string soundName)
+        {
+            throw new NotImplementedException();
+        }
+
         public static int LoadTexture(string filename)
         {
             if (String.IsNullOrEmpty(filename))
@@ -84,7 +89,7 @@ namespace OpenGL_Game.Managers
 
             // reserve a Handle for the audio file
             int myBuffer = AL.GenBuffer();
-
+            
             // Load a .wav file from disk.
             int channels, bits_per_sample, sample_rate;
             byte[] sound_data = LoadWave(
@@ -106,7 +111,11 @@ namespace OpenGL_Game.Managers
 
             // Create a sounds source using the audio clip
             int mySource = AL.GenSource(); // gen a Source Handle
-
+             AL.Source(mySource, ALSourcei.Buffer, myBuffer); // attach the buffer to a source
+            AL.Source(mySource, ALSourceb.Looping, true); // source loops infinitely
+            emitterPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            AL.Source(mySource, ALSource3f.Position, ref emitterPosition);
+            AL.SourcePlay(mySource);
             return new ASound(myBuffer, mySource, sound_data, emitterPosition);
         }
 
@@ -155,6 +164,10 @@ namespace OpenGL_Game.Managers
                 rate = sample_rate;
 
                 return reader.ReadBytes((int)reader.BaseStream.Length);
+               
+                // update OpenAL
+                AL.Listener(ALListener3f.Position, ref listenerPosition);
+                AL.Listener(ALListenerfv.Orientation, ref listenerDirection, ref listenerUp);
             }
 
         }
@@ -169,6 +182,8 @@ namespace OpenGL_Game.Managers
                 default:
                     throw new NotSupportedException("The specified sound format is not supported.");
             }
+
         }
+
     }
 }
