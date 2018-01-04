@@ -19,7 +19,7 @@ namespace OpenGL_Game.Components
 
         public ComponentTypes ComponentType
         {
-            get { return ComponentTypes.COMPONENT_AMMO; }
+            get { return ComponentTypes.COMPONENT_AI; }
         }
     }
 }

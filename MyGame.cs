@@ -24,7 +24,8 @@ namespace OpenGL_Game
         public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
-
+       static Vector2 oldCameraPosition;
+        static Vector2 newCameraPosition;
 
         CubeMap skybox = new CubeMap();
 
@@ -72,6 +73,18 @@ namespace OpenGL_Game
                 newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
                 entityManager.AddEntity(newEntity);
             }
+
+            newEntity = new Entity("Drone");
+        
+            newEntity.AddComponent(new ComponentPosition(12.5f, 0.0f, -13.5f));
+            newEntity.AddComponent(new ComponentRotation(0, 0, 0));
+           newEntity.AddComponent(new ComponentScale(0.2f,0.2f,0.2f));
+            newEntity.AddComponent(new ComponentAI());
+            newEntity.AddComponent(new ComponentVelocity(0, 0, -0.2f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            entityManager.AddEntity(newEntity);
+            
         }
 
         private void Collision(Vector2 oldPosition, Vector2 newPosition)
@@ -127,6 +140,11 @@ namespace OpenGL_Game
         }
 
 
+        private void AIplayerDetection()
+        {
+            
+        }
+
 
         private void CreateSystems()
         {
@@ -137,6 +155,8 @@ namespace OpenGL_Game
             newSystem = new SystemInput();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemPhysics();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemAI();
             systemManager.AddSystem(newSystem);
         }
 
@@ -184,18 +204,25 @@ namespace OpenGL_Game
 
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            Vector2 oldPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            
+            oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
-            Vector2 newPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
-            Collision(oldPosition, newPosition);
+            newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            Collision(oldCameraPosition, newCameraPosition);
 
             skybox.renderCubemap();
 
             GL.Flush();
             SwapBuffers();
         }
-
+        public static Vector2 GetOldCameraPosition()
+        {
+            return oldCameraPosition;
+        }
+        public static Vector2 GetNewCameraPosition()
+        {
+            return newCameraPosition;
+        }
         /// <summary>
         /// Mouse is contained inside the GameWindow class.
         /// </summary>

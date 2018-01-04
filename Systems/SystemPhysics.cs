@@ -19,6 +19,11 @@ namespace OpenGL_Game.Systems
 
         public void OnAction(Entity entity)
         {
+            if (entity.Name == "Drone")
+            {
+
+            }
+
             if ((entity.Mask & MASK) == MASK)
             {
                 List<IComponent> components = entity.Components;
