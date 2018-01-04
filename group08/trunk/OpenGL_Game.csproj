@@ -82,6 +82,7 @@
     <Compile Include="Components\ComponentLight.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Components\ComponentLightEmitter.cs" />
     <Compile Include="Components\ComponentPosition.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -143,6 +144,7 @@
     <Compile Include="Systems\SystemInput.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Systems\SystemLighting.cs" />
     <Compile Include="Systems\SystemPhysics.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
