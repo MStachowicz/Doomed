@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using OpenGL_Game.Objects;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using static OpenGL_Game.Components.ComponentAI;
 
 namespace OpenGL_Game.Systems
 {
     class SystemAI : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_ROTATION);
+        const ComponentTypes MASK = ( ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_ROTATION | ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_VELOCITY);
+
+        List<Vector2> Nodes = new List<Vector2>();
 
         public string Name
         {
@@ -20,15 +23,15 @@ namespace OpenGL_Game.Systems
 
         public void OnAction(Entity entity)
         {
+            
             if ((entity.Mask & MASK) == MASK)
             {
                 List<IComponent> components = entity.Components;
 
-                ComponentPosition positionComponent = (ComponentPosition)components.Find(delegate (IComponent component)
+                IComponent positionComponent = components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
-                Vector2 position = positionComponent.Position.Xy;
 
                 ComponentAI aiComponent = (ComponentAI)components.Find(delegate (IComponent component)
                 {
@@ -36,12 +39,46 @@ namespace OpenGL_Game.Systems
                 });
                 AIStates state = aiComponent.CurrentState;
 
+                IComponent velocityComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_VELOCITY;
+                });
+
+               
                 ComponentRotation rotationComponent = (ComponentRotation)components.Find(delegate (IComponent component)
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_ROTATION;
                 });
                 Vector2 currentRotation = rotationComponent.Rotation.Xz;
+
+                PlayerDetection((ComponentPosition)positionComponent, (ComponentVelocity)velocityComponent, state);
             }
+           
+        }
+
+        private void PlayerDetection(ComponentPosition pos, ComponentVelocity vel, AIStates state)
+        {
+                     
+            if (state == AIStates.Wandering)
+            {
+                
+                Vector2 AIpos = new Vector2(pos.Position.X, pos.Position.Z);
+                Vector2 v = MyGame.GetNewCameraPosition() - AIpos;
+
+                float dot = MyGame.DotProduct (v.Normalized(), AIpos.Normalized());
+                
+                if (dot > 0.7 )
+                {
+                    vel.Velocity = new Vector3(0,0,0);
+                }
+                else { vel.Velocity = new Vector3(0, 0, -0.2f); }
+            }
+        }
+        
+
+        private void PathFinding(Vector2 startNode, Vector2 targetNode)
+        {
+            // 156 nodes + 5 
         }
     }
 }
