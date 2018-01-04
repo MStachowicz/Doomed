@@ -72,6 +72,7 @@ namespace OpenGL_Game
                 newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
                 newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
                 entityManager.AddEntity(newEntity);
+
             }
 
             newEntity = new Entity("Drone");
@@ -85,6 +86,30 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
             
+            // CREATING LIGHT ENTITIES
+            Vector3 ambient = new Vector3(0.2f, 0.2f, 0.2f);
+            Vector3 diffuse = new Vector3(0.1f, 0.1f, 0.1f);
+            Vector3 specular = new Vector3(0.2f, 0.2f, 0.2f);
+
+            newEntity = new Entity("pointLight");
+            newEntity.AddComponent(new ComponentPosition(new Vector3(12.25f, 10.0f, -12.25f)));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient,diffuse ,specular));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("pointLight");
+            newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -18.75f)));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("pointLight");
+            newEntity.AddComponent(new ComponentPosition(new Vector3(18.75f, 10.0f, -6.25f)));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("pointLight");
+            newEntity.AddComponent(new ComponentPosition(new Vector3(18.75f, 10.0f, -18.75f)));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            entityManager.AddEntity(newEntity);
         }
 
         private void Collision(Vector2 oldPosition, Vector2 newPosition)
@@ -142,7 +167,7 @@ namespace OpenGL_Game
 
         private void AIplayerDetection()
         {
-            
+
         }
 
 
@@ -151,6 +176,8 @@ namespace OpenGL_Game
             ISystem newSystem;
 
             newSystem = new SystemRender();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemLighting();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemInput();
             systemManager.AddSystem(newSystem);
@@ -204,7 +231,7 @@ namespace OpenGL_Game
 
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            
+
             oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
             newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);

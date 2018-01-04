@@ -15,7 +15,7 @@ namespace OpenGL_Game.Systems
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | 
             ComponentTypes.COMPONENT_TEXTURE | ComponentTypes.COMPONENT_SCALE);
 
-        protected int pgmID;
+        public static int pgmID;
         protected int vsID;
         protected int fsID;
 
@@ -136,7 +136,18 @@ namespace OpenGL_Game.Systems
                 });
                 int texture = ((ComponentTexture)textureComponent).Texture;
 
-                Draw(mModel, geometry, texture);
+
+
+
+
+                if ((entity.Mask & ComponentTypes.COMPONENT_LIGHT_EMITTER) == ComponentTypes.COMPONENT_LIGHT_EMITTER)
+                {
+
+                }
+
+
+
+                    Draw(mModel, geometry, texture);
             }
         }
 
@@ -161,7 +172,7 @@ namespace OpenGL_Game.Systems
             GL.UniformMatrix4(uniform_mProjection, false, ref mProjection);
             //view position
             Vector3 mViewPos = MyGame.gameInstance.playerCamera.Position;
-            GL.Uniform3(uniform_mProjection, ref mViewPos);
+            GL.Uniform3(uniform_viewPos, ref mViewPos);
 
 
             geometry.Render();
