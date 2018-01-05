@@ -49,7 +49,7 @@ namespace OpenGL_Game.Objects
         // Process the camera movement using the keyboard to move around.
         public void ProcessMovement(CameraMovement direction, int movementSpeed)
         {
-            if (Collision == true)
+             if (Collision == true)
                 movementSpeed = movementSpeed / 2;
             float velocity = movementSpeed * MyGame.dt;
 

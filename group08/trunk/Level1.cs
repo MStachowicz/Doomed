@@ -7,7 +7,7 @@ using System.Text;
 namespace OpenGL_Game
 {
     class Level1 : MazeLevel
-    {
+    {      
         protected override void addDoors()
         {
             //wallPositions.Add(new Vector3(12.5f, 1.25f, -16));
@@ -209,6 +209,70 @@ namespace OpenGL_Game
             wallScales.Add(new Vector3(1, 0, 1.25f));
             wallScales.Add(new Vector3(2, 0, 1.25f));
             wallScales.Add(new Vector3(2, 0, 1.25f));
+        }
+
+        protected override void addWallTextures()
+        {
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
         }
     }
 }

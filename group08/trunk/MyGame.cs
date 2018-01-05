@@ -62,27 +62,12 @@ namespace OpenGL_Game
             entityManager.AddEntity(newEntity);
 
             currentLevelLoaded = new Level1();
-
-            for (int i = 0; i < currentLevelLoaded.wallPositions.Count; i++)
-            {
-                newEntity = new Entity("MazeWall");
-                newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
-
-                newEntity.AddComponent(new ComponentPosition(currentLevelLoaded.wallPositions[i]));
-                newEntity.AddComponent(new ComponentRotation(currentLevelLoaded.wallRotations[i]));
-                newEntity.AddComponent(new ComponentScale(currentLevelLoaded.wallScales[i]));
-
-                newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-                //newEntity.AddComponent(new ComponentTexture("Textures/BrickDiffuse.jpg"));
-                newEntity.AddComponent(new ComponentAlive());
-                entityManager.AddEntity(newEntity);
-            }
-
+            currentLevelLoaded.loadEntities(entityManager);
             newEntity = new Entity("Drone");
         
             newEntity.AddComponent(new ComponentPosition(12.5f, 0.0f, -13.5f));
             newEntity.AddComponent(new ComponentRotation(0, 0, 0));
-            newEntity.AddComponent(new ComponentScale(0.2f,0.2f,0.2f));
+           newEntity.AddComponent(new ComponentScale(0.2f,0.2f,0.2f));
             newEntity.AddComponent(new ComponentAI());
             newEntity.AddComponent(new ComponentVelocity(0, 0, -0.2f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));

@@ -7,7 +7,7 @@ using OpenGL_Game.Objects;
 
 namespace OpenGL_Game.Managers
 {
-    class EntityManager
+    public class EntityManager
     {
         List<Entity> entityList;
 
@@ -22,10 +22,16 @@ namespace OpenGL_Game.Managers
             //Debug.Assert(result != null, "Entity '" + entity.Name + "' already exists");
             entityList.Add(entity);
         }
+        
+        public void AddEntity(List<Entity> entities)
+        {
+            foreach (Entity i in entities)
+                entityList.Add(i);     
+        }
 
         private Entity FindEntity(string name)
         {
-            return entityList.Find(delegate(Entity e)
+            return entityList.Find(delegate (Entity e)
             {
                 return e.Name == name;
             }
