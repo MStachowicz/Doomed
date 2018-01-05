@@ -26,7 +26,11 @@ namespace OpenGL_Game.Managers
                 {
                     foreach (Entity entity in entityList)
                     {
-                        system.OnAction(entity);
+                        //Only update if alive
+                        if((entity.Mask & Components.ComponentTypes.COMPONENT_ALIVE) == Components.ComponentTypes.COMPONENT_ALIVE)
+                        {
+                            system.OnAction(entity);
+                        }
                     }
                 }
             }
@@ -40,7 +44,11 @@ namespace OpenGL_Game.Managers
 
             foreach (Entity entity in entityList)
             {
-                system.OnAction(entity);
+                //Only render if alive
+                if ((entity.Mask & Components.ComponentTypes.COMPONENT_ALIVE) == Components.ComponentTypes.COMPONENT_ALIVE)
+                {
+                    system.OnAction(entity);
+                }
             }
         }
 
