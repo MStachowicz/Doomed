@@ -1,8 +1,10 @@
-﻿using OpenTK;
+﻿using OpenGL_Game.Objects;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game
 {
@@ -11,6 +13,7 @@ namespace OpenGL_Game
         public List<Vector3> wallPositions = new List<Vector3>();
         public List<Vector3> wallRotations = new List<Vector3>();
         public List<Vector3> wallScales = new List<Vector3>();
+        public List<string> wallTexture = new List<string>();
 
         public struct WallPoints
         {
@@ -65,6 +68,8 @@ namespace OpenGL_Game
 
         protected abstract void addWallScales();
 
+        protected abstract void addWallTextures();
+
         /// <summary>
         /// Uses the maze walls hard coded at x below 12.5 to generate the remaining positions of the walls.
         /// </summary>
@@ -78,6 +83,7 @@ namespace OpenGL_Game
                     0, wallPositions[i].Z));
                 wallRotations.Add(new Vector3(wallRotations[i])); // repeat same rotations
                 wallScales.Add(new Vector3(wallScales[i])); // repeat same scaling
+                wallTexture.Add("Textures/BrickDiffuse.jpg");
             }
         }
 
@@ -87,19 +93,24 @@ namespace OpenGL_Game
         protected void addWallsCrossingSymmetry()
         {
             wallPositions.Add(new Vector3(12.5f, 0, -11));
+            wallRotations.Add(new Vector3(90, 0, 0));
+            wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+
             wallPositions.Add(new Vector3(12.5f, 0, -12));
-            wallPositions.Add(new Vector3(12.5f, 0, -23));
-            wallPositions.Add(new Vector3(12.5f, 0, -24));
-
             wallRotations.Add(new Vector3(90, 0, 0));
-            wallRotations.Add(new Vector3(90, 0, 0));
-            wallRotations.Add(new Vector3(90, 0, 0));
-            wallRotations.Add(new Vector3(90, 0, 0));
-
-            wallScales.Add(new Vector3(1, 0, 1.25f));
             wallScales.Add(new Vector3(5, 0, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+
+            wallPositions.Add(new Vector3(12.5f, 0, -23));
+            wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(3, 0, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
+
+            wallPositions.Add(new Vector3(12.5f, 0, -24));
+            wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(1, 0, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");    
         }
 
         /// <summary>
@@ -116,18 +127,22 @@ namespace OpenGL_Game
             wallPositions.Add(new Vector3(0, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
             // Right wall
             wallPositions.Add(new Vector3(25, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
             // Top wall
             wallPositions.Add(new Vector3(12.5f, 0, -25.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
             // Bottom wall
             wallPositions.Add(new Vector3(12.5f, 0.0f, 0.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
+            wallTexture.Add("Textures/BrickDiffuse.jpg");
         }
 
         /// <summary>
@@ -139,6 +154,7 @@ namespace OpenGL_Game
             addWallPositions();
             addWallRotations();
             addWallScales();
+            addWallTextures();
             addSymmetricalWalls();
 
             // Adding additional walls + doors
@@ -155,8 +171,31 @@ namespace OpenGL_Game
             wallPositions.Add(new Vector3(12.5f, -1.0f, -12.5f));
             wallRotations.Add(new Vector3(0.0f, 0.0f, 0.0f));
             wallScales.Add(new Vector3(12.5f, 0.0f, 12.5f));
+            wallTexture.Add("Textures/Ground.png");
 
             addOuterWalls();
         }
+
+        public void loadEntities(OpenGL_Game.Managers.EntityManager entityManager)
+        {
+            Entity newEntity;
+
+            for (int i = 0; i < wallPositions.Count; i++)
+            {
+                newEntity = new Entity("MazeWall");
+                newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
+
+                newEntity.AddComponent(new ComponentPosition(wallPositions[i]));
+                newEntity.AddComponent(new ComponentRotation(wallRotations[i]));
+                newEntity.AddComponent(new ComponentScale(wallScales[i]));
+
+                newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+                newEntity.AddComponent(new ComponentTexture(wallTexture[i]));
+                newEntity.AddComponent(new ComponentAlive());
+                entityManager.AddEntity(newEntity);
+            }
+        }
+
+
     }
 }
