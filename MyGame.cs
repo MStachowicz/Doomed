@@ -257,8 +257,10 @@ namespace OpenGL_Game
             dt = (float)(e.Time);
             // TODO: Add your update logic here
 
-           
-
+            oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            systemManager.ActionSystems(entityManager);
+            newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            Collision(oldCameraPosition, newCameraPosition);
         }
 
         /// <summary>
@@ -271,14 +273,6 @@ namespace OpenGL_Game
 
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-;
-
-            
-
-            oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
-            systemManager.ActionSystems(entityManager);
-            newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
-            Collision(oldCameraPosition, newCameraPosition);
 
             skybox.renderCubemap();
 
