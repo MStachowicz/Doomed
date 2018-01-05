@@ -24,14 +24,14 @@ namespace OpenGL_Game.Managers
         static Vector3 listenerPosition;
         static Vector3 listenerDirection;
         static Vector3 listenerUp;
-        public static Geometry LoadGeometry(string filename)
+        public static Geometry LoadGeometry(string filename, bool LoadTangents)
         {
             Geometry geometry;
             geometryDictionary.TryGetValue(filename, out geometry);
             if (geometry == null)
             {
                 geometry = new Geometry();
-                geometry.LoadObject(filename);
+                geometry.LoadObject(filename, LoadTangents);
                 geometryDictionary.Add(filename, geometry);
             }
 

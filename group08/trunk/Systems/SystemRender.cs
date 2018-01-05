@@ -12,7 +12,7 @@ namespace OpenGL_Game.Systems
 {
     class SystemRender : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | 
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY |
             ComponentTypes.COMPONENT_TEXTURE | ComponentTypes.COMPONENT_SCALE);
 
         public static int pgmID;
@@ -23,6 +23,8 @@ namespace OpenGL_Game.Systems
         protected int attribute_vpos;
         protected int attribute_vnormal;
         protected int attribute_vtex;
+        protected int attribute_vTangent;
+        protected int attribute_vBitangent;
 
         protected int uniform_mModel;
         protected int uniform_mView;
@@ -33,6 +35,8 @@ namespace OpenGL_Game.Systems
         protected int uniform_light;
         protected int uniform_viewPos;
         protected int uniform_stex;
+        protected int uniform_snormalTex;
+        protected int uniform_isNormalMapping;
 
         public SystemRender()
         {
@@ -45,6 +49,8 @@ namespace OpenGL_Game.Systems
             attribute_vpos = GL.GetAttribLocation(pgmID, "a_Position");
             attribute_vnormal = GL.GetAttribLocation(pgmID, "a_Normal");
             attribute_vtex = GL.GetAttribLocation(pgmID, "a_TexCoord");
+            attribute_vTangent = GL.GetAttribLocation(pgmID, "a_Tangent");
+            attribute_vBitangent = GL.GetAttribLocation(pgmID, "a_Bitangent");
 
             uniform_mModel = GL.GetUniformLocation(pgmID, "model");
             uniform_mView = GL.GetUniformLocation(pgmID, "view");
@@ -54,24 +60,8 @@ namespace OpenGL_Game.Systems
             uniform_light = GL.GetUniformLocation(pgmID, "light.position");
             uniform_viewPos = GL.GetUniformLocation(pgmID, "viewPos");
             uniform_stex = GL.GetUniformLocation(pgmID, "s_texture");
-
-            if (attribute_vpos == -1 || attribute_vtex == -1 || attribute_vnormal == -1 ||
-                uniform_stex == -1 || uniform_mModel == -1 || uniform_mView == -1 || uniform_mProjection == -1)
-            {
-                Console.WriteLine("Error binding attributes");
-                Console.WriteLine("attribute_vpos " + attribute_vpos);
-                Console.WriteLine("attribute_vnormal " + attribute_vnormal);
-                Console.WriteLine("attribute_vtex " + attribute_vtex);
-
-                Console.WriteLine("uniform_mModel " + uniform_mModel);
-                Console.WriteLine("uniform_mView " + uniform_mView);
-                Console.WriteLine("uniform_mProjection " + uniform_mProjection);
-
-                Console.WriteLine("uniform_material " + uniform_material);
-                Console.WriteLine("uniform_light " + uniform_light);
-                Console.WriteLine("uniform_viewPos " + uniform_viewPos);
-                Console.WriteLine("uniform_stex " + uniform_stex);
-            }
+            uniform_snormalTex = GL.GetUniformLocation(pgmID, "s_normal");
+            uniform_isNormalMapping = GL.GetUniformLocation(pgmID, "isNormalMap");
         }
 
         void LoadShader(String filename, ShaderType type, int program, out int address)
@@ -124,8 +114,8 @@ namespace OpenGL_Game.Systems
                 Vector3 scale = ((ComponentScale)scaleComponent).Scale;
 
                 // Combine transformations to create the model matrix
-                Matrix4 mModel = Matrix4.CreateScale(scale) * Matrix4.CreateRotationX(rotation.X) * 
-                    Matrix4.CreateRotationY(rotation.Y) * Matrix4.CreateRotationZ(rotation.Z) * 
+                Matrix4 mModel = Matrix4.CreateScale(scale) * Matrix4.CreateRotationX(rotation.X) *
+                    Matrix4.CreateRotationY(rotation.Y) * Matrix4.CreateRotationZ(rotation.Z) *
                     Matrix4.CreateTranslation(position);
 
                 #endregion
@@ -136,29 +126,45 @@ namespace OpenGL_Game.Systems
                 });
                 int texture = ((ComponentTexture)textureComponent).Texture;
 
-
-
-
-
-                if ((entity.Mask & ComponentTypes.COMPONENT_LIGHT_EMITTER) == ComponentTypes.COMPONENT_LIGHT_EMITTER)
+                int normalTexture = -1;
+                if ((entity.Mask & ComponentTypes.COMPONENT_NORMAL_MAP) == ComponentTypes.COMPONENT_NORMAL_MAP)
                 {
-
+                    IComponent normalComponent = components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_NORMAL_MAP;
+                    });
+                    normalTexture = ((ComponentNormalMap)normalComponent).Texture;
                 }
 
-
-
-                    Draw(mModel, geometry, texture);
+                Draw(mModel, geometry, texture, normalTexture);
             }
         }
 
-        public void Draw(Matrix4 model, Geometry geometry, int texture)
+        public void Draw(Matrix4 model, Geometry geometry, int texture, int normalTex)
         {
             GL.UseProgram(pgmID);
 
+            // Binding and activating diffuse texture
             GL.Uniform1(uniform_stex, 0);
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, texture);
             GL.Enable(EnableCap.Texture2D);
+
+
+            // Binding and activating normal map texture
+            if (normalTex != -1)
+            {
+                GL.Uniform1(uniform_isNormalMapping, 1);
+
+                GL.Uniform1(uniform_snormalTex, 2);
+                GL.ActiveTexture(TextureUnit.Texture2);
+                GL.BindTexture(TextureTarget.Texture2D, normalTex);
+                GL.Enable(EnableCap.Texture2D);
+            }
+            else
+                GL.Uniform1(uniform_isNormalMapping, 0);
+
+
 
             // Setting the matrices/vectors to perform shader light calculations.
             // Model

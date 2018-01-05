@@ -17,8 +17,8 @@ namespace OpenGL_Game
 
         public struct WallPoints
         {
-           public Vector2 startPosition;
-          public Vector2 endPosition;
+            public Vector2 startPosition;
+            public Vector2 endPosition;
         }
 
         public MazeLevel()
@@ -28,15 +28,15 @@ namespace OpenGL_Game
         }
 
         public List<WallPoints> wallPlanePositions = new List<WallPoints>();
-        
+
         protected void setupWallPoints()
         {
 
             for (int i = 0; i < wallPositions.Count; i++)
             {
                 if (wallPositions[i].Y == 0)
-                { 
-                WallPoints w = new WallPoints();
+                {
+                    WallPoints w = new WallPoints();
                     if (wallRotations[i].Y == 0) // if wall is horizontal
                     {
                         float xA = (wallPositions[i].X) - wallScales[i].X;
@@ -52,7 +52,7 @@ namespace OpenGL_Game
                         float x = wallPositions[i].X;
                         float zA = (wallPositions[i].Z) - wallScales[i].X;
                         float zB = (wallPositions[i].Z) + wallScales[i].X;
-                       
+
                         w.startPosition = new Vector2(x, zA);
                         w.endPosition = new Vector2(x, zB);
                         wallPlanePositions.Add(w);
@@ -83,7 +83,7 @@ namespace OpenGL_Game
                     0, wallPositions[i].Z));
                 wallRotations.Add(new Vector3(wallRotations[i])); // repeat same rotations
                 wallScales.Add(new Vector3(wallScales[i])); // repeat same scaling
-                wallTexture.Add("Textures/BrickDiffuse.jpg");
+                wallTexture.Add("Textures/BrickWall/diffuse.png");
             }
         }
 
@@ -95,22 +95,22 @@ namespace OpenGL_Game
             wallPositions.Add(new Vector3(12.5f, 0, -11));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(1, 0, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
 
             wallPositions.Add(new Vector3(12.5f, 0, -12));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(5, 0, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
 
             wallPositions.Add(new Vector3(12.5f, 0, -23));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(3, 0, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
 
             wallPositions.Add(new Vector3(12.5f, 0, -24));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(1, 0, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");    
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
         }
 
         /// <summary>
@@ -127,22 +127,22 @@ namespace OpenGL_Game
             wallPositions.Add(new Vector3(0, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
             // Right wall
             wallPositions.Add(new Vector3(25, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
             // Top wall
             wallPositions.Add(new Vector3(12.5f, 0, -25.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
             // Bottom wall
             wallPositions.Add(new Vector3(12.5f, 0.0f, 0.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickDiffuse.jpg");
+            wallTexture.Add("Textures/BrickWall/diffuse.png");
         }
 
         /// <summary>
@@ -171,7 +171,8 @@ namespace OpenGL_Game
             wallPositions.Add(new Vector3(12.5f, -1.0f, -12.5f));
             wallRotations.Add(new Vector3(0.0f, 0.0f, 0.0f));
             wallScales.Add(new Vector3(12.5f, 0.0f, 12.5f));
-            wallTexture.Add("Textures/Ground.png");
+            wallTexture.Add("Textures/StoneFloor/diffuse.jpg");
+            //wallTexture.Add("Textures/Ground/diffuse.png");
 
             addOuterWalls();
         }
@@ -182,21 +183,25 @@ namespace OpenGL_Game
 
             for (int i = 0; i < wallPositions.Count; i++)
             {
-                newEntity = new Entity("MazeWall");
+                if (wallPositions[i] == new Vector3(12.5f, -1.0f, -12.5f)) // if this is the ground entitiy
+                {
+                    newEntity = new Entity("Ground");
+                    newEntity.AddComponent(new ComponentNormalMap("Textures/StoneFloor/normal.png"));
+                    //newEntity.AddComponent(new ComponentNormalMap("Textures/Ground/normal.png"));
+                }
+                else
+                    newEntity = new Entity("MazeWall");
+
                 newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
 
                 newEntity.AddComponent(new ComponentPosition(wallPositions[i]));
                 newEntity.AddComponent(new ComponentRotation(wallRotations[i]));
                 newEntity.AddComponent(new ComponentScale(wallScales[i]));
 
-                newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
+                newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt", true));
                 newEntity.AddComponent(new ComponentTexture(wallTexture[i]));
                 newEntity.AddComponent(new ComponentAlive());
 
-                if (wallPositions[i] == new Vector3(12.5f, -1.0f, -12.5f)) // if this is the ground entitiy
-                {
-                    newEntity.AddComponent(new ComponentNormalMap("Textures/GroundNormal.png"));
-                }
 
                 entityManager.AddEntity(newEntity);
             }
