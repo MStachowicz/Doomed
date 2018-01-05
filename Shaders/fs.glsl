@@ -27,6 +27,8 @@ in vec3 v_FragPos;
 in vec2 v_TexCoord;
 
 out vec4 FragColor;
+
+bool textureOn = true;
   
 // Function prototypes
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir); 
@@ -50,20 +52,30 @@ material.shininess = 32.0;
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
-	// AMBIENT
-	vec3 ambient  = light.ambient * material.ambient;
-
-	// DIFFUSE
 	vec3 lightDir = normalize(light.position - v_FragPos);
-
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse  = light.diffuse * (diff * material.diffuse);
 
 	//SPECULAR 
 	vec3 reflectDir = reflect(-lightDir, normal);
-
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-	vec3 specular = light.specular * (spec * material.specular);   
+
+	// Calculate the result
+	vec3 ambient;
+	vec3 diffuse; 
+	vec3 specular;
+
+	if (textureOn)
+	{
+		ambient  = light.ambient * vec3(texture(s_texture, v_TexCoord));;
+		diffuse  = light.diffuse * diff * vec3(texture(s_texture, v_TexCoord));;
+		specular = light.specular * spec * vec3(texture(s_texture, v_TexCoord));;   
+	}
+	else // material render
+	{
+		ambient  = light.ambient * material.ambient;
+		diffuse  = light.diffuse * diff * material.diffuse;
+		specular = light.specular * spec * material.specular;   
+	}
 
 	return ambient + diffuse + specular;
 }
