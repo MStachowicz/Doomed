@@ -14,7 +14,7 @@ namespace OpenGL_Game.Systems
     {
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_HEALTH | ComponentTypes.COMPONENT_AMMO | ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_PICK_UP);
 
-        
+
         public string Name
         {
             get { return "SystemPickUp"; }
@@ -22,9 +22,9 @@ namespace OpenGL_Game.Systems
 
         public void OnAction(Entity entity)
         {
-            if (entity.Name == "Health" && entity.Name== "Ammo" && entity.Name== "Drone_Dea")
+            if (entity.Name == "Health" && entity.Name == "Ammo" && entity.Name == "Drone_Dea")
             {
-                
+
             }
             if ((entity.Mask & MASK) == MASK)
             {
@@ -56,34 +56,22 @@ namespace OpenGL_Game.Systems
                     return component.ComponentType == ComponentTypes.COMPONENT_PICK_UP;
                 });
 
-                PowerUp((ComponentHealth)healthComponent, (ComponentAmmo)ammoComponent,(ComponentPickUp)pickupComponent);
-                
+                PowerUp((ComponentHealth)healthComponent, (ComponentAmmo)ammoComponent, (ComponentPickUp)pickupComponent);
+                Delete(entity);
             }
-            
         }
-       
-      
+
+
         private void PowerUp(ComponentHealth h, ComponentAmmo a, ComponentPickUp up)
         {
-            h.Health += up.Pick_health ;
-            a.Ammo += up.Pick_ammo ;   
+            h.Health += up.Pick_health;
+            a.Ammo += up.Pick_ammo;
         }
 
-       public void Delete(ComponentPickUp pp, ComponentPosition pos ,Entity ent)
+        public void Delete(Entity entity)
         {
-            //bool PL = ent.Name == "Player";
-            //bool HE = ent.Name == "Helath";
-           // bool AM = ent.Name == "Ammo";
-           //bool DD = ent.Name == "Drone_Dea";
-
-            //if ()
-            {
-                
-            }
+            entity.Delete();
         }
-
-
-
     }
 }
 
