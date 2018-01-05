@@ -27,6 +27,12 @@ namespace OpenGL_Game.Objects
             mask |= component.ComponentType;
         }
 
+        /// <summary>Stops the entity being updated or drawn.</summary>
+        public void Delete()
+        {
+            mask &= ~ComponentTypes.COMPONENT_ALIVE;
+        }
+
         public String Name
         {
             get { return name; }
