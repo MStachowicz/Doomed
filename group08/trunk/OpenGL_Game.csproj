@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\ComponentAI.cs" />
+    <Compile Include="Components\ComponentAlive.cs" />
     <Compile Include="Components\ComponentAmmo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

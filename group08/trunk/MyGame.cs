@@ -58,6 +58,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             currentLevelLoaded = new Level1();
@@ -73,8 +74,8 @@ namespace OpenGL_Game
 
                 newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
                 newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+                newEntity.AddComponent(new ComponentAlive());
                 entityManager.AddEntity(newEntity);
-
             }
 
             newEntity = new Entity("Drone");
@@ -86,6 +87,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentVelocity(0, 0, -0.2f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Health");
@@ -96,6 +98,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/heart.png"));
             newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ammo");
@@ -106,6 +109,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Ammo.png"));
             newEntity.AddComponent(new ComponentPickUp(10, 0, 0));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Drone_Dea");
@@ -117,6 +121,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
             //newEntity.AddComponent(new ComponentAudioEmitter("Audio/power_item_sound.wav"),);
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             // CREATING LIGHT ENTITIES
@@ -127,21 +132,25 @@ namespace OpenGL_Game
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(12.25f, 10.0f, -12.25f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient,diffuse ,specular));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -18.75f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(18.75f, 10.0f, -6.25f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(18.75f, 10.0f, -18.75f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
         }
 
@@ -196,12 +205,6 @@ namespace OpenGL_Game
         {
             float dot = (vA.X * vB.X) + (vA.Y * vB.Y);
             return dot;
-        }
-
-
-        private void AIplayerDetection()
-        {
-
         }
 
 
@@ -275,6 +278,8 @@ namespace OpenGL_Game
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             skybox.renderCubemap();
+
+            systemManager.RenderSystems(entityManager);
 
             GL.Flush();
             SwapBuffers();

@@ -24,9 +24,8 @@ namespace OpenGL_Game.Components
         COMPONENT_AUDIOEMITTER = 1 << 13,
         COMPONENT_AI = 1 << 14,
         COMPONENT_PICK_UP = 1 << 15,
-        COMPONENT_LIGHT_EMITTER = 1 << 16
-
-
+        COMPONENT_LIGHT_EMITTER = 1 << 16,
+        COMPONENT_ALIVE = 1 << 17
     }
 
     public interface IComponent
