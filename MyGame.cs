@@ -110,7 +110,7 @@ namespace OpenGL_Game
             entityManager.AddEntity(newEntity);
 
             // CREATING LIGHT ENTITIES
-            Vector3 ambient = new Vector3(0.2f, 0.2f, 0.2f);
+            Vector3 ambient = new Vector3(0.05f, 0.05f, 0.05f);
             Vector3 diffuse = new Vector3(0.1f, 0.1f, 0.1f);
             Vector3 specular = new Vector3(0.2f, 0.2f, 0.2f);
 
