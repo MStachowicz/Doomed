@@ -82,7 +82,12 @@
     <Compile Include="Components\ComponentLight.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+<<<<<<< .mine
+    <Compile Include="Components\ComponentPickUp.cs" />
+||||||| .r932
+=======
     <Compile Include="Components\ComponentLightEmitter.cs" />
+>>>>>>> .r969
     <Compile Include="Components\ComponentPosition.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -148,6 +153,7 @@
     <Compile Include="Systems\SystemPhysics.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Systems\SystemPickUp.cs" />
     <Compile Include="Systems\SystemRender.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -229,7 +235,16 @@
     <Content Include="Geometry\QuadGeometry.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\Ammo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\Oak.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\robot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
