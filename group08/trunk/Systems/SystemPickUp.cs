@@ -12,7 +12,7 @@ namespace OpenGL_Game.Systems
 {
     class SystemPickUp : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_HEALTH | ComponentTypes.COMPONENT_AMMO | ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION);
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_HEALTH | ComponentTypes.COMPONENT_AMMO | ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_PICK_UP);
 
         
         public string Name
@@ -51,17 +51,22 @@ namespace OpenGL_Game.Systems
                     return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
                 });
 
-                PowerUp((ComponentHealth)healthComponent, (ComponentAmmo)ammoComponent);
+                IComponent pickupComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_PICK_UP;
+                });
+
+                PowerUp((ComponentHealth)healthComponent, (ComponentAmmo)ammoComponent,(ComponentPickUp)pickupComponent);
                 
             }
             
         }
        
       
-        private void PowerUp(ComponentHealth h, ComponentAmmo a)
+        private void PowerUp(ComponentHealth h, ComponentAmmo a, ComponentPickUp up)
         {
-            h.Health += 10;
-            a.Ammo += 10;   
+            h.Health += up.Pick_health ;
+            a.Ammo += up.Pick_ammo ;   
         }
 
        public void Delete(ComponentPickUp pp, ComponentPosition pos ,Entity ent)
