@@ -115,7 +115,7 @@ namespace OpenGL_Game
             Vector3 specular = new Vector3(0.2f, 0.2f, 0.2f);
 
             newEntity = new Entity("pointLight");
-            newEntity.AddComponent(new ComponentPosition(new Vector3(-6.25f, 10.0f, -6.25f)));
+            newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -6.25f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient,diffuse ,specular));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
