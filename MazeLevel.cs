@@ -192,6 +192,12 @@ namespace OpenGL_Game
                 newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
                 newEntity.AddComponent(new ComponentTexture(wallTexture[i]));
                 newEntity.AddComponent(new ComponentAlive());
+
+                if (wallPositions[i] == new Vector3(12.5f, -1.0f, -12.5f)) // if this is the ground entitiy
+                {
+                    newEntity.AddComponent(new ComponentNormalMap("Textures/GroundNormal.png"));
+                }
+
                 entityManager.AddEntity(newEntity);
             }
         }

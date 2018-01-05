@@ -84,6 +84,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Components\ComponentLightEmitter.cs" />
+    <Compile Include="Components\ComponentNormalMap.cs" />
     <Compile Include="Components\ComponentPickUp.cs" />
     <Compile Include="Components\ComponentPosition.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
