@@ -73,7 +73,7 @@ namespace OpenGL_Game
                 newEntity.AddComponent(new ComponentScale(currentLevelLoaded.wallScales[i]));
 
                 newEntity.AddComponent(new ComponentGeometry("Geometry/QuadGeometry.txt"));
-                newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+                newEntity.AddComponent(new ComponentTexture("Textures/BrickDiffuse.jpg"));
                 newEntity.AddComponent(new ComponentAlive());
                 entityManager.AddEntity(newEntity);
             }
