@@ -271,13 +271,10 @@ namespace OpenGL_Game
 
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-<<<<<<< .mine
-            anim= (float)(0.1 * e.Time);
-||||||| .r932
-            
-=======
+;
 
->>>>>>> .r969
+            
+
             oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
             newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);

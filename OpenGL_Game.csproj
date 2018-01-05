@@ -82,12 +82,8 @@
     <Compile Include="Components\ComponentLight.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-<<<<<<< .mine
-    <Compile Include="Components\ComponentPickUp.cs" />
-||||||| .r932
-=======
     <Compile Include="Components\ComponentLightEmitter.cs" />
->>>>>>> .r969
+    <Compile Include="Components\ComponentPickUp.cs" />
     <Compile Include="Components\ComponentPosition.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

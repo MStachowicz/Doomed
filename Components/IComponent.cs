@@ -22,17 +22,11 @@ namespace OpenGL_Game.Components
         COMPONENT_SCALE = 1 << 11,
         COMPONENT_ROTATION = 1 << 12,
         COMPONENT_AUDIOEMITTER = 1 << 13,
-<<<<<<< .mine
         COMPONENT_AI = 1 << 14,
         COMPONENT_PICK_UP = 1 << 15,
+        COMPONENT_LIGHT_EMITTER = 1 << 16
 
 
-||||||| .r932
-        COMPONENT_AI = 1 << 14
-=======
-        COMPONENT_AI = 1 << 14,
-        COMPONENT_LIGHT_EMITTER = 1 << 15
->>>>>>> .r969
     }
 
     public interface IComponent
