@@ -21,10 +21,26 @@ namespace OpenGL_Game.Managers
             List<Entity> entityList = entityManager.Entities();
             foreach(ISystem system in systemList)
             {
-                foreach(Entity entity in entityList)
+                //Don't render in update call
+                if (system != FindSystem("SystemRender"))
                 {
-                    system.OnAction(entity);
+                    foreach (Entity entity in entityList)
+                    {
+                        system.OnAction(entity);
+                    }
                 }
+            }
+        }
+
+        public void RenderSystems(EntityManager entityManager)
+        {
+            List<Entity> entityList = entityManager.Entities();
+
+            ISystem system = FindSystem("SystemRender");
+
+            foreach (Entity entity in entityList)
+            {
+                system.OnAction(entity);
             }
         }
 
