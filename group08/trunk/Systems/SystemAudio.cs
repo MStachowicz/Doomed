@@ -31,10 +31,10 @@ namespace OpenGL_Game.Systems
         /// </summary>
         /// <param name="activebuffer"></param>
         /// <param name="filename"></param>
-        public SystemAudio(string filename)
+      /*  public SystemAudio(string filename)
         {
             AC = new AudioContext();
-        }
+        }*/
 
         public void OnAction(Entity entity)
         {

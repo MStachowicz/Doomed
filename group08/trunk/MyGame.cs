@@ -16,6 +16,7 @@ namespace OpenGL_Game
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+    ///   /// <param name="e">Provides a snapshot of timing values.</param>
     public class MyGame : GameWindow
     {
         public const int WIDTH = 1600;
@@ -24,14 +25,15 @@ namespace OpenGL_Game
         public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
-       static Vector2 oldCameraPosition;
+        private float anim;
+        static Vector2 oldCameraPosition;
         static Vector2 newCameraPosition;
-
         CubeMap skybox = new CubeMap();
 
 
 
         public static float dt;
+        public static float dtt;
         public Camera playerCamera;
 
         public static MyGame gameInstance;
@@ -85,7 +87,38 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             entityManager.AddEntity(newEntity);
-            
+
+            newEntity = new Entity("Health");
+
+            newEntity.AddComponent(new ComponentPosition(11f, -0.1f, -13.5f));
+            newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
+            newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/heart.png"));
+            newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("Ammo");
+
+            newEntity.AddComponent(new ComponentPosition(11f, -0.1f, -14.5f));
+            newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
+            newEntity.AddComponent(new ComponentScale(0.1f, 0.25f, 0.1f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/Ammo.png"));
+            newEntity.AddComponent(new ComponentPickUp(10, 0, 0));
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("Drone_Dea");
+
+            newEntity.AddComponent(new ComponentPosition(12f, -0.1f, -12.5f));
+            newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
+            newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
+            //newEntity.AddComponent(new ComponentAudioEmitter("Audio/power_item_sound.wav"),);
+            newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
+            entityManager.AddEntity(newEntity);
+
             // CREATING LIGHT ENTITIES
             Vector3 ambient = new Vector3(0.2f, 0.2f, 0.2f);
             Vector3 diffuse = new Vector3(0.1f, 0.1f, 0.1f);
@@ -155,8 +188,9 @@ namespace OpenGL_Game
                 }
             }
         }
-
-
+       
+      
+        
 
         public static float DotProduct(Vector2 vA, Vector2 vB)
         {
@@ -184,6 +218,10 @@ namespace OpenGL_Game
             newSystem = new SystemPhysics();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemAI();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemPickUp();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemAudio();
             systemManager.AddSystem(newSystem);
         }
 
@@ -219,6 +257,8 @@ namespace OpenGL_Game
             dt = (float)(e.Time);
             // TODO: Add your update logic here
 
+           
+
         }
 
         /// <summary>
@@ -231,7 +271,13 @@ namespace OpenGL_Game
 
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+<<<<<<< .mine
+            anim= (float)(0.1 * e.Time);
+||||||| .r932
+            
+=======
 
+>>>>>>> .r969
             oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
             newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
