@@ -13,7 +13,11 @@ namespace OpenGL_Game.Components
 
         public ComponentGeometry(string geometryName)
         {
-            this.geometry = ResourceManager.LoadGeometry(geometryName);
+            this.geometry = ResourceManager.LoadGeometry(geometryName, false);
+        }
+        public ComponentGeometry(string geometryName, bool LoadTangents)
+        {
+            this.geometry = ResourceManager.LoadGeometry(geometryName, LoadTangents);
         }
 
         public ComponentTypes ComponentType

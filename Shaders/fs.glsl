@@ -21,14 +21,17 @@ Material material;
 
 uniform vec3 viewPos;
 uniform sampler2D s_texture;
+uniform sampler2D s_normal;
 
 in vec3 v_Normal;
 in vec3 v_FragPos;
 in vec2 v_TexCoord;
+in mat3 v_TBN;
 
 out vec4 FragColor;
 
 bool textureOn = true;
+uniform bool isNormalMap;
   
 // Function prototypes
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir); 
@@ -40,7 +43,23 @@ material.specular = vec3(0.5,0.5,0.5);
 material.shininess = 32.0;
 
     vec3 result = vec3(0.0, 0.0, 0.0); 
-	vec3 norm = normalize(v_Normal);
+
+	vec3 norm;
+
+	if (isNormalMap)
+	{
+		// obtain normal from normal map in range [0,1]
+		vec3 normal = texture(s_normal, v_TexCoord).rgb;
+		// transform normal vector to range [-1,1]
+		norm = normalize(normal * 2.0 - 1.0); 
+		// transform the normal vector into tangent space to correct normal mapping 
+		norm = normalize(v_TBN * norm); 
+	}
+	else
+	{
+		norm = normalize(v_Normal);
+	}
+
 	vec3 viewDir = normalize(viewPos - v_FragPos);
 	
 	for(int i = 0; i < NR_POINT_LIGHTS; i++)
