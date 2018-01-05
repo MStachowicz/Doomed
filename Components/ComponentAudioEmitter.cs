@@ -25,7 +25,7 @@ namespace OpenGL_Game.Components
 
     class ComponentAudioEmitter : IComponent
     {
-        Vector3 emitterPosition;
+        //Vector3 emitterPosition;
         
         private ASound currentSound;
 
