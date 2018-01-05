@@ -25,7 +25,8 @@ namespace OpenGL_Game.Components
         COMPONENT_AI = 1 << 14,
         COMPONENT_PICK_UP = 1 << 15,
         COMPONENT_LIGHT_EMITTER = 1 << 16,
-        COMPONENT_ALIVE = 1 << 17
+        COMPONENT_ALIVE = 1 << 17,
+        COMPONENT_NORMAL_MAP = 1 << 18
     }
 
     public interface IComponent
