@@ -114,8 +114,8 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 	if (textureOn)
 	{
 		ambient  = light.ambient * vec3(texture(s_texture, v_TexCoord));;
-		diffuse  = light.diffuse * diff * vec3(texture(s_texture, v_TexCoord));;
-		specular = light.specular * spec * vec3(texture(s_texture, v_TexCoord));;   
+		diffuse  = light.diffuse * diff * vec3(texture(s_texture, v_TexCoord));
+		specular = light.specular * spec * vec3(texture(s_texture, v_TexCoord)); 
 	}
 	else // material render
 	{

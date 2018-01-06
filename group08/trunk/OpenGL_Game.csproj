@@ -130,6 +130,7 @@
     <Compile Include="Main.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Objects\Minimap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\ResourceManager.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -182,8 +183,12 @@
     <None Include="Shaders\fs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Shaders\minimapFS.glsl" />
-    <None Include="Shaders\minimapVS.glsl" />
+    <None Include="Shaders\minimapFS.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shaders\minimapVS.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Shaders\vs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
