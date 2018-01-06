@@ -71,12 +71,12 @@ namespace OpenGL_Game.Systems
                     GL.Uniform3(uniform_Direction, ref mDirection);
 
                     int uniform_CutOff = GL.GetUniformLocation(SystemRender.pgmID, ("flashLight.cutOff"));
-                    float mCutOff = ((ComponentLightDirection)spotComponent).CutOff;
+                    double mCutOff = Math.Cos(MathHelper.DegreesToRadians((((ComponentLightDirection)spotComponent).CutOff)));
                     GL.Uniform1(uniform_CutOff, mCutOff);
 
                     int uniform_OuterCutOff= GL.GetUniformLocation(SystemRender.pgmID, ("flashLight.outerCutOff"));
                     float mOuterCutOff = ((ComponentLightDirection)spotComponent).OuterCutOff;
-                    GL.Uniform1(uniform_OuterCutOff, mOuterCutOff);
+                    GL.Uniform1(uniform_OuterCutOff, Math.Cos(MathHelper.DegreesToRadians(mOuterCutOff)));
 
                     int uniform_const = GL.GetUniformLocation(SystemRender.pgmID, ("flashLight.constant"));
                     float mconst = ((ComponentLightDirection)spotComponent).Attenutation.X;
