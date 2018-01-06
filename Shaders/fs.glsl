@@ -79,10 +79,6 @@ void main()
 
 
 	vec3 viewDir = normalize(viewPos - v_FragPos);
-	
-	// Swapping the direction of the norm if on the other side of a quad.
-	//vec3 viewToFrag = normalize(v_FragPos - viewPos);
-	//vec3 fragToView = normalize(viewPos - v_FragPos);
 
 	// Swapping the normals if the player is on the opposite side of the quad
 	vec3 viewToFrag = normalize(v_FragPos - viewPos);
