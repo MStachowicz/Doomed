@@ -213,66 +213,11 @@ namespace OpenGL_Game
 
         protected override void addWallTextures()
         {
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
+            for (int i = 0; i < 60; i++)
+            {
+                wallTexture.Add("Textures/BrickWall/diffuse.png");
+                wallNormals.Add("Textures/BrickWall/Normal2.jpg");
+            }
         }
     }
 }
