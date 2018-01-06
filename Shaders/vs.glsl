@@ -6,14 +6,15 @@ in vec2 a_TexCoord;
 in vec3 a_Tangent;
 in vec3 a_Bitangent;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
 out vec3 v_FragPos;
 out vec2 v_TexCoord;
 out vec3 v_Normal;
 out mat3 v_TBN;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 
 void main()
 {
