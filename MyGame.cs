@@ -116,7 +116,7 @@ namespace OpenGL_Game
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -6.25f)));
-            newEntity.AddComponent(new ComponentLightEmitter(ambient,diffuse ,specular));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
@@ -135,6 +135,16 @@ namespace OpenGL_Game
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(18.75f, 10.0f, -18.75f)));
             newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
+            newEntity.AddComponent(new ComponentAlive());
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("spotlight");
+            newEntity.AddComponent(new ComponentPosition(playerCamera.Position));
+            newEntity.AddComponent(new ComponentLightEmitter(
+                new Vector3(0.1f, 0.1f, 0.1f),
+                new Vector3(0.9f, 0.9f, 0.9f),
+                new Vector3(0.3f, 0.3f, 0.3f)));
+            newEntity.AddComponent(new ComponentLightDirection(playerCamera.Front, 8.0f, 10f));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
         }

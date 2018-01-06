@@ -180,6 +180,9 @@ namespace OpenGL_Game.Systems
             Vector3 mViewPos = MyGame.gameInstance.playerCamera.Position;
             GL.Uniform3(uniform_viewPos, ref mViewPos);
 
+            Vector3 A = new Vector3(1.0f, 0.0f, 0.0f);
+            Vector3 B = new Vector3(1.0f, 1.0f, 0.0f);
+            float result = Vector3.Dot(B.Normalized(), A.Normalized());
 
             geometry.Render();
 

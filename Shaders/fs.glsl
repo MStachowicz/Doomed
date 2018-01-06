@@ -12,11 +12,27 @@ struct PointLight {
     vec3 diffuse;
     vec3 specular;
 };
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;   
+
+    float cutOff;
+    float outerCutOff; 
+	float constant;
+    float linear;
+    float quadratic;
+};
+
   
 //uniform Material material;
 //uniform Light light; 
 #define NR_POINT_LIGHTS 4 
 uniform PointLight lights[NR_POINT_LIGHTS];
+uniform SpotLight flashLight;
 Material material;
 
 uniform vec3 viewPos;
@@ -35,15 +51,16 @@ uniform bool isNormalMap;
   
 // Function prototypes
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir); 
+vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
-void main() {
-material.ambient = vec3(1.0,0.5,0.31);
-material.diffuse = vec3(1.0,0.5,0.31);
-material.specular = vec3(0.5,0.5,0.5);
-material.shininess = 32.0;
+void main() 
+{
+	material.ambient = vec3(1.0,0.5,0.31);
+	material.diffuse = vec3(1.0,0.5,0.31);
+	material.specular = vec3(0.5,0.5,0.5);
+	material.shininess = 32.0;
 
-    vec3 result = vec3(0.0, 0.0, 0.0); 
-
+    vec3 result =vec3(0.0,0.0,0.0); 
 	vec3 norm;
 
 	if (isNormalMap)
@@ -60,13 +77,31 @@ material.shininess = 32.0;
 		norm = normalize(v_Normal);
 	}
 
+
 	vec3 viewDir = normalize(viewPos - v_FragPos);
 	
+	// Swapping the direction of the norm if on the other side of a quad.
+	//vec3 viewToFrag = normalize(v_FragPos - viewPos);
+	//vec3 fragToView = normalize(viewPos - v_FragPos);
+
+	// Swapping the normals if the player is on the opposite side of the quad
+	vec3 viewToFrag = normalize(v_FragPos - viewPos);
+	float directionViewToFrag = dot(viewToFrag, v_Normal);
+	if (directionViewToFrag > 0) // If they face same direction
+	{
+			norm = vec3 (-norm.x,-norm.y,-norm.z); // swap the normal
+	}
+
+	// calculating all the point lights
 	for(int i = 0; i < NR_POINT_LIGHTS; i++)
 		result += CalcPointLight(lights[i], norm, v_FragPos, viewDir);
-   
+
+    // calculating the spotlight
+    //result = CalcSpotLight(flashLight, norm, v_FragPos, viewDir);
+
    FragColor = vec4(result, 1.0);
-	//FragColor = texture2D(s_texture, v_TexCoord);
+
+   //FragColor = vec4(flashLight.quadratic);
 }
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
@@ -97,4 +132,37 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 	}
 
 	return ambient + diffuse + specular;
+}
+
+// calculates the color when using a flashlight.
+vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
+    // ambient
+    vec3 ambient = light.ambient * vec3(texture(s_texture, v_TexCoord));
+    
+    // diffuse 
+    vec3 lightDir = normalize(light.position - v_FragPos);
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * vec3(texture(s_texture, v_TexCoord));  
+    
+    // specular
+    vec3 reflectDir = reflect(-lightDir, normal);  
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = light.specular * spec *  vec3(texture(s_texture, v_TexCoord));  
+    
+    // spotlight (soft edges)
+    float theta = dot(lightDir, normalize(-light.direction)); 
+    float epsilon = (light.cutOff - light.outerCutOff);
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+    diffuse  *= intensity;
+    specular *= intensity;
+    
+    // attenuation
+    float distance    = length(light.position - v_FragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
+    ambient  *= attenuation; 
+    diffuse   *= attenuation;
+    specular *= attenuation;   
+
+	return (ambient + diffuse + specular);
 }
