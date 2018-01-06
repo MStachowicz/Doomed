@@ -112,7 +112,7 @@ namespace OpenGL_Game
             // CREATING LIGHT ENTITIES
             Vector3 ambient = new Vector3(0.08f, 0.08f, 0.08f);
             Vector3 diffuse = new Vector3(0.1f, 0.1f, 0.1f);
-            Vector3 specular = new Vector3(0.2f, 0.2f, 0.2f);
+            Vector3 specular = new Vector3(0.5f, 0.5f, 0.5f);
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -6.25f)));
