@@ -14,6 +14,7 @@ namespace OpenGL_Game
         public List<Vector3> wallRotations = new List<Vector3>();
         public List<Vector3> wallScales = new List<Vector3>();
         public List<string> wallTexture = new List<string>();
+        public List<string> wallNormals = new List<string>();
 
         public struct WallPoints
         {
@@ -84,6 +85,7 @@ namespace OpenGL_Game
                 wallRotations.Add(new Vector3(wallRotations[i])); // repeat same rotations
                 wallScales.Add(new Vector3(wallScales[i])); // repeat same scaling
                 wallTexture.Add("Textures/BrickWall/diffuse.png");
+                wallNormals.Add("Textures/BrickWall/Normal2.jpg");
             }
         }
 
@@ -96,21 +98,25 @@ namespace OpenGL_Game
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(1, 0, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
 
             wallPositions.Add(new Vector3(12.5f, 0, -12));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(5, 0, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
 
             wallPositions.Add(new Vector3(12.5f, 0, -23));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(3, 0, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
 
             wallPositions.Add(new Vector3(12.5f, 0, -24));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(1, 0, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
         }
 
         /// <summary>
@@ -128,21 +134,25 @@ namespace OpenGL_Game
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
             // Right wall
             wallPositions.Add(new Vector3(25, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
             // Top wall
             wallPositions.Add(new Vector3(12.5f, 0, -25.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
             // Bottom wall
             wallPositions.Add(new Vector3(12.5f, 0.0f, 0.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
             wallTexture.Add("Textures/BrickWall/diffuse.png");
+            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
         }
 
         /// <summary>
@@ -190,7 +200,10 @@ namespace OpenGL_Game
                     //newEntity.AddComponent(new ComponentNormalMap("Textures/Ground/normal.png"));
                 }
                 else
+                {
                     newEntity = new Entity("MazeWall");
+                    newEntity.AddComponent(new ComponentNormalMap("Textures/BrickWall/Normal2.jpg"));
+                }
 
                 newEntity.AddComponent(new ComponentVelocity(0, 0, 0.0f));
 
