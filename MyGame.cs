@@ -29,6 +29,7 @@ namespace OpenGL_Game
         static Vector2 oldCameraPosition;
         static Vector2 newCameraPosition;
         CubeMap skybox = new CubeMap();
+        Minimap minimap = new Minimap();
 
 
 
@@ -240,6 +241,7 @@ namespace OpenGL_Game
             CreateEntities();
             CreateSystems();
             skybox.setupSkybox();
+            minimap.setup();
         }
 
         /// <summary>
@@ -273,6 +275,7 @@ namespace OpenGL_Game
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             skybox.renderCubemap();
+            minimap.Render();
 
             systemManager.RenderSystems(entityManager);
 
