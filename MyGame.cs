@@ -32,6 +32,9 @@ namespace OpenGL_Game
         public static float dt;
         public static float dtt;
         public Camera playerCamera;
+        private static Vector2 oldCameraPosition;
+        private static Vector2 newCameraPosition;
+        public PathFindingNodes pathFinding;
 
         public static MyGame gameInstance;
 
@@ -42,6 +45,7 @@ namespace OpenGL_Game
             gameInstance = this;
 
             playerCamera = new Camera();
+
             entityManager = new EntityManager();
             systemManager = new SystemManager();
             AudioContext AC = new AudioContext();
@@ -64,8 +68,9 @@ namespace OpenGL_Game
             entityManager.AddEntity(newEntity);
 
             currentLevelLoaded = new Level1();
+            
             currentLevelLoaded.loadEntities(entityManager);
-
+            pathFinding = new PathFindingNodes();
             newEntity = new Entity("Drone");
 
             Vector3 emiPos = new Vector3(0.0f, 0.0f, 0.0f);
@@ -401,18 +406,20 @@ namespace OpenGL_Game
             GL.Flush();
             SwapBuffers();
         }
-        public Vector2 OldCameraPosition
+
+        public static Vector2 OldCameraPosition
         {
-            get { return OldCameraPosition; }
-            set { OldCameraPosition = value; }
+            get { return oldCameraPosition; }
+            set { oldCameraPosition = value; }
         }
 
-        public Vector2 NewCameraPosition
+        public static Vector2 NewCameraPosition
         {
-            get { return NewCameraPosition; }
-            set { NewCameraPosition = value; }
+            get { return newCameraPosition; }
+            set { newCameraPosition = value; }
         }
-       
+
+
         /// <summary>
         /// Mouse is contained inside the GameWindow class.
         /// </summary>
