@@ -33,7 +33,7 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_AUDIOEMITTER; }
         }
-
+      
         public ComponentAudioEmitter(string soundName, Vector3 emitPos)
         {
             currentSound = ResourceManager.LoadAudio(emitPos, soundName);

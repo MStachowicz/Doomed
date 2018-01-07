@@ -16,7 +16,7 @@ namespace OpenGL_Game.Systems
     public class SystemAudio : ISystem
     {
      
-      private AudioContext AC;
+      
         
 
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_AUDIOEMITTER);
@@ -31,7 +31,8 @@ namespace OpenGL_Game.Systems
         /// </summary>
         /// <param name="activebuffer"></param>
         /// <param name="filename"></param>
-      /*  public SystemAudio(string filename)
+        /// 
+      /* public SystemAudio(string filename)
         {
             AC = new AudioContext();
         }*/
@@ -46,6 +47,7 @@ namespace OpenGL_Game.Systems
                 {
                     return component.ComponentType == ComponentTypes.COMPONENT_AUDIOEMITTER;
                 });
+
                 ASound emit = ((ComponentAudioEmitter)emitterComponent).GetSound();
 
                 AL.Source(emit.source, ALSourcei.Buffer, emit.buffer); // attach the buffer to a source

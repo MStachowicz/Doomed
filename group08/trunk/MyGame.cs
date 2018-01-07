@@ -25,7 +25,6 @@ namespace OpenGL_Game
         public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
-        private float anim;
         static Vector2 oldCameraPosition;
         static Vector2 newCameraPosition;
         CubeMap skybox = new CubeMap();
@@ -47,24 +46,31 @@ namespace OpenGL_Game
             playerCamera = new Camera();
             entityManager = new EntityManager();
             systemManager = new SystemManager();
+            AudioContext AC = new AudioContext();
         }
 
         private void CreateEntities()
         {
             Entity newEntity;
 
+            Vector3 emPos = new Vector3(10.0f, 10.0f, 10.0f);
+
             newEntity = new Entity("Player");
             newEntity.AddComponent(new ComponentInput());
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
+            newEntity.AddComponent(new ComponentAudioEmitter("player_shot", emPos));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             currentLevelLoaded = new Level1();
             currentLevelLoaded.loadEntities(entityManager);
+
             newEntity = new Entity("Drone");
-        
+
+            Vector3 emiPos = new Vector3(0.0f, 0.0f, 0.0f);
+
             newEntity.AddComponent(new ComponentPosition(12.5f, 0.0f, -13.5f));
             newEntity.AddComponent(new ComponentRotation(0, 0, 0));
            newEntity.AddComponent(new ComponentScale(0.2f,0.2f,0.2f));
@@ -72,39 +78,63 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentVelocity(0, 0, -0.2f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
+            newEntity.AddComponent(new ComponentAudioEmitter("drone_disable", emiPos));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Health");
+
+            Vector3 ePos = new Vector3(11f, -0.1f, -13.5f);
 
             newEntity.AddComponent(new ComponentPosition(11f, -0.1f, -13.5f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/heart.png"));
+            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", ePos));
             newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
+            
 
             newEntity = new Entity("Ammo");
+
+            Vector3 eePos = new Vector3(11f, -0.1f, -14.5f);
 
             newEntity.AddComponent(new ComponentPosition(11f, -0.1f, -14.5f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.25f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Ammo.png"));
+            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", eePos));
             newEntity.AddComponent(new ComponentPickUp(10, 0, 0));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Drone_Dea");
 
+            Vector3 emitPos = new Vector3(12f, -0.1f, -12.5f);
+ 
             newEntity.AddComponent(new ComponentPosition(12f, -0.1f, -12.5f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
-            //newEntity.AddComponent(new ComponentAudioEmitter("Audio/power_item_sound.wav"),);
+            newEntity.AddComponent(new ComponentAudioEmitter("item_collect",emitPos));
+            newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
+            newEntity.AddComponent(new ComponentAlive());
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("Drone_Dea1");
+
+            Vector3 tPos = new Vector3(12f, -0.1f, -12.5f);
+ 
+            newEntity.AddComponent(new ComponentPosition(20f, -0.1f, 50.5f));
+            newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
+            newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
+            newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
+            newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
+            newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound",tPos));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -151,7 +181,7 @@ namespace OpenGL_Game
 
         private void Collision(Vector2 oldPosition, Vector2 newPosition)
         {
-            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions)
+            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions  )
             {
 
                 float dx = w.endPosition.X - w.startPosition.X;
@@ -234,6 +264,7 @@ namespace OpenGL_Game
             this.CursorVisible = false;
             //GL.Enable(EnableCap.CullFace);
 
+    
 
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), WIDTH / HEIGHT, 0.01f, 100f);
 
@@ -242,6 +273,8 @@ namespace OpenGL_Game
             skybox.setupSkybox();
             minimap.setup();
             dot.setup();
+
+            
         }
 
         /// <summary>

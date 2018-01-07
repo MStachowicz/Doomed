@@ -33,6 +33,8 @@ namespace OpenGL_Game.Objects
             mask &= ~ComponentTypes.COMPONENT_ALIVE;
         }
 
+        
+
         public String Name
         {
             get { return name; }
@@ -47,5 +49,7 @@ namespace OpenGL_Game.Objects
         {
             get { return componentList; }
         }
+
+       
     }
 }
