@@ -27,7 +27,7 @@ namespace OpenGL_Game
         SystemManager systemManager;
         
         CubeMap skybox = new CubeMap();
-        Quad minimap = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
+        Quad minimap = new Quad();
 
         public static float dt;
         public static float dtt;

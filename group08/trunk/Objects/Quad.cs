@@ -23,7 +23,7 @@ namespace OpenGL_Game.Objects
         public float size = 0.22f;
         public Vector3 pos = new Vector3(0.75f, 0.75f, 0.0f);
 
-        string filename = "Textures/minimap.png";
+        string filename = "Textures/Minimap/minimap.png";
 
         int uniform_stex = 0;
         int uniform_model = 0;
