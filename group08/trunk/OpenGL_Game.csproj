@@ -259,10 +259,10 @@
     <Content Include="Textures\heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\minimap.png">
+    <Content Include="Textures\Minimap\blackDot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Minimap\blackDot.png">
+    <Content Include="Textures\Minimap\minimap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\Minimap\redDot.png">
