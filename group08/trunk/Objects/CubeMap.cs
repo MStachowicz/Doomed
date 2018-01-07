@@ -81,12 +81,12 @@ namespace OpenGL_Game.Objects
             path = path.Substring(0, path.IndexOf("bin"));
             path = path.Replace("\\","/");
 
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Right.png"));
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Left.png"));
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Top.png"));
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Bottom.png"));
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Front.png"));
-            faces.Add(path.Insert(path.Length, "Textures/Skybox2/Back.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/right.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/left.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/top.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/bottom.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/front.png"));
+            faces.Add(path.Insert(path.Length, "Textures/CubeMap/skybox3/back.png"));
 
             CreateShader();
             bufferData();

@@ -63,7 +63,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
             newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.green));       
-            newEntity.AddComponent(new ComponentAudioEmitter("player_shot", emPos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("player_shot", emPos));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
@@ -75,6 +75,7 @@ namespace OpenGL_Game
 
             Vector3 emiPos = new Vector3(0.0f, 0.0f, 0.0f);
 
+
             newEntity.AddComponent(new ComponentPosition(4f, 0.0f, -7f));
             newEntity.AddComponent(new ComponentRotation(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0.2f, 0.2f, 0.2f));
@@ -83,7 +84,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.red));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("drone_disable", emiPos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("drone_disable", emiPos));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
@@ -97,7 +98,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/heart.png"));
             newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
-            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", ePos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("item_collect", ePos));
             newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -112,7 +113,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentScale(0.1f, 0.25f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Ammo.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", eePos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("item_collect", eePos));
             newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentPickUp(10, 0, 0));
             newEntity.AddComponent(new ComponentAlive());
@@ -127,7 +128,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", emitPos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("item_collect", emitPos));
             newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
@@ -142,7 +143,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound", tPos));
+            //newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound", tPos));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -378,9 +379,8 @@ namespace OpenGL_Game
             dt = (float)(e.Time);
             // TODO: Add your update logic here
 
-            
+            OldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);          
             systemManager.ActionSystems(entityManager);
-            
             
 
         }
