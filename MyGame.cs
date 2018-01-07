@@ -92,6 +92,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/heart.png"));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentAudioEmitter("item_collect", ePos));
             newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
             newEntity.AddComponent(new ComponentAlive());
@@ -108,6 +109,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Ammo.png"));
             newEntity.AddComponent(new ComponentAudioEmitter("item_collect", eePos));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentPickUp(10, 0, 0));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -122,6 +124,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
             newEntity.AddComponent(new ComponentAudioEmitter("item_collect", emitPos));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
