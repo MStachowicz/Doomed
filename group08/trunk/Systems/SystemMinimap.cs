@@ -74,22 +74,6 @@ namespace OpenGL_Game.Systems
                0.0f);
 
                 quad.pos = pos;
-                //quad.Render();
-
-                //GL.UseProgram(shaderProg);
-
-                //// Binding and activating diffuse texture
-                //GL.Uniform1(uniform_stex, 0);
-                //GL.ActiveTexture(TextureUnit.Texture0);
-                //GL.BindTexture(TextureTarget.Texture2D, tex);
-                //GL.Enable(EnableCap.Texture2D);
-
-                //// setting model transformation
-                //Matrix4 mModel = Matrix4.CreateTranslation(pos);
-                //GL.UniformMatrix4(uniform_model, false, ref mModel);
-
-                //GL.BindVertexArray(VAO);
-                //GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
             }
         }
 
