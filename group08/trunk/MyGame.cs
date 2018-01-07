@@ -25,8 +25,7 @@ namespace OpenGL_Game
         public Matrix4 projection;
         EntityManager entityManager;
         SystemManager systemManager;
-        static Vector2 oldCameraPosition;
-        static Vector2 newCameraPosition;
+        
         CubeMap skybox = new CubeMap();
         Quad minimap = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
 
@@ -183,52 +182,7 @@ namespace OpenGL_Game
             entityManager.AddEntity(newEntity);
         }
 
-        private void Collision(Vector2 oldPosition, Vector2 newPosition)
-        {
-            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions)
-            {
-
-                float dx = w.endPosition.X - w.startPosition.X;
-                float dy = w.endPosition.Y - w.startPosition.Y;
-
-                Vector2 normal = new Vector2(-dy, dx);
-                normal.Normalize();
-
-                float oldPos = DotProduct(normal, oldPosition - w.startPosition);
-                float newPos = DotProduct(normal, newPosition - w.startPosition);
-
-                float q = (newPos * oldPos) - 0.01f;
-
-                if (q < 0)
-                {
-                    dx = newPosition.X - oldPosition.X;
-                    dy = newPosition.Y - oldPosition.Y;
-                    normal = new Vector2(-dy, dx);
-
-                    oldPos = DotProduct(normal, w.startPosition - oldPosition);
-                    newPos = DotProduct(normal, w.endPosition - oldPosition);
-                    float z = (newPos * oldPos) + 0.01f;
-                    if ((newPos * oldPos) < 0)
-                    {
-                        if (w.startPosition.X == w.endPosition.X)
-                        {
-                            playerCamera.Position = new Vector3(oldPosition.X, 0, newPosition.Y);
-                            playerCamera.Collision = true;
-                        }
-                        if (w.startPosition.Y == w.endPosition.Y)
-                        {
-                            playerCamera.Position = new Vector3(newPosition.X, 0, oldPosition.Y);
-                            playerCamera.Collision = true;
-                        }
-
-
-                    }
-                }
-            }
-        }
-
-
-
+        
 
         public static float DotProduct(Vector2 vA, Vector2 vB)
         {
@@ -419,10 +373,10 @@ namespace OpenGL_Game
             dt = (float)(e.Time);
             // TODO: Add your update logic here
 
-            oldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            OldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             systemManager.ActionSystems(entityManager);
-            newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
-            Collision(oldCameraPosition, newCameraPosition);
+            NewCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            
 
         }
 
@@ -447,14 +401,18 @@ namespace OpenGL_Game
             GL.Flush();
             SwapBuffers();
         }
-        public static Vector2 GetOldCameraPosition()
+        public Vector2 OldCameraPosition
         {
-            return oldCameraPosition;
+            get { return OldCameraPosition; }
+            set { OldCameraPosition = value; }
         }
-        public static Vector2 GetNewCameraPosition()
+
+        public Vector2 NewCameraPosition
         {
-            return newCameraPosition;
+            get { return NewCameraPosition; }
+            set { NewCameraPosition = value; }
         }
+       
         /// <summary>
         /// Mouse is contained inside the GameWindow class.
         /// </summary>
