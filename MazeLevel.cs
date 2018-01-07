@@ -127,32 +127,32 @@ namespace OpenGL_Game
         /// <summary>
         /// Adds the walls surrounding the maze.
         /// </summary>
-        protected void addOuterWalls()
+        protected void addOuterWalls(string diffuse, string normal)
         {
             // Left wall
             wallPositions.Add(new Vector3(0, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
+            wallTexture.Add(diffuse);
+            wallNormals.Add(normal);
             // Right wall
             wallPositions.Add(new Vector3(25, 0, -12.5f));
             wallRotations.Add(new Vector3(90, 90, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
+            wallTexture.Add(diffuse);
+            wallNormals.Add(normal);
             // Top wall
             wallPositions.Add(new Vector3(12.5f, 0, -25.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
+            wallTexture.Add(diffuse);
+            wallNormals.Add(normal);
             // Bottom wall
             wallPositions.Add(new Vector3(12.5f, 0.0f, 0.0f));
             wallRotations.Add(new Vector3(90, 0, 0));
             wallScales.Add(new Vector3(12.5f, 0.0f, 1.25f));
-            wallTexture.Add("Textures/BrickWall/diffuse.png");
-            wallNormals.Add("Textures/BrickWall/Normal2.jpg");
+            wallTexture.Add(diffuse);
+            wallNormals.Add(normal);
         }
 
         /// <summary>
@@ -182,9 +182,8 @@ namespace OpenGL_Game
             wallRotations.Add(new Vector3(0.0f, 0.0f, 0.0f));
             wallScales.Add(new Vector3(12.5f, 0.0f, 12.5f));
             wallTexture.Add("Textures/StoneFloor/diffuse.jpg");
-            //wallTexture.Add("Textures/Ground/diffuse.png");
 
-            addOuterWalls();
+            addOuterWalls("Textures/Overgrown/diffuse.png", "Textures/Overgrown/normal.png");
         }
 
         public void loadEntities(OpenGL_Game.Managers.EntityManager entityManager)
@@ -197,7 +196,6 @@ namespace OpenGL_Game
                 {
                     newEntity = new Entity("Ground");
                     newEntity.AddComponent(new ComponentNormalMap("Textures/StoneFloor/normal.png"));
-                    //newEntity.AddComponent(new ComponentNormalMap("Textures/Ground/normal.png"));
                 }
                 else
                 {
