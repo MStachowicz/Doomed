@@ -20,57 +20,70 @@ namespace OpenGL_Game.Objects
         int shaderProg = 0;
         int vsID = 0, fsID = 0;
 
-        int uniform_stex;
+        float size = 0.22f;
+        public Vector3 pos = new Vector3(0.75f, 0.75f, 0.0f);
+
+        string filename = "Textures/minimap.png";
+
+        int uniform_stex = 0;
+        int uniform_model = 0;
+        int uniform_proj = 0;
 
         public Minimap()
         {
         }
+        public Minimap(Vector3 pPos, float pSize, string pFileName)
+        {
+            pos = pPos;
+            size = pSize;
+            filename = pFileName;
+        }
 
         public void setup()
         {
-            Vector3 pos1 = new Vector3(0.5f, 0.95f, 0.0f);
-            Vector3 pos2 = new Vector3(0.5f, 0.5f, 0.0f);
-            Vector3 pos3 = new Vector3(0.95f, 0.5f, 0.0f);
-            Vector3 pos4 = new Vector3(0.95f, 0.95f, 0.0f);
+            Vector3 leftTop = new Vector3(0.0f - size, 0.0f + size, 0.0f);
+            Vector3 leftBottom = new Vector3(0.0f - size, 0.0f - size, 0.0f);
+            Vector3 rightBottom = new Vector3(0.0f + size, 0.0f - size, 0.0f);
+            Vector3 rightTop = new Vector3(0.0f + size, 0.0f + size, 0.0f);
 
             Vector2 uv1 = new Vector2(0.0f, -1.0f);
             Vector2 uv2 = new Vector2(0.0f, 0.0f);
             Vector2 uv3 = new Vector2(1.0f, 0.0f);
             Vector2 uv4 = new Vector2(1.0f, -1.0f);
 
-            vertices.Add(pos1.X);
-            vertices.Add(pos1.Y);
-            vertices.Add(pos1.Z);
+            vertices.Add(leftTop.X);
+            vertices.Add(leftTop.Y);
+            vertices.Add(leftTop.Z);
             vertices.Add(uv1.X);
             vertices.Add(uv1.Y);
 
-            vertices.Add(pos2.X);
-            vertices.Add(pos2.Y);
-            vertices.Add(pos2.Z);
+            vertices.Add(leftBottom.X);
+            vertices.Add(leftBottom.Y);
+            vertices.Add(leftBottom.Z);
             vertices.Add(uv2.X);
             vertices.Add(uv2.Y);
 
-            vertices.Add(pos3.X);
-            vertices.Add(pos3.Y);
-            vertices.Add(pos3.Z);
+            vertices.Add(rightBottom.X);
+            vertices.Add(rightBottom.Y);
+            vertices.Add(rightBottom.Z);
             vertices.Add(uv3.X);
             vertices.Add(uv3.Y);
 
-            vertices.Add(pos1.X);
-            vertices.Add(pos1.Y);
-            vertices.Add(pos1.Z);
+            vertices.Add(leftTop.X);
+            vertices.Add(leftTop.Y);
+            vertices.Add(leftTop.Z);
             vertices.Add(uv1.X);
             vertices.Add(uv1.Y);
 
-            vertices.Add(pos3.X);
-            vertices.Add(pos3.Y);
-            vertices.Add(pos3.Z);
+            vertices.Add(rightBottom.X);
+            vertices.Add(rightBottom.Y);
+            vertices.Add(rightBottom.Z);
             vertices.Add(uv3.X);
             vertices.Add(uv3.Y);
 
-            vertices.Add(pos4.X);
-            vertices.Add(pos4.Y);
-            vertices.Add(pos4.Z);
+            vertices.Add(rightTop.X);
+            vertices.Add(rightTop.Y);
+            vertices.Add(rightTop.Z);
             vertices.Add(uv4.X);
             vertices.Add(uv4.Y);
 
@@ -90,13 +103,14 @@ namespace OpenGL_Game.Objects
             GL.EnableVertexAttribArray(1);
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * 4, 3 * 4);
 
-            setupTexture();
+            setupTexture(filename);
             setupShader();
         }
-        void setupTexture()
+        void setupTexture(string fileName)
         {
-            minimapTexture = Managers.ResourceManager.LoadTexture("Textures/minimap.png");
+            minimapTexture = Managers.ResourceManager.LoadTexture(fileName);
         }
+
         void setupShader()
         {
             shaderProg = GL.CreateProgram();
@@ -106,7 +120,8 @@ namespace OpenGL_Game.Objects
             Console.WriteLine(GL.GetProgramInfoLog(shaderProg));
 
             uniform_stex = GL.GetUniformLocation(shaderProg, "minimapTexture");
-
+            uniform_model = GL.GetUniformLocation(shaderProg, "model");
+            uniform_proj = GL.GetUniformLocation(shaderProg, "proj");
         }
         void LoadShader(String filename, ShaderType type, int program, out int address)
         {
@@ -128,6 +143,10 @@ namespace OpenGL_Game.Objects
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, minimapTexture);
             GL.Enable(EnableCap.Texture2D);
+
+            // setting model transformation
+            Matrix4 mModel = Matrix4.CreateTranslation(pos);
+            GL.UniformMatrix4(uniform_model, false, ref mModel);
 
             GL.BindVertexArray(VAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

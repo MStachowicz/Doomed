@@ -29,9 +29,8 @@ namespace OpenGL_Game
         static Vector2 oldCameraPosition;
         static Vector2 newCameraPosition;
         CubeMap skybox = new CubeMap();
-        Minimap minimap = new Minimap();
-
-
+        Minimap minimap = new Minimap(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
+        Minimap dot = new Minimap(new Vector3(0.75f, 0.75f, 0.0f), 0.005f, "Textures/Minimap/redDot.png");
 
         public static float dt;
         public static float dtt;
@@ -242,6 +241,7 @@ namespace OpenGL_Game
             CreateSystems();
             skybox.setupSkybox();
             minimap.setup();
+            dot.setup();
         }
 
         /// <summary>
@@ -263,6 +263,12 @@ namespace OpenGL_Game
             Collision(oldCameraPosition, newCameraPosition);
         }
 
+        float mapMazePositionToMinimap(float value, Vector2 inputRange, Vector2 outputRange)
+        {                   
+            float output = outputRange.X + ((outputRange.Y - outputRange.X) / (inputRange.Y - inputRange.X)) * (value - inputRange.X);
+            return output;
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -275,7 +281,24 @@ namespace OpenGL_Game
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             skybox.renderCubemap();
+
+
+
+            // MINIMAP
+            Vector2 mazeIntervalX = new Vector2(0.53f, 0.97f);
+            Vector2 mapIntervalX = new Vector2(0, 25);
+
+            Vector2 mazeIntervalY = new Vector2(0.53f, 0.97f);
+            Vector2 mapIntervalY = new Vector2(0, -25);
+
+            dot.pos = new Vector3(
+                (mapMazePositionToMinimap(playerCamera.Position.X, mapIntervalX, mazeIntervalX)),
+                (mapMazePositionToMinimap(playerCamera.Position.Z, mapIntervalY, mazeIntervalY)),
+                0.0f);
+            //dot.pos = new Vector3((playerCamera.Position.X * 0.06f), (Math.Abs(playerCamera.Position.Z) * 0.06f), 0.0f);
+            dot.Render();
             minimap.Render();
+            //minimap.pos = new Vector3(playerCamera.Position.X * 0.0176f, -playerCamera.Position.Z * 0.0176f, 0.0f);
 
             systemManager.RenderSystems(entityManager);
 
