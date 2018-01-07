@@ -38,6 +38,11 @@ namespace OpenGL_Game.Systems
                     return component.ComponentType == ComponentTypes.COMPONENT_VELOCITY;
                 });
 
+                if (entity.Name == "Player") // update the player location component with current camera position.
+                {
+                    ((ComponentPosition)positionComponent).Position = MyGame.gameInstance.playerCamera.Position;
+                }
+
                 Motion((ComponentPosition)positionComponent, (ComponentVelocity)velocityComponent);
             }
         }

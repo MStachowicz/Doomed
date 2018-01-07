@@ -17,7 +17,8 @@ namespace OpenGL_Game.Components
         public enum squareColour
         {
             red,
-            black
+            black,
+            green
         }
 
         public ComponentMinimapTrack(squareColour colour)
@@ -30,6 +31,10 @@ namespace OpenGL_Game.Components
                     break;
                 case squareColour.black:
                     dotQuad = new Quad(new Vector3(0.0f, 0.0f, 0.0f), size, "Textures/Minimap/blackDot.png");
+                    dotQuad.setup();
+                    break;
+                case squareColour.green:
+                    dotQuad = new Quad(new Vector3(0.0f, 0.0f, 0.0f), size, "Textures/Minimap/greenDot.png");
                     dotQuad.setup();
                     break;
                 default:

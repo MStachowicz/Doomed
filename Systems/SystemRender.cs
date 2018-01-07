@@ -83,7 +83,22 @@ namespace OpenGL_Game.Systems
 
         public void OnAction(Entity entity)
         {
-            if ((entity.Mask & MASK) == MASK)
+
+            // Rendering the quads representing entities on the minimap.
+            if ((entity.Mask & ComponentTypes.COMPONENT_MINIMAP_TRACK) == ComponentTypes.COMPONENT_MINIMAP_TRACK)
+            {
+                List<IComponent> components = entity.Components;
+
+                IComponent mapTrackComponent = components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_MINIMAP_TRACK;
+                });
+                Quad quad = ((ComponentMinimapTrack)mapTrackComponent).dotQuad;
+                quad.Render();
+            }
+
+
+                if ((entity.Mask & MASK) == MASK)
             {
                 List<IComponent> components = entity.Components;
 
