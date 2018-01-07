@@ -49,6 +49,7 @@ namespace OpenGL_Game.Objects
         // Process the camera movement using the keyboard to move around.
         public void ProcessMovement(CameraMovement direction, int movementSpeed)
         {
+            MyGame.OldCameraPosition = new Vector2 (Position.X, Position.Z);
              if (Collision == true)
                 movementSpeed = movementSpeed / 2;
             float velocity = movementSpeed * MyGame.dt;
@@ -65,6 +66,7 @@ namespace OpenGL_Game.Objects
             //Stick to floor
             Position.Y = 0;
             Collision = false;
+            MyGame.NewCameraPosition = new Vector2(Position.X, Position.Z);
         }
 
         // Process the camera movement using the x and y offset of the mouse to look around.

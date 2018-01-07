@@ -84,7 +84,7 @@ namespace OpenGL_Game.Systems
                     newPos = MyGame.DotProduct(normal, w.endPosition - oldPosition);
                     float z = (newPos * oldPos) + 0.01f;
                     if ((newPos * oldPos) < 0)
-                    {
+                   {
                         if (w.startPosition.X == w.endPosition.X)
                         {
                             MyGame.gameInstance.playerCamera.Position = new Vector3(oldPosition.X, 0, newPosition.Y);

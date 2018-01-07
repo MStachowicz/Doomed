@@ -65,7 +65,7 @@ namespace OpenGL_Game.Systems
 
                 if (MyGame.NewCameraPosition != new Vector2(0, 0))
                 {
-                   // PathFinding((ComponentPosition)positionComponent);
+             //      PathFinding((ComponentPosition)positionComponent);
                 }
                 PlayerDetection((ComponentPosition)positionComponent, (ComponentVelocity)velocityComponent, state);
 
@@ -125,7 +125,7 @@ namespace OpenGL_Game.Systems
                 for (int i = 0; i < (adjacentNodes.Count); i++)
                 {
                     if (adjacentNodes.Count == 0) { break; }
-                    for (int c = 0; c < ClosedList.Count -1; c++)
+                    for (int c = 0; c < ClosedList.Count; c++)
                     {
                         if (adjacentNodes[i] == ClosedList[c].Position)
                         {
@@ -181,21 +181,8 @@ namespace OpenGL_Game.Systems
                 Node nextNode = currentNode;
                 for (int i = 0; i < OpenList.Count; i++)
                 {
-                    if (OpenList[i].fCost == fCost)
-                    {
-                        if (OpenList[i].parentNode == currentNode)
-                        {
-                            nextNode = OpenList[i];
-                            fCost = OpenList[i].fCost;
-                        }
-                        else if (OpenList[i].travelCost > currentNode.targetCost)
-                        {
-                            nextNode = OpenList[i];
-                            fCost = OpenList[i].fCost;
-                        }
-
-                    }
-                    else if (OpenList[i].fCost < fCost)
+                    
+                    if (OpenList[i].fCost < fCost)
 
                     {
 
@@ -203,8 +190,20 @@ namespace OpenGL_Game.Systems
                         fCost = OpenList[i].fCost;
                     }
                 }
-                ClosedList.Add(nextNode);
+                
+                for (int i = 0; i < ClosedList.Count; i++)
+                {
+                    if (ClosedList[i].Position == nextNode.Position)
+                    {
+                        ClosedList.Remove(ClosedList[i]);
+                        
+                        break;
+                    }
+                }
+                
+                
                 OpenList.Remove(nextNode);
+                ClosedList.Add(nextNode);
                 currentNode = nextNode;
                 for (int i = 0; i < ClosedList.Count; i++)
                 {
