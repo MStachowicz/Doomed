@@ -75,7 +75,7 @@ namespace OpenGL_Game
 
             Vector3 emiPos = new Vector3(0.0f, 0.0f, 0.0f);
 
-            newEntity.AddComponent(new ComponentPosition(12.5f, 0.0f, -13.5f));
+            newEntity.AddComponent(new ComponentPosition(4f, 0.0f, -7f));
             newEntity.AddComponent(new ComponentRotation(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0.2f, 0.2f, 0.2f));
             newEntity.AddComponent(new ComponentAI());
@@ -378,9 +378,9 @@ namespace OpenGL_Game
             dt = (float)(e.Time);
             // TODO: Add your update logic here
 
-            OldCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            
             systemManager.ActionSystems(entityManager);
-            NewCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
+            
             
 
         }
