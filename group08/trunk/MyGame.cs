@@ -29,7 +29,6 @@ namespace OpenGL_Game
         static Vector2 newCameraPosition;
         CubeMap skybox = new CubeMap();
         Quad minimap = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
-        Quad dot = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.005f, "Textures/Minimap/redDot.png");
 
         public static float dt;
         public static float dtt;
@@ -60,6 +59,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentVelocity(0, 0, 0));
             newEntity.AddComponent(new ComponentScale(0, 0, 0));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.green));       
             newEntity.AddComponent(new ComponentAudioEmitter("player_shot", emPos));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -73,9 +73,10 @@ namespace OpenGL_Game
 
             newEntity.AddComponent(new ComponentPosition(12.5f, 0.0f, -13.5f));
             newEntity.AddComponent(new ComponentRotation(0, 0, 0));
-           newEntity.AddComponent(new ComponentScale(0.2f,0.2f,0.2f));
+            newEntity.AddComponent(new ComponentScale(0.2f, 0.2f, 0.2f));
             newEntity.AddComponent(new ComponentAI());
             newEntity.AddComponent(new ComponentVelocity(0, 0, -0.2f));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.red));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/Oak.png"));
             newEntity.AddComponent(new ComponentAudioEmitter("drone_disable", emiPos));
@@ -95,7 +96,7 @@ namespace OpenGL_Game
             newEntity.AddComponent(new ComponentPickUp(0, 50, 0));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
-            
+
 
             newEntity = new Entity("Ammo");
 
@@ -114,13 +115,13 @@ namespace OpenGL_Game
             newEntity = new Entity("Drone_Dea");
 
             Vector3 emitPos = new Vector3(12f, -0.1f, -12.5f);
- 
+
             newEntity.AddComponent(new ComponentPosition(12f, -0.1f, -12.5f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("item_collect",emitPos));
+            newEntity.AddComponent(new ComponentAudioEmitter("item_collect", emitPos));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -128,13 +129,13 @@ namespace OpenGL_Game
             newEntity = new Entity("Drone_Dea1");
 
             Vector3 tPos = new Vector3(12f, -0.1f, -12.5f);
- 
+
             newEntity.AddComponent(new ComponentPosition(20f, -0.1f, 50.5f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
-            newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound",tPos));
+            newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound", tPos));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
@@ -146,7 +147,7 @@ namespace OpenGL_Game
 
             newEntity = new Entity("pointLight");
             newEntity.AddComponent(new ComponentPosition(new Vector3(6.25f, 10.0f, -6.25f)));
-            newEntity.AddComponent(new ComponentLightEmitter(ambient,diffuse ,specular));
+            newEntity.AddComponent(new ComponentLightEmitter(ambient, diffuse, specular));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
 
@@ -181,7 +182,7 @@ namespace OpenGL_Game
 
         private void Collision(Vector2 oldPosition, Vector2 newPosition)
         {
-            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions  )
+            foreach (MazeLevel.WallPoints w in currentLevelLoaded.wallPlanePositions)
             {
 
                 float dx = w.endPosition.X - w.startPosition.X;
@@ -222,9 +223,9 @@ namespace OpenGL_Game
                 }
             }
         }
-       
-      
-        
+
+
+
 
         public static float DotProduct(Vector2 vA, Vector2 vB)
         {
@@ -237,6 +238,8 @@ namespace OpenGL_Game
         {
             ISystem newSystem;
 
+            newSystem = new SystemMinimap(minimap);
+            systemManager.AddSystem(newSystem);
             newSystem = new SystemRender();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemLighting();
@@ -264,7 +267,7 @@ namespace OpenGL_Game
             this.CursorVisible = false;
             //GL.Enable(EnableCap.CullFace);
 
-    
+
 
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), WIDTH / HEIGHT, 0.01f, 100f);
 
@@ -272,7 +275,6 @@ namespace OpenGL_Game
             CreateSystems();
             skybox.setupSkybox();
             minimap.setup();
-            dot.setup();
 
             #region
 
@@ -346,7 +348,7 @@ namespace OpenGL_Game
             emitterPosition1 = new Vector3(90.0f, 120.0f, 80.0f);
             AL.Source(mySource1, ALSource3f.Position, ref emitterPosition1);
             AL.SourcePlay(mySource1);
-        
+
         }
 
         /// <summary>
@@ -421,12 +423,6 @@ namespace OpenGL_Game
 
         }
 
-        float mapMazePositionToMinimap(float value, Vector2 inputRange, Vector2 outputRange)
-        {                   
-            float output = outputRange.X + ((outputRange.Y - outputRange.X) / (inputRange.Y - inputRange.X)) * (value - inputRange.X);
-            return output;
-        }
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -440,25 +436,10 @@ namespace OpenGL_Game
 
             skybox.renderCubemap();
 
-
-
-            // MINIMAP
-            Vector2 mazeIntervalX = new Vector2(0.53f, 0.97f);
-            Vector2 mapIntervalX = new Vector2(0, 25);
-
-            Vector2 mazeIntervalY = new Vector2(0.53f, 0.97f);
-            Vector2 mapIntervalY = new Vector2(0, -25);
-
-            dot.pos = new Vector3(
-                (mapMazePositionToMinimap(playerCamera.Position.X, mapIntervalX, mazeIntervalX)),
-                (mapMazePositionToMinimap(playerCamera.Position.Z, mapIntervalY, mazeIntervalY)),
-                0.0f);
-            //dot.pos = new Vector3((playerCamera.Position.X * 0.06f), (Math.Abs(playerCamera.Position.Z) * 0.06f), 0.0f);
-            dot.Render();
-            minimap.Render();
-            //minimap.pos = new Vector3(playerCamera.Position.X * 0.0176f, -playerCamera.Position.Z * 0.0176f, 0.0f);
-
             systemManager.RenderSystems(entityManager);
+            minimap.Render();
+
+
 
             GL.Flush();
             SwapBuffers();

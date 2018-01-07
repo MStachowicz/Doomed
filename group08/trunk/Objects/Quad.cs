@@ -20,7 +20,7 @@ namespace OpenGL_Game.Objects
         int shaderProg = 0;
         int vsID = 0, fsID = 0;
 
-        float size = 0.22f;
+        public float size = 0.22f;
         public Vector3 pos = new Vector3(0.75f, 0.75f, 0.0f);
 
         string filename = "Textures/minimap.png";
@@ -148,7 +148,10 @@ namespace OpenGL_Game.Objects
             Matrix4 mModel = Matrix4.CreateTranslation(pos);
             GL.UniformMatrix4(uniform_model, false, ref mModel);
 
+
+
             GL.BindVertexArray(VAO);
+
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
         }
     }
