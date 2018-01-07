@@ -10,7 +10,7 @@ using OpenGL_Game.Objects;
 
 namespace OpenGL_Game.Objects
 {
-    class Minimap
+    class Quad
     {
         // Vertex data
         List<float> vertices = new List<float>();
@@ -29,10 +29,10 @@ namespace OpenGL_Game.Objects
         int uniform_model = 0;
         int uniform_proj = 0;
 
-        public Minimap()
+        public Quad()
         {
         }
-        public Minimap(Vector3 pPos, float pSize, string pFileName)
+        public Quad(Vector3 pPos, float pSize, string pFileName)
         {
             pos = pPos;
             size = pSize;
