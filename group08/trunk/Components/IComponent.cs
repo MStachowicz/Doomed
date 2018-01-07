@@ -27,7 +27,8 @@ namespace OpenGL_Game.Components
         COMPONENT_LIGHT_EMITTER = 1 << 16,
         COMPONENT_ALIVE = 1 << 17,
         COMPONENT_NORMAL_MAP = 1 << 18,
-        COMPONENT_LIGHT_DIRECTION = 1 << 19
+        COMPONENT_LIGHT_DIRECTION = 1 << 19,
+        COMPONENT_MINIMAP_TRACK = 1 << 20
     }
 
     public interface IComponent

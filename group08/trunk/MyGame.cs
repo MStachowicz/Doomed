@@ -28,8 +28,8 @@ namespace OpenGL_Game
         static Vector2 oldCameraPosition;
         static Vector2 newCameraPosition;
         CubeMap skybox = new CubeMap();
-        Minimap minimap = new Minimap(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
-        Minimap dot = new Minimap(new Vector3(0.75f, 0.75f, 0.0f), 0.005f, "Textures/Minimap/redDot.png");
+        Quad minimap = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.22f, "Textures/Minimap/minimap.png");
+        Quad dot = new Quad(new Vector3(0.75f, 0.75f, 0.0f), 0.005f, "Textures/Minimap/redDot.png");
 
         public static float dt;
         public static float dtt;
