@@ -274,7 +274,131 @@ namespace OpenGL_Game
             minimap.setup();
             dot.setup();
 
-            
+            #region
+
+            Vector3 emitterPosition;
+            Vector3 emitterPosition1;
+            int myBuffer;
+            int mySource;
+            int myBuffer1;
+            int mySource1;
+            Vector3 listenerPosition;
+            Vector3 listenerDirection;
+            Vector3 listenerUp;
+
+            // Setup OpenAL Listener
+            listenerPosition = new Vector3(11, 0, 0);
+            listenerDirection = new Vector3(0, 0, -1);
+            listenerUp = Vector3.UnitY;
+
+            // reserve a Handle for the audio file
+            myBuffer = AL.GenBuffer();
+            myBuffer1 = AL.GenBuffer();
+
+            // Load a .wav file from disk.
+            int channels, bits_per_sample, sample_rate;
+            byte[] sound_data = LoadWave(
+                File.Open("Audio/battle.wav", FileMode.Open),
+                out channels,
+                out bits_per_sample,
+                out sample_rate);
+            ALFormat sound_format =
+                channels == 1 && bits_per_sample == 8 ? ALFormat.Mono8 :
+                channels == 1 && bits_per_sample == 16 ? ALFormat.Mono16 :
+                channels == 2 && bits_per_sample == 8 ? ALFormat.Stereo8 :
+                channels == 2 && bits_per_sample == 16 ? ALFormat.Stereo16 :
+                (ALFormat)0; // unknown
+
+            int channels1, bits_per_sample1, sample_rate1;
+            byte[] sound_data1 = LoadWave(
+                File.Open("Audio/power_item_sound.wav", FileMode.Open),
+                out channels1,
+                out bits_per_sample1,
+                out sample_rate1);
+            ALFormat sound_format1 =
+                channels1 == 1 && bits_per_sample1 == 8 ? ALFormat.Mono8 :
+                channels1 == 1 && bits_per_sample1 == 16 ? ALFormat.Mono16 :
+                channels1 == 2 && bits_per_sample1 == 8 ? ALFormat.Stereo8 :
+                channels1 == 2 && bits_per_sample1 == 16 ? ALFormat.Stereo16 :
+                (ALFormat)0; // unknown
+
+
+            AL.BufferData(myBuffer, sound_format, sound_data, sound_data.Length, sample_rate);
+            AL.BufferData(myBuffer1, sound_format1, sound_data1, sound_data1.Length, sample_rate1);
+            if (AL.GetError() != ALError.NoError)
+            {
+                // respond to load error etc.
+            }
+
+            // Create a sounds source using the audio clip
+            mySource = AL.GenSource(); // gen a Source Handle
+            mySource1 = AL.GenSource();
+            AL.Source(mySource, ALSourcei.Buffer, myBuffer); // attach the buffer to a source
+            AL.Source(mySource, ALSourceb.Looping, true); // source loops infinitely
+            emitterPosition = new Vector3(500.0f, 200.0f, 200.0f);
+            AL.Source(mySource, ALSource3f.Position, ref emitterPosition);
+            AL.SourcePlay(mySource);
+
+
+
+            AL.Source(mySource1, ALSourcei.Buffer, myBuffer1); // attach the buffer to a source
+            AL.Source(mySource1, ALSourceb.Looping, true); // source loops infinitely
+            emitterPosition1 = new Vector3(90.0f, 120.0f, 80.0f);
+            AL.Source(mySource1, ALSource3f.Position, ref emitterPosition1);
+            AL.SourcePlay(mySource1);
+        
+        }
+
+        /// <summary>
+        /// Load a WAV file.
+        /// </summary>
+        private static byte[] LoadWave(Stream stream, out int channels, out int bits, out int rate)
+        {
+            if (stream == null)
+                throw new ArgumentNullException("stream");
+
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                // RIFF header
+                string signature = new string(reader.ReadChars(4));
+                if (signature != "RIFF")
+                    throw new NotSupportedException("Specified stream is not a wave file.");
+
+                int riff_chunck_size = reader.ReadInt32();
+
+                string format = new string(reader.ReadChars(4));
+                if (format != "WAVE")
+                    throw new NotSupportedException("Specified stream is not a wave file.");
+
+                // WAVE header
+                string format_signature = new string(reader.ReadChars(4));
+                if (format_signature != "fmt ")
+                    throw new NotSupportedException("Specified wave file is not supported.");
+
+                int format_chunk_size = reader.ReadInt32();
+                int audio_format = reader.ReadInt16();
+                int num_channels = reader.ReadInt16();
+                int sample_rate = reader.ReadInt32();
+                int byte_rate = reader.ReadInt32();
+                int block_align = reader.ReadInt16();
+                int bits_per_sample = reader.ReadInt16();
+
+                string data_signature = new string(reader.ReadChars(4));
+                if (data_signature != "data")
+                    throw new NotSupportedException("Specified wave file is not supported.");
+
+                int data_chunk_size = reader.ReadInt32();
+
+                channels = num_channels;
+                bits = bits_per_sample;
+                rate = sample_rate;
+
+                return reader.ReadBytes((int)reader.BaseStream.Length);
+
+            }
+
+
+            #endregion
         }
 
         /// <summary>
@@ -294,6 +418,7 @@ namespace OpenGL_Game
             systemManager.ActionSystems(entityManager);
             newCameraPosition = new Vector2(playerCamera.Position.X, playerCamera.Position.Z);
             Collision(oldCameraPosition, newCameraPosition);
+
         }
 
         float mapMazePositionToMinimap(float value, Vector2 inputRange, Vector2 outputRange)
