@@ -138,12 +138,13 @@ namespace OpenGL_Game
 
             Vector3 tPos = new Vector3(12f, -0.1f, -12.5f);
 
-            newEntity.AddComponent(new ComponentPosition(20f, -0.1f, 50.5f));
+            newEntity.AddComponent(new ComponentPosition(20f, -0.1f, -15f));
             newEntity.AddComponent(new ComponentRotation(0f, 90f, 0f));
             newEntity.AddComponent(new ComponentScale(0.1f, 0.2f, 0.1f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/cubeGeometry.txt"));
             newEntity.AddComponent(new ComponentTexture("Textures/robot.png"));
             newEntity.AddComponent(new ComponentAudioEmitter("power_item_sound", tPos));
+            newEntity.AddComponent(new ComponentMinimapTrack(ComponentMinimapTrack.squareColour.black));
             newEntity.AddComponent(new ComponentPickUp(0, 0, 5));
             newEntity.AddComponent(new ComponentAlive());
             entityManager.AddEntity(newEntity);
