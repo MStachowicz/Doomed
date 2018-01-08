@@ -14,12 +14,14 @@ namespace OpenGL_Game.Systems
     {
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_ROTATION | ComponentTypes.COMPONENT_AI | ComponentTypes.COMPONENT_VELOCITY);
 
-        float distance = 0.5f;
+        float droneSpeed = 0.5f;
         int travelCost;
         int targetCost;
         int fCost;
+        int pathNumber;
         Node currentNode;
         Node StartNode;
+        Vector2 targetNode;
         List<Node> ClosedList = new List<Node>();
         List<Node> OpenList = new List<Node>();
         List<Node> path = new List<Node>();
@@ -65,7 +67,11 @@ namespace OpenGL_Game.Systems
 
                 if (MyGame.NewCameraPosition != new Vector2(0, 0))
                 {
-             //      PathFinding((ComponentPosition)positionComponent);
+                   PathFinding((ComponentPosition)positionComponent);
+                }
+                if (path.Count > 0)
+                {
+                    FollowPath((ComponentVelocity)velocityComponent, (ComponentPosition)positionComponent);
                 }
                 PlayerDetection((ComponentPosition)positionComponent, (ComponentVelocity)velocityComponent, state);
 
@@ -86,9 +92,9 @@ namespace OpenGL_Game.Systems
 
                 if (dot > 0.7)
                 {
-                    vel.Velocity = new Vector3(0, 0, 0);
+                    droneSpeed = 0.8f;
                 }
-                else { vel.Velocity = new Vector3(0, 0, -0.2f); }
+                else { droneSpeed = 0.5f; }
             }
         }
 
@@ -96,132 +102,200 @@ namespace OpenGL_Game.Systems
         private void PathFinding(ComponentPosition pos)
         {
             bool pathMade = false;
-
-            do
+            double xPos = Math.Round(pos.Position.X * 2) / 2;
+            double yPos = Math.Round(pos.Position.Z * 2) / 2;
+            if (targetNode != new Vector2((float)xPos, (float)yPos))
             {
-                double xPos = Math.Round(pos.Position.X * 2) / 2;
-                double yPos = Math.Round(pos.Position.Z * 2) / 2;
-                Vector2 currentNodePos = new Vector2((float)xPos, (float)yPos);
                 xPos = Math.Round(MyGame.NewCameraPosition.X * 2) / 2;
                 yPos = Math.Round(MyGame.NewCameraPosition.Y * 2) / 2;
-                Vector2 targetNode = new Vector2((float)xPos, (float)yPos);
-                if (OpenList.Count == 0)
-                {
-                    StartNode = new Node(currentNodePos, 0, 100);
-
-                    ClosedList.Add(StartNode);
-                    path.Add(StartNode);
-                    currentNode = StartNode;
-                }
-
-                float cX = currentNode.Position.X;
-                float cY = currentNode.Position.Y;
-                List<Vector2> adjacentNodes = new List<Vector2>();
-                adjacentNodes.Add(new Vector2(cX - 0.5f, cY));
-                adjacentNodes.Add(new Vector2(cX + 0.5f, cY));
-                adjacentNodes.Add(new Vector2(cX, cY - 0.5f));
-                adjacentNodes.Add(new Vector2(cX, cY + 0.5f));
-
-                for (int i = 0; i < (adjacentNodes.Count); i++)
-                {
-                    if (adjacentNodes.Count == 0) { break; }
-                    for (int c = 0; c < ClosedList.Count; c++)
+                if (MyGame.gameInstance.pathFinding.Nodes.Contains(new Vector2((float)xPos, (float)yPos)))
                     {
-                        if (adjacentNodes[i] == ClosedList[c].Position)
+                    do
+                    {
+                        xPos = Math.Round(pos.Position.X * 2) / 2;
+                        yPos = Math.Round(pos.Position.Z * 2) / 2;
+                        Vector2 currentNodePos = new Vector2((float)xPos, (float)yPos);
+                        xPos = Math.Round(MyGame.NewCameraPosition.X * 2) / 2;
+                        yPos = Math.Round(MyGame.NewCameraPosition.Y * 2) / 2;
+
+
+                        targetNode = new Vector2((float)xPos, (float)yPos);
+
+                        if (OpenList.Count == 0)
                         {
-                            adjacentNodes.Remove(adjacentNodes[i]);
-                            c = 0;
-                            i = 0;
-                            if (adjacentNodes.Count == 0) { break; }
+                            StartNode = new Node(currentNodePos, 0, 100);
+
+                            ClosedList.Add(StartNode);
+                            path.Add(StartNode);
+                            currentNode = StartNode;
                         }
-                    }
-                    bool isInOpen = false;
-                    if (adjacentNodes.Count == 0) { break; }
-                    if (MyGame.gameInstance.pathFinding.Nodes.Contains(adjacentNodes[i]) == false)
-                    {
-                        adjacentNodes.Remove(adjacentNodes[i]);
-                        i = -1;
-                    }
 
-                    else
-                    {
-                        float tX = Math.Abs(adjacentNodes[i].X - targetNode.X);
-                        float tY = Math.Abs(adjacentNodes[i].Y - targetNode.Y);
+                        float cX = currentNode.Position.X;
+                        float cY = currentNode.Position.Y;
+                        List<Vector2> adjacentNodes = new List<Vector2>();
+                        adjacentNodes.Add(new Vector2(cX - 0.5f, cY));
+                        adjacentNodes.Add(new Vector2(cX + 0.5f, cY));
+                        adjacentNodes.Add(new Vector2(cX, cY - 0.5f));
+                        adjacentNodes.Add(new Vector2(cX, cY + 0.5f));
 
-                        targetCost = (int)((tX + tY) * 2);
-                        travelCost = ClosedList.Count;
-                        fCost = travelCost + targetCost;
-
-                        for (int j = 0; j < OpenList.Count; j++)
+                        bool removed = false;
+                        do
                         {
-                            if (OpenList[j].Position == adjacentNodes[i])
+                            removed = false;
+                            for (int i = 0; i < (adjacentNodes.Count); i++)
                             {
-                                isInOpen = true;
-                                if (OpenList[j].fCost > fCost)
+
+                                if (adjacentNodes.Count == 0) { break; }
+                                for (int c = 0; c < ClosedList.Count; c++)
                                 {
-                                    OpenList.Remove(OpenList[j]);
-                                    OpenList.Add(new Node(adjacentNodes[i], travelCost, targetCost ,currentNode));
+                                    if (adjacentNodes[i] == ClosedList[c].Position)
+                                    {
+                                        adjacentNodes.Remove(adjacentNodes[i]);
+                                        c = 0;
+                                        removed = true;
+                                        break;
+
+                                    }
+
+                                    if (adjacentNodes.Count == 0) { break; }
+                                }
+                                if (removed == true) { break; }
+                                bool isInOpen = false;
+                                if (adjacentNodes.Count == 0) { break; }
+                                if (MyGame.gameInstance.pathFinding.Nodes.Contains(adjacentNodes[i]) == false)
+                                {
+                                    adjacentNodes.Remove(adjacentNodes[i]);
+                                    removed = true;
+                                    break;
+                                }
+
+                                else
+                                {
+                                    float tX = Math.Abs(adjacentNodes[i].X - targetNode.X);
+                                    float tY = Math.Abs(adjacentNodes[i].Y - targetNode.Y);
+
+                                    targetCost = (int)((tX + tY) * 2);
+                                    travelCost = ClosedList.Count;
+                                    fCost = travelCost + targetCost;
+                                    bool open = false;
+                                    do
+                                    {
+                                        open = false;
+                                        for (int j = 0; j < OpenList.Count; j++)
+                                        {
+                                            if (OpenList[j].Position == adjacentNodes[i])
+                                            {
+                                                isInOpen = true;
+                                                if (OpenList[j].fCost > fCost)
+                                                {
+                                                    OpenList.Remove(OpenList[j]);
+                                                    OpenList.Add(new Node(adjacentNodes[i], travelCost, targetCost, currentNode));
+                                                    open = true;
+                                                }
+                                            }
+
+                                        }
+                                    } while (open == true);
+
+                                    if (isInOpen != true)
+                                    {
+                                        OpenList.Add(new Node(adjacentNodes[i], travelCost, targetCost, currentNode));
+                                        isInOpen = false;
+                                    }
                                 }
                             }
 
-                        }
+                        } while (removed == true);
 
-
-                        if (isInOpen != true)
+                        fCost = 1000;
+                        Node nextNode = currentNode;
+                        for (int i = 0; i < OpenList.Count; i++)
                         {
-                            OpenList.Add(new Node(adjacentNodes[i], travelCost, targetCost, currentNode));
-                            isInOpen = false;
+                            if (OpenList[i].fCost == fCost)
+                            {
+                                if (currentNode == OpenList[i].parentNode)
+                                {
+                                    nextNode = OpenList[i];
+                                    fCost = OpenList[i].fCost;
+                                }
+                            }
+                            else if (OpenList[i].fCost < fCost)
+
+                            {
+
+                                nextNode = OpenList[i];
+                                fCost = OpenList[i].fCost;
+                            }
                         }
-                    }
+
+                        OpenList.Remove(nextNode);
+                        ClosedList.Add(nextNode);
+
+                        currentNode = nextNode;
+                        for (int i = 0; i < ClosedList.Count; i++)
+                        {
+                            if (ClosedList[i].Position == targetNode)
+                            {
+                                pathMade = true;
+                                break;
+                            }
+                        }
+
+                    } while (pathMade == false);
                 }
-
-
-
-                fCost = 100;
-                Node nextNode = currentNode;
-                for (int i = 0; i < OpenList.Count; i++)
-                {
-                    
-                    if (OpenList[i].fCost < fCost)
-
-                    {
-
-                        nextNode = OpenList[i];
-                        fCost = OpenList[i].fCost;
-                    }
-                }
-                
-                for (int i = 0; i < ClosedList.Count; i++)
-                {
-                    if (ClosedList[i].Position == nextNode.Position)
-                    {
-                        ClosedList.Remove(ClosedList[i]);
-                        
-                        break;
-                    }
-                }
-                
-                
-                OpenList.Remove(nextNode);
-                ClosedList.Add(nextNode);
-                currentNode = nextNode;
-                for (int i = 0; i < ClosedList.Count; i++)
-                {
-                    if (ClosedList[i].Position == targetNode)
-                    {
-                        pathMade = true;
-                        break;
-                    }
-                }
-                } while (pathMade == false) ;
-            
             }
+            MakePath();
+        }
 
-
-        private void FollowPath()
+        private void MakePath()
         {
-            
+            path.Clear();
+            if (ClosedList.Count > 1)
+            {
+                Node n = ClosedList[ClosedList.Count - 1];
+                path.Add(n);
+                do
+                {
+                    n = n.parentNode;
+                    path.Add(n);
+                } while (n != StartNode);
+                OpenList.Clear();
+                ClosedList.Clear();
+                path.Reverse();
+                pathNumber = path.Count;
+            }
+        }
+
+
+        private void FollowPath(ComponentVelocity vel, ComponentPosition pos)
+        {
+           int p = 0;
+                if (path[p + 1].Position.X == path[p].Position.X)
+                {
+                    if (path[p + 1].Position.Y < path[p].Position.Y)
+                    {
+                        vel.Velocity = new Vector3(0, 0, -droneSpeed);
+                    }
+                    else
+                    {
+                        vel.Velocity = new Vector3(0, 0, droneSpeed);
+                    }
+                }
+                else if (path[p + 1].Position.Y == path[p].Position.Y)
+                {
+                    if (path[p + 1].Position.X < path[p].Position.X)
+                    {
+                        vel.Velocity = new Vector3(-droneSpeed, 0, 0);
+                    }
+                    else
+                    {
+                        vel.Velocity = new Vector3(droneSpeed, 0, 0);
+                    }
+                }
+            Vector2 v = new Vector2(pos.Position.X, pos.Position.Z);
+                if (v == path[p + 1].Position) { p++;  }
+            }
         }
     }
-}
+
 
