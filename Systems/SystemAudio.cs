@@ -49,7 +49,7 @@ namespace OpenGL_Game.Systems
                 });
 
                 ASound emit = ((ComponentAudioEmitter)emitterComponent).GetSound();
-
+                
                 AL.Source(emit.source, ALSourcei.Buffer, emit.buffer); // attach the buffer to a source
                 AL.Source(emit.source, ALSourceb.Looping, false);
                 AL.Source(emit.source, ALSource3f.Position, ref emit.emitPos);

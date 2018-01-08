@@ -127,6 +127,64 @@ namespace OpenGL_Game.Managers
             emitterPosition = new Vector3(0.0f, 0.0f, 0.0f);
             AL.Source(mySource, ALSource3f.Position, ref emitterPosition);
             AL.SourcePlay(mySource);
+
+
+            int myBuffer1 = AL.GenBuffer();
+            int channels1, bits_per_sample1, sample_rate1;
+            byte[] sound_data1 = LoadWave(
+                File.Open("Audio/battle.wav", FileMode.Open),
+                out channels1,
+                out bits_per_sample1,
+                out sample_rate1);
+            ALFormat sound_format1 =
+                channels1 == 1 && bits_per_sample1 == 8 ? ALFormat.Mono8 :
+                channels1 == 1 && bits_per_sample1 == 16 ? ALFormat.Mono16 :
+                channels1 == 2 && bits_per_sample1 == 8 ? ALFormat.Stereo8 :
+                channels1 == 2 && bits_per_sample1 == 16 ? ALFormat.Stereo16 :
+                (ALFormat)0; // unknown
+
+            AL.BufferData(myBuffer1, sound_format1, sound_data1, sound_data1.Length, sample_rate1);
+            if (AL.GetError() != ALError.NoError)
+            {
+                // respond to load error etc.
+            }
+            // Create a sounds source using the audio clip
+           int mySource1 = AL.GenSource(); // gen a Source Handle
+            AL.Source(mySource1, ALSourcei.Buffer, myBuffer1); // attach the buffer to a source
+            AL.Source(mySource1, ALSourceb.Looping, true); // source loops infinitely
+            Vector3 emitterPosition1 = new Vector3(600.0f, 500.0f, 500.0f);
+            AL.Source(mySource1, ALSource3f.Position, ref emitterPosition1);
+            AL.SourcePlay(mySource1);
+
+            int myBuffer11 = AL.GenBuffer();
+            int channels11, bits_per_sample11, sample_rate11;
+            byte[] sound_data11 = LoadWave(
+                File.Open("Audio/power_item_sound.wav", FileMode.Open),
+                out channels11,
+                out bits_per_sample11,
+                out sample_rate11);
+            ALFormat sound_format11=
+                channels11 == 1 && bits_per_sample11 == 8 ? ALFormat.Mono8 :
+                channels11 == 1 && bits_per_sample11 == 16 ? ALFormat.Mono16 :
+                channels11 == 2 && bits_per_sample11 == 8 ? ALFormat.Stereo8 :
+                channels11 == 2 && bits_per_sample11 == 16 ? ALFormat.Stereo16 :
+                (ALFormat)0; // unknown
+
+            AL.BufferData(myBuffer11, sound_format11, sound_data11, sound_data11.Length, sample_rate11);
+            if (AL.GetError() != ALError.NoError)
+            {
+                // respond to load error etc.
+            }
+            // Create a sounds source using the audio clip
+            int mySource11 = AL.GenSource(); // gen a Source Handle
+            AL.Source(mySource11, ALSourcei.Buffer, myBuffer11); // attach the buffer to a source
+            AL.Source(mySource11, ALSourceb.Looping, true); // source loops infinitely
+            Vector3 emitterPosition11 = new Vector3(500.0f, 0f, 100.0f);
+            AL.Source(mySource11, ALSource3f.Position, ref emitterPosition11);
+            AL.SourcePlay(mySource11);
+
+
+
             return new ASound(myBuffer, mySource, sound_data, emitterPosition);
         }
 
